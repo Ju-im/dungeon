@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 // Flying enemy class
-// Inherits from Enemy class and contains specific attributes and methods for flying enemies
+// Contains specific attributes and methods for flying enemies
 class EnemyFlying
 {
 	public:
@@ -20,6 +20,5 @@ class EnemyFlying
         {
 		  BAT = -2,
           BABY_DRAGON = -4,
-		  
 		};
 };

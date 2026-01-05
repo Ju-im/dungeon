@@ -4,6 +4,7 @@
 #include <vector>
 #include "EnemyGround.h"
 #include "EnemyFlying.h"
+#include "EnemyBoss.h"
 
 // Enemy class
 // Container Class for different enemy types
@@ -34,6 +35,9 @@ class Enemy
       BABY_DRAGON = -4,
       SPIDER      = -5,
       WOLF        = -6,
+      DRAGON      = -7,
+      GIANT       = -8,
+      SLIME_KING  = -9,
     };
     struct EnemyIndividualStats
     {
@@ -47,5 +51,6 @@ class Enemy
     std::vector<EnemyIndividualStats> enemies_in_play;
 	EnemyGround enemyGround;
     EnemyFlying enemyFlying;
+    EnemyBoss enemyBoss;
 
 };

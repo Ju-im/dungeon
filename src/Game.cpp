@@ -17,7 +17,7 @@ bool Game::init()
   spawnEnemy(1);
   grid.printGrid();
   enemy.printEnemiesInPlay();
-  enemy.move(-1);
+  enemy.move(-9);
   return true;
 }
 
@@ -97,7 +97,7 @@ void Game::spawnEnemy(int amount)
   {
     int(*gridCopy)[60] = grid.getAllGrid();
     //int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
-    int type            = -1;
+    int type            = -9;
     sf::Vector3i result = enemy.spawn(gridCopy,type); 
     grid.setGrid(result.y, result.z, result.x);
   }

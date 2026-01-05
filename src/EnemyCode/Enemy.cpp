@@ -36,13 +36,24 @@ void Enemy::attack(int enemy)
   switch (enemy)
   {
     case SLIME:
+    case SKELETON:
+    case SPIDER:
+    case WOLF:
     {
-      enemyGround.Attack(SLIME);
+      enemyGround.Attack(enemy);
+      break;
+    }
+    case DRAGON:
+    case GIANT:
+    case SLIME_KING:
+    {
+      enemyBoss.Attack(enemy);
       break;
     }
     case BAT:
+    case BABY_DRAGON:
     {
-      enemyFlying.Attack(BAT);
+      enemyFlying.Attack(enemy);
       break;
     }
     default:
@@ -59,39 +70,90 @@ void Enemy::move(int enemy)
   // In a real implementation, this would involve pathfinding and movement
   // towards the player
   std::cout << "Enemy is moving towards the player." << std::endl;
-
-  if (enemy == BAT || enemy == BABY_DRAGON)
+  switch (enemy)
   {
-    enemyFlying.Move(enemy);
-  }
-  else
-  {
-    enemyGround.Move(enemy);
+    case SLIME:
+    case SKELETON:
+    case SPIDER:
+    case WOLF:
+    {
+      std::cout << "Ground enemy moves." << std::endl;
+      break;
+    }
+    case DRAGON:
+    case GIANT:
+    case SLIME_KING:
+    {
+      enemyBoss.Move(enemy);
+      break;
+    }
+    case BAT:
+    case BABY_DRAGON:
+    {
+      std::cout << "Flying enemy moves." << std::endl;
+      break;
+    }
+    default:
+    {
+      std::cout << "Unknown enemy type cannot move!" << std::endl;
+      break;
+    }
   }
 }
 
 int Enemy::getHealth(int enemy)
 {
-  if (enemy == BAT || enemy == BABY_DRAGON)
+  switch (enemy)
   {
-    return enemyFlying.getHealth(enemy);
-    //std::cout << "Ground enemy health retrieved." << std::endl;
-  }
-  else 
-  {
-    return enemyGround.getHealth(enemy);
+    case SLIME:
+    case SKELETON:
+    case SPIDER:
+    case WOLF:
+    {
+      return enemyGround.getHealth(enemy);
+      break;
+    }
+    case DRAGON:
+    case GIANT:
+    case SLIME_KING:
+    {
+      return enemyBoss.getHealth(enemy);
+      break;
+    }
+    case BAT:
+    case BABY_DRAGON:
+    {
+      return enemyFlying.getHealth(enemy);
+      break;
+    }
   }
 }
 
 int Enemy::getDamage(int enemy)
 {
-  if (enemy == BAT || enemy == BABY_DRAGON)
+    switch (enemy)
   {
-    return enemyFlying.getDamage(enemy);
-  }
-  else
-  {
-    return enemyGround.getDamage(enemy);
+    case SLIME:
+    case SKELETON:
+    case SPIDER:
+    case WOLF:
+    {
+      return enemyGround.getDamage(enemy);
+      break;
+    }
+    case DRAGON:
+    case GIANT:
+    case SLIME_KING:
+    {
+      return enemyBoss.getDamage(enemy);
+      break;
+    }
+    case BAT:
+    case BABY_DRAGON:
+    {
+      return enemyFlying.getDamage(enemy);
+      break;
+    }
   }
 }
 
