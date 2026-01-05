@@ -53,20 +53,21 @@ void Enemy::attack(int enemy)
   }
 }
 
-void Enemy::move()
+void Enemy::move(int enemy)
 {
-	// Placeholder logic for enemy movement
-	// In a real implementation, this would involve pathfinding and movement towards the player
-	std::cout << "Enemy is moving towards the player." << std::endl;
+  // Placeholder logic for enemy movement
+  // In a real implementation, this would involve pathfinding and movement
+  // towards the player
+  std::cout << "Enemy is moving towards the player." << std::endl;
 
-	if (type == SLIME)
-	{
-		enemyGround.Move(SLIME);
-	}
-	else
-	{
-		enemyFlying.Move(BAT);
-    }
+  if (enemy == BAT || enemy == BABY_DRAGON)
+  {
+    enemyFlying.Move(enemy);
+  }
+  else
+  {
+    enemyGround.Move(enemy);
+  }
 }
 
 int Enemy::getHealth(int enemy)

@@ -14,9 +14,10 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(5);
+  spawnEnemy(1);
   grid.printGrid();
   enemy.printEnemiesInPlay();
+  enemy.move(-1);
   return true;
 }
 
@@ -95,11 +96,9 @@ void Game::spawnEnemy(int amount)
   for (int i = 0; i < amount; i++)
   {
     int(*gridCopy)[60] = grid.getAllGrid();
-    int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
+    //int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
+    int type            = -1;
     sf::Vector3i result = enemy.spawn(gridCopy,type); 
     grid.setGrid(result.y, result.z, result.x);
   }
 }
-
-
-  // remember time 5 birds diff intervals each with seperate score.

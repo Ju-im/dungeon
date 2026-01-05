@@ -16,7 +16,7 @@ class Enemy
 	~Enemy();
 	void attack(int enemy);
     void checkIfAttackPossible(int (*matrix)[60]);
-    void move();
+    void move(int enemy);
 	void takeDamage(int amount); 
     sf::Vector3i spawn(int (*matrix)[60], int type);
     void printEnemiesInPlay();

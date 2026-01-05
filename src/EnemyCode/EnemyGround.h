@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include < iostream>
 // Ground-based enemy class
-// Inherits from Enemy class and contains specific attributes and methods for ground enemies
+// Inherits to the Enemy class and contains specific attributes and methods for ground enemies
 class EnemyGround
 {
 	public:

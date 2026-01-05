@@ -38,11 +38,21 @@ void EnemyGround::Attack(int enemy)
 
 void EnemyGround::Move(int enemy)
 {
-    switch (enemy)
+  switch (enemy)
   {
     case SLIME:
     {
       std::cout << "Slime oozes forward slowly." << std::endl;
+      /* if (slime can see the player)
+      {
+        move towards player
+      }
+      else
+      {
+        int random_direction = rand() % 4;
+      }
+      */
+
       break;
     }
     case SKELETON:
@@ -66,6 +76,7 @@ void EnemyGround::Move(int enemy)
       break;
     }
   }
+  std::cout << "hello! : )." << std::endl;
 }
 
 int EnemyGround::getDamage(int enemy)
