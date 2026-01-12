@@ -54,6 +54,7 @@ void Game::render()
 {
   grid.drawDungeon(window);
   
+  
 }
 
 void Game::mouseClicked(sf::Event event)
