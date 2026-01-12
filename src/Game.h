@@ -37,6 +37,7 @@ enum GAME_STATE
   int (*gridCopy)[60]   = grid.getAllGrid();
   GAME_STATE game_state = MENU;
   Enemy enemy{};
+  Player player;
   
   
   

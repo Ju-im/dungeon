@@ -1,23 +1,16 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "Grid.h"
 class Player
 {
  public:
 	 Player();
   ~Player();
-     void move(int x, int y);
-  int getHealth();
-     int getDamage();
+     bool init();
+     void move(int x, int y, Grid& grid);
+
 
 
  private:
-     int health;
-  int damage; 
-      struct PlayersIndividualStats
-  {
-    int health;
-    int damage;
-    int x;
-    int y;
-  };
-  PlayersIndividualStats stats;
+     
 };

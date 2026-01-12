@@ -19,6 +19,7 @@ bool Game::init()
   enemy.printEnemiesInPlay();
   enemy.move(-9);
   spawnPlayer();
+  player.init();
   return true;
 }
 
@@ -67,6 +68,11 @@ void Game::mouseClicked(sf::Event event)
 
 void Game::keyPressed(sf::Event event)
 {
+  if (event.key.code == sf::Keyboard::W)
+  {
+    std::cout << "W pressed" << std::endl;
+    player.move(0, -1 , grid);
+  }
  
 }
 
