@@ -208,6 +208,14 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(startTile);
       }
+      else if (grid[i][j] == 99)
+      {
+      
+      sf::RectangleShape playerTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        playerTile.setFillColor(sf::Color::White);
+      playerTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(playerTile);
+      }
       else
       {
         // Draw floor tile at (i, j)
