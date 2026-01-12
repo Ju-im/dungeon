@@ -161,15 +161,63 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
 {
   int x  = 0;
   int y = 0;
-  do
+  bool can_spawn = false;
+  switch (type)
   {
-    x = rand() % 60;
-    y = rand() % 60;
-  } while (matrix[x][y] != 0);
-  int health = getHealth(type);
-  int damage = getDamage(type);
-  enemies_in_play.push_back({ type,health,damage, x, y });
-  return sf::Vector3i(type, x, y);
+    case DRAGON:
+    case GIANT:
+    case SLIME_KING:
+    {
+      //can_spawn = false;
+      while (!can_spawn)
+      {
+        do
+        {
+          x = rand() % 60;
+          y = rand() % 60;
+        } while (matrix[x][y] != 0);
+        try
+        {
+          if (matrix[x][y + 1] == 0)
+          {
+            if (matrix[x + 1][y] == 0)
+            {
+              if (matrix[x + 1][y + 1] == 0)
+              {
+                can_spawn = true;
+              }
+            }
+          }
+        }
+        catch (const std::out_of_range& e)
+        {
+          can_spawn = false;
+        }
+      }
+      break;
+    }
+    default:
+    {
+      do
+      {
+        x = rand() % 60;
+        y = rand() % 60;
+      } while (matrix[x][y] != 0);
+      can_spawn = true;
+      break;
+    }
+  }
+  if (can_spawn)
+  {
+    int health = getHealth(type);
+    int damage = getDamage(type);
+    enemies_in_play.push_back({ type, health, damage, x, y });
+    return sf::Vector3i(type, x, y);
+  }
+  else
+  {
+    return sf::Vector3i(0, 0, 0);
+  }
 }
 
 void Enemy::printEnemiesInPlay() 

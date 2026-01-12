@@ -93,12 +93,20 @@ bool Game::collisionCheck(sf::Vector2i click, sf::Sprite& sprite)
 
 void Game::spawnEnemy(int amount)
 {
-  for (int i = 0; i < amount; i++)
+  for (int i = 0; i < amount-1; i++)
   {
     int(*gridCopy)[60] = grid.getAllGrid();
-    //int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
-    int type            = -9;
+    int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
     sf::Vector3i result = enemy.spawn(gridCopy,type); 
     grid.setGrid(result.y, result.z, result.x);
   }
-}
+  int type = ((rand() % 3) + 1) * -1;
+  type += -6;
+  int(*gridCopy)[60]  = grid.getAllGrid();
+  sf::Vector3i result = enemy.spawn(gridCopy, type);
+      // For boss enemies, occupy a 2x2 space
+      grid.setGrid(result.y, result.z, result.x);
+      grid.setGrid(result.y + 1, result.z, result.x);
+      grid.setGrid(result.y, result.z + 1, result.x);
+      grid.setGrid(result.y + 1, result.z + 1, result.x);
+} 
