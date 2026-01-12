@@ -18,9 +18,6 @@ bool Game::init()
   grid.printGrid();
   enemy.printEnemiesInPlay();
   enemy.move(-9);
-
-  x                  = rand() % 60;
-  y                  = rand() % 60;
   return true;
 }
 
@@ -53,16 +50,7 @@ void Game::update(float dt)
 
 void Game::render()
 {
-  
-  grid.drawArea(x, y,window);
-    
-      
-
-
-   
-      
-    
-  
+  grid.drawDungeon(window);
   
 }
 
@@ -123,3 +111,7 @@ void Game::spawnEnemy(int amount)
       grid.setGrid(result.y, result.z + 1, result.x);
       grid.setGrid(result.y + 1, result.z + 1, result.x);
 } 
+void Game::spawnPlayer() 
+{
+  grid.setGrid(1, 2, 99);
+}

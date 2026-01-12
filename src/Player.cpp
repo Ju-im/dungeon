@@ -6,6 +6,7 @@ Player::~Player() {}
 
 Player::Playerstats()
 {
-  int Player::getHealth::2;
-  int Player::getDamage::1;
+  int Player::getHealth() 
+	  int Player::getDamage()
 }
+

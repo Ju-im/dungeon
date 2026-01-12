@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Grid.h"
 #include "EnemyCode/Enemy.h"
+#include "Player.h"
 
 enum GAME_STATE
 {
@@ -28,14 +29,11 @@ enum GAME_STATE
  private:
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);
   void spawnEnemy(int amount);
-  int x = 0;
-  int y = 0;
-  Grid grid;
-  int (*gridCopy)[60] = grid.getAllGrid();
+  void spawnPlayer();
 
 
   GAME_STATE game_state = MENU;
-  
+  Grid grid;
   Enemy enemy{};
   
   
