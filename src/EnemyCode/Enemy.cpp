@@ -202,7 +202,7 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
       {
         x = rand() % 60;
         y = rand() % 60;
-      } while (matrix[x][y] != 0);
+      } while (matrix[x][y] == 1);
       can_spawn = true;
       break;
     }

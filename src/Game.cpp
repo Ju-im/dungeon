@@ -14,7 +14,7 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(1);
+  spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
   enemy.move(-9);
@@ -50,6 +50,7 @@ void Game::update(float dt)
 
 void Game::render()
 {
+  grid.drawDungeon(window);
   
 }
 

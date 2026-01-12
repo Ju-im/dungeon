@@ -1,30 +1,25 @@
 #include "Grid.h"
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
-Grid::Grid() {
+Grid::Grid()
+{
   srand(static_cast<unsigned>(time(NULL)));
 }
 Grid::~Grid() {}
 bool Grid::init()
 {
-
- 
-   for (int i = 0; i < X - 1; i++)
+  for (int i = 0; i < X - 1; i++)
   {
     for (int j = 0; j < Y - 1; j++)
     {
       grid[i][j] = RoomIndex::Wall;
-    
     }
     std::cout << std::endl;
   }
 
-
-	return true;
+  return true;
 }
-
-
 
 sf::IntRect Grid::generateRoom(RoomType type)
 {
@@ -43,8 +38,6 @@ int Grid::sizeBonus(RoomType type)
 {
   switch (type)
   {
-    
-    
     case RoomType::Treasure:
       return 1;
       break;
@@ -73,7 +66,8 @@ bool Grid::placeRoom(sf::IntRect& newRoom)
   return true;
 }
 
-void Grid::writeRoom(Room& room) {
+void Grid::writeRoom(Room& room)
+{
   int tile = tileForRoom(room.type);
   for (int i = room.rect.left; i < room.rect.left + room.rect.width; i++)
   {
@@ -82,10 +76,10 @@ void Grid::writeRoom(Room& room) {
       grid[i][j] = tile;
     }
   }
-  
 }
 
-void Grid::carveTile(int x, int y) {
+void Grid::carveTile(int x, int y)
+{
   if (inBounds(x, y))
   {
     grid[x][y] = RoomIndex::Floor;
@@ -99,27 +93,26 @@ bool Grid::inBounds(int x, int y)
 
 int Grid::tileForRoom(RoomType type)
 {
-
-    switch (type)
+  switch (type)
   {
-      case RoomType::Start:
+    case RoomType::Start:
       return RoomIndex::StartRoom;
-        break;
-      case RoomType::Combat:
-        return RoomIndex::CombatRoom;
-        break;
-      case RoomType::Treasure:
-        return RoomIndex::TreasureRoom;
+      break;
+    case RoomType::Combat:
+      return RoomIndex::CombatRoom;
+      break;
+    case RoomType::Treasure:
+      return RoomIndex::TreasureRoom;
 
-        break;
-      case RoomType::Shop:
-        return RoomIndex::ShopRoom;
-        break;
-      case RoomType::Boss:
-        return RoomIndex::BossRoom;
-        break;
-      default:
-        break;
+      break;
+    case RoomType::Shop:
+      return RoomIndex::ShopRoom;
+      break;
+    case RoomType::Boss:
+      return RoomIndex::BossRoom;
+      break;
+    default:
+      break;
   }
   return 0;
 }
@@ -157,44 +150,40 @@ void Grid::connectRooms(const sf::IntRect& a, const sf::IntRect& b, int width)
 
 void Grid::drawDungeon(sf::RenderWindow& window)
 {
-
-    for (int i = 0; i < X - 1; i++)
+  for (int i = 0; i < X - 1; i++)
   {
-      for (int j = 0; j < Y - 1; j++)
-      {
+    for (int j = 0; j < Y - 1; j++)
+    {
       if (grid[i][j] == RoomIndex::Wall)
       {
         // Draw wall tile at (i, j)
         sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         wallTile.setFillColor(sf::Color::Green);
-        wallTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        wallTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(wallTile);
       }
       else if (grid[i][j] == RoomIndex::BossRoom)
       {
         sf::RectangleShape bossTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         bossTile.setFillColor(sf::Color::Red);
-        bossTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        bossTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(bossTile);
-      
       }
       else if (grid[i][j] == RoomIndex::CombatRoom)
       {
         sf::RectangleShape combatTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         combatTile.setFillColor(sf::Color::Yellow);
-        combatTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        combatTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(combatTile);
-      
       }
       else if (grid[i][j] == RoomIndex::StartRoom)
       {
         sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         startTile.setFillColor(sf::Color::Magenta);
-        startTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         if (start)
         {
           startpos = startTile.getPosition();
-
         }
         window.draw(startTile);
       }
@@ -202,14 +191,21 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       {
         sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         startTile.setFillColor(sf::Color::Cyan);
-        startTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(startTile);
       }
       else if (grid[i][j] == RoomIndex::TreasureRoom)
       {
         sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         startTile.setFillColor(sf::Color::Black);
-        startTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(startTile);
+      }
+      else if (grid[i][j] < 0)
+      {
+        sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        startTile.setFillColor(sf::Color(128,128,128));
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(startTile);
       }
       else
@@ -217,19 +213,16 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         // Draw floor tile at (i, j)
         sf::RectangleShape floorTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         floorTile.setFillColor(sf::Color::Blue);
-        floorTile.setPosition(i * CELL_SIZE, j * CELL_SIZE);
+        floorTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
         window.draw(floorTile);
       }
-
-      }
     }
-
-
+  }
 }
 
 void Grid::generateDungeon()
 {
-  rooms.clear();
+  //rooms.clear();
 
   for (RoomType type : roomPlan)
   {
@@ -264,9 +257,9 @@ void Grid::generateDungeon()
   printGrid();
 }
 
-void Grid::printGrid() {
-
-    for (int i = 0; i < X - 1; i++)
+void Grid::printGrid()
+{
+  for (int i = 0; i < X - 1; i++)
   {
     for (int j = 0; j < Y - 1; j++)
     {
@@ -276,7 +269,8 @@ void Grid::printGrid() {
   }
 }
 
-void Grid::fillRoom(RoomType type , sf::IntRect rect) {
+void Grid::fillRoom(RoomType type, sf::IntRect rect)
+{
   switch (type)
   {
     case RoomType::Start:
@@ -296,7 +290,7 @@ void Grid::fillRoom(RoomType type , sf::IntRect rect) {
           grid[i][j] = RoomIndex::CombatRoom;
         }
       }
-      
+
       break;
     case RoomType::Treasure:
       for (int i = rect.left; i < rect.left + rect.width; i++)
@@ -306,7 +300,7 @@ void Grid::fillRoom(RoomType type , sf::IntRect rect) {
           grid[i][j] = RoomIndex::TreasureRoom;
         }
       }
-     
+
       break;
     case RoomType::Shop:
       for (int i = rect.left; i < rect.left + rect.width; i++)
@@ -316,7 +310,7 @@ void Grid::fillRoom(RoomType type , sf::IntRect rect) {
           grid[i][j] = RoomIndex::ShopRoom;
         }
       }
-      
+
       break;
     case RoomType::Boss:
       for (int i = rect.left; i < rect.left + rect.width; i++)
@@ -328,12 +322,24 @@ void Grid::fillRoom(RoomType type , sf::IntRect rect) {
       }
       break;
   }
-  
-
 }
 
 sf::Vector2f Grid::getStartPosition()
 {
-
   return startpos;
+}
+
+int (*Grid::getAllGrid())[60]
+{
+  return grid;
+}
+
+int Grid::getGrid(int x, int y)
+{
+  return grid[x][y];
+}
+
+void Grid::setGrid(int x, int y, int value)
+{
+  grid[x][y] = value;
 }
