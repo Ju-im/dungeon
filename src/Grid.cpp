@@ -210,11 +210,10 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       }
       else if (grid[i][j] == 99)
       {
-      
-      sf::RectangleShape playerTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        playerTile.setFillColor(sf::Color::White);
-      playerTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(playerTile);
+        sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        startTile.setFillColor(sf::Color::White);
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(startTile);
       }
       else
       {
@@ -417,7 +416,15 @@ for (int Y = camera_height; Y > 0; Y--)
       startTile.setFillColor(sf::Color(128, 128, 128));
       startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
       window.draw(startTile);
+    
     }
+    else if (grid[true_y][true_x] == 99)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color::White);
+      window.draw(startTile);
+    }
+     
     else
     {
       // Draw floor tile at (i, j)

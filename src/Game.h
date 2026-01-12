@@ -31,9 +31,11 @@ enum GAME_STATE
   void spawnEnemy(int amount);
   void spawnPlayer();
 
-
-  GAME_STATE game_state = MENU;
+   int x = 0;
+  int y = 0;
   Grid grid;
+  int (*gridCopy)[60]   = grid.getAllGrid();
+  GAME_STATE game_state = MENU;
   Enemy enemy{};
   
   

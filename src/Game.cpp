@@ -18,6 +18,7 @@ bool Game::init()
   grid.printGrid();
   enemy.printEnemiesInPlay();
   enemy.move(-9);
+  spawnPlayer();
   return true;
 }
 
@@ -113,5 +114,5 @@ void Game::spawnEnemy(int amount)
 } 
 void Game::spawnPlayer() 
 {
-  grid.setGrid(1, 2, 99);
+  grid.setGrid(30, 30, 99);
 }
