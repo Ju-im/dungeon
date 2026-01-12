@@ -5,11 +5,11 @@ enum RoomIndex
 {
   Wall         = 1,
   Floor        = 0,
-  StartRoom    = 6,
   CombatRoom   = 2,
   TreasureRoom = 3,
   ShopRoom     = 4,
-  BossRoom     = 5
+  BossRoom     = 5,
+  StartRoom = 6,
 };
 enum class RoomType
 {
@@ -50,12 +50,19 @@ class Grid
   int (*getAllGrid())[60];
   void setGrid(int x, int y, int value);
   sf::Vector2i getSpaenableTile();
+  void drawArea(int x, int y,sf::RenderWindow& window);
+
+  /////////Camera/////////
+  int camera_height = 50;
+  int camera_width  = 50;
+  ////////////////////////
+
   int MAXROOMS      = 50;
   int roomCount     = 0;
   int MAX_ROOM_SIZE = 20;
   int MIN_ROOM_SIZE = 5;
   int CELL_SIZE     = 10;
-
+  int (*gridCopy)[60];
   float X_value = 0;
   float Y_value = 0;
 

@@ -343,3 +343,84 @@ void Grid::setGrid(int x, int y, int value)
 {
   grid[x][y] = value;
 }
+
+void Grid::drawArea(int x, int y, sf::RenderWindow& window) {
+
+for (int Y = camera_height; Y > 0; Y--)
+  {
+  for (int X = camera_width; X > 0; X--)
+  {
+    int true_x = x - X;
+    int true_y = y - Y;
+    if (true_x < 0 || true_y < 0)
+    {
+      continue;
+    }
+    if (grid[true_y][true_x] == RoomIndex::Wall)
+    {
+      // Draw wall tile at (i, j)
+      sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      wallTile.setFillColor(sf::Color::Green);
+      wallTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(wallTile);
+    }
+    else if (grid[true_y][true_x] == RoomIndex::BossRoom)
+    {
+      sf::RectangleShape bossTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      bossTile.setFillColor(sf::Color::Red);
+      bossTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(bossTile);
+    }
+    else if (grid[true_y][true_x] == RoomIndex::CombatRoom)
+    {
+      sf::RectangleShape combatTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      combatTile.setFillColor(sf::Color::Yellow);
+      combatTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(combatTile);
+    }
+    else if (grid[true_y][true_x] == RoomIndex::StartRoom)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color::Magenta);
+      startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      if (start)
+      {
+        startpos = startTile.getPosition();
+      }
+      window.draw(startTile);
+    }
+    else if (grid[true_y][true_x] == RoomIndex::ShopRoom)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color::Cyan);
+      startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(startTile);
+    }
+    else if (grid[true_y][true_x] == RoomIndex::TreasureRoom)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color::Black);
+      startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(startTile);
+    }
+    else if (grid[true_y][true_x] < 0)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color(128, 128, 128));
+      startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(startTile);
+    }
+    else
+    {
+      // Draw floor tile at (i, j)
+      sf::RectangleShape floorTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      floorTile.setFillColor(sf::Color::Blue);
+      floorTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(floorTile);
+    }
+  }
+}
+
+
+
+}

@@ -28,10 +28,14 @@ enum GAME_STATE
  private:
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);
   void spawnEnemy(int amount);
+  int x = 0;
+  int y = 0;
+  Grid grid;
+  int (*gridCopy)[60] = grid.getAllGrid();
 
 
   GAME_STATE game_state = MENU;
-  Grid grid;
+  
   Enemy enemy{};
   
   
