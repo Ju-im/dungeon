@@ -1,0 +1,56 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+#include "EnemyGround.h"
+#include "EnemyFlying.h"
+#include "EnemyBoss.h"
+
+// Enemy class
+// Container Class for different enemy types
+// Allows Enemy logic to be handled in one place,
+// while specific enemy behaviors are delegated to their respective classes
+class Enemy
+{
+	public:
+	Enemy();
+	~Enemy();
+	void attack(int enemy);
+    void checkIfAttackPossible(int (*matrix)[60]);
+    void move(int enemy);
+	void takeDamage(int amount); 
+    sf::Vector3i spawn(int (*matrix)[60], int type);
+    void printEnemiesInPlay();
+    int getHealth(int enemy);
+    int getDamage(int enemy);
+
+	private:
+    int type;
+    bool spawned = false;
+    enum EnemyTypes
+    {
+      SLIME = -1, 
+      BAT = -2,
+      SKELETON = -3,
+      BABY_DRAGON = -4,
+      SPIDER      = -5,
+      WOLF        = -6,
+      DRAGON      = -7,
+      GIANT       = -8,
+      SLIME_KING  = -9,
+    };
+    struct EnemyIndividualStats
+    {
+      int type;
+      int health;
+      int damage;
+      int x;
+      int y;
+    };
+    EnemyIndividualStats stats;
+    std::vector<EnemyIndividualStats> enemies_in_play;
+	EnemyGround enemyGround;
+    EnemyFlying enemyFlying;
+    EnemyBoss enemyBoss;
+
+};

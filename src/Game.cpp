@@ -14,39 +14,44 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  sf::RectangleShape player(sf::Vector2f(20.f, 20.f));
-  player.setFillColor(sf::Color::Magenta);
-  player.setPosition(grid.getStartPosition());
-  
-  sf::View camera(sf::FloatRect(0.f, 0.f, 30.f, 30.f));
-  camera.setCenter(player.getPosition());
-  window.setView(camera);
+  spawnEnemy(1);
+  grid.printGrid();
+  enemy.printEnemiesInPlay();
+  enemy.move(-9);
   return true;
-  
 }
 
 // UPDATE FUNCTION
 void Game::update(float dt)
 {
-  
-
-  // Update camera to follow player
-  camera.setCenter(player.getPosition());
-  
+  switch (game_state)
+  {
+    case MENU:
+    {
+    
+    
+    }
+      break;
+    case GAME:
+        {
+     
+     
+    }
+        break;
+    case PAUSE:
+    {
+    
+    }
+    break;
+  }
  
   
 }
 
 void Game::render()
 {
-  window.draw(player);
-  window.setView(camera);
-  grid.drawDungeon(window);
-  
   
 }
-
-
 
 void Game::mouseClicked(sf::Event event)
 {
@@ -60,27 +65,6 @@ void Game::mouseClicked(sf::Event event)
 
 void Game::keyPressed(sf::Event event)
 {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-  {
-    player.move(0.f, -speed * 0.16);
-  
-  }
-    
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-  {
-    player.move(0.f, speed * 0.16);
-  }
-    
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-  {
-    player.move(-speed * 0.16, 0.f);
-  }
-    
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-  {
-    player.move(speed *0.16, 0.f);
-  }
- 
  
 }
 
@@ -107,11 +91,22 @@ bool Game::collisionCheck(sf::Vector2i click, sf::Sprite& sprite)
   return false;
 }
 
-void Game::spawn()
+void Game::spawnEnemy(int amount)
 {
-  
- 
-}
-
-
-  // remember time 5 birds diff intervals each with seperate score.
+  for (int i = 0; i < amount-1; i++)
+  {
+    int(*gridCopy)[60] = grid.getAllGrid();
+    int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
+    sf::Vector3i result = enemy.spawn(gridCopy,type); 
+    grid.setGrid(result.y, result.z, result.x);
+  }
+  int type = ((rand() % 3) + 1) * -1;
+  type += -6;
+  int(*gridCopy)[60]  = grid.getAllGrid();
+  sf::Vector3i result = enemy.spawn(gridCopy, type);
+      // For boss enemies, occupy a 2x2 space
+      grid.setGrid(result.y, result.z, result.x);
+      grid.setGrid(result.y + 1, result.z, result.x);
+      grid.setGrid(result.y, result.z + 1, result.x);
+      grid.setGrid(result.y + 1, result.z + 1, result.x);
+} 
