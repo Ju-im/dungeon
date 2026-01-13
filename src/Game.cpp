@@ -17,7 +17,7 @@ bool Game::init()
   spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
-  player.spawnPlayer();
+  player.spawnPlayer(grid);
 
   //enemy.move(-9);
   //spawnPlayer();

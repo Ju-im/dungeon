@@ -23,6 +23,7 @@ bool Grid::init()
 
 sf::IntRect Grid::generateRoom(RoomType type)
 {
+    //add specific roomsize to start
   int roomWidth = MIN_ROOM_SIZE + rand() % (MAX_ROOM_SIZE - MIN_ROOM_SIZE + 1) +
                   sizeBonus(type);
   int roomHeight = MIN_ROOM_SIZE +

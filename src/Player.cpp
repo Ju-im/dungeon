@@ -37,14 +37,29 @@ void Player::render(sf::RenderWindow& window) {
 }
 
 
-void Player::spawnPlayer() {
+void Player::spawnPlayer(Grid& grid) {
 
     float spawn_x = static_cast<float>(CELL_SIZE);
   int spawn_y   = 30;
 
-  sf::Vector2i actual_screen_pos = { 30 * CELL_SIZE, 30 * CELL_SIZE };
   
-  gridPos = { 30, 30 };
+  int(*gridCopy)[60]             = grid.getAllGrid();
+  std::vector<sf::Vector2i> pos;
+  for (int y = 0; y < 60; y++)
+  {
+    for (int x = 0; x < 60; x++)
+    {
+      if (gridCopy[y][x] == 6)
+      {
+        pos.push_back({ y, x });
+      
+      }
+    }
+  }
+  sf::Vector2i gridspawnPosition =pos[rand() % pos.size()];
+  gridPos = gridspawnPosition;
+  sf::Vector2i actual_screen_pos = { gridspawnPosition.y * CELL_SIZE,
+                                     gridspawnPosition.x * CELL_SIZE };
   test.setSize({spawn_x, spawn_x});
   test.setFillColor(sf::Color::White);
   test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
@@ -63,6 +78,8 @@ sf::Vector2i Player::getScreenPosition(Grid& grid)
 void Player::moveX(int x, Grid& grid) 
 {
 
+   if (gridPos.y + x > -1 && gridPos.y + x < 59)
+  {
   
   gridPos                        = { gridPos.x, gridPos.y + x };
   
@@ -72,7 +89,7 @@ void Player::moveX(int x, Grid& grid)
 
   std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
             << std::endl;
-
+  }
   // y,x
   
   
@@ -81,12 +98,21 @@ void Player::moveX(int x, Grid& grid)
 }
 void Player::moveY(int y, Grid& grid)
 {
+
+  if (gridPos.x + y > -1 && gridPos.x+y < 59)
+  {
+    gridPos                        = { gridPos.x + y, gridPos.y };
+    sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
+    std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
+              << std::endl;
+    test.setPosition(actual_screen_pos.x + y, actual_screen_pos.y);
+  }
+  else
+  {
+    std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
+              << std::endl;
+  }
   
-  gridPos                        = { gridPos.x + y, gridPos.y  };
-  sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
-  std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-            << std::endl;
-  test.setPosition(actual_screen_pos.x + y, actual_screen_pos.y);
 }
 
 
