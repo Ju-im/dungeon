@@ -34,7 +34,6 @@ void Enemy::takeTurn(sf::Vector2i player_pos)
     }
     else
     {
-      std::cout << "Enemy decides to move." << std::endl;
       move(enemy_selected, player_pos);
     }
   }
@@ -94,7 +93,6 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
   int x_move_distance = 0;
   int y_move_distance = 0;
   int sight_range     = 0;
-  std::cout << "Enemy is moving towards the player." << std::endl;
   switch (enemies_in_play[enemy_selected].type)
   {
     case SLIME:
@@ -102,7 +100,7 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
     case SPIDER:
     case WOLF:
     {
-      std::cout << "Ground enemy moves." << std::endl;
+      //std::cout << "Ground enemy moves." << std::endl;
       sf::Vector3i enemy_stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
       x_move_distance = enemy_stats.x;
       y_move_distance = enemy_stats.y;
@@ -118,19 +116,19 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
     case BAT:
     case BABY_DRAGON:
     {
-      std::cout << "Flying enemy moves." << std::endl;
+      //std::cout << "Flying enemy moves." << std::endl;
       break;
     }
     default:
     {
-      std::cout << "Unknown enemy type cannot move!" << std::endl;
+      //std::cout << "Unknown enemy type cannot move!" << std::endl;
       break;
     }
   }
   // Update enemy position based on movement logic
-  if ((enemies_in_play[enemy_selected].x - sight_range) < player_pos.x < enemies_in_play[enemy_selected].x + sight_range)
+  if ((enemies_in_play[enemy_selected].x - sight_range) < player_pos.x && player_pos.x < enemies_in_play[enemy_selected].x + sight_range)
   {  
-    if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
+    if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y && player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
     {
       // if player is within sight range, move towards player
       if (player_pos.y < enemies_in_play[enemy_selected].y)
@@ -150,7 +148,7 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
         enemies_in_play[enemy_selected].x += x_move_distance;
       }
       enemies_in_play[enemy_selected].turn_taken = true;
-      std::cout << "enemy moves towards player." << std::endl;
+      std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     }
   }
   if (!enemies_in_play[enemy_selected].turn_taken)
@@ -158,12 +156,11 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
     // Random movement if player not in sight range
     std::cout << "Enemy moves randomly." << std::endl;
 
-    //int x_direction = (rand() % 3) - 1; // -1, 0, or 1
-    //int y_direction = (rand() % 3) - 1; // -1, 0, or 1
-   // enemies_in_play[enemy_selected].x += x_direction * x_move_distance;
-   // enemies_in_play[enemy_selected].y += y_direction * y_move_distance;
-   // enemies_in_play[enemy_selected].turn_taken = true;
+    //int random_direction = (rand() % 2) -1;
+    enemies_in_play[enemy_selected].x +=  x_move_distance;
+    enemies_in_play[enemy_selected].y += ( y_move_distance);
   }
+  std::cout << "Enemy" << enemies_in_play[enemy_selected].type << " new position: (" << enemies_in_play[enemy_selected].x << ", " << enemies_in_play[enemy_selected].y << ")" << std::endl;
 }
 
 int Enemy::getHealth(int enemy)
@@ -300,3 +297,14 @@ void Enemy::printEnemiesInPlay()
   }
 }
 
+void Enemy::drawEnemies(sf::RenderWindow& window)
+{
+  int CELL_SIZE = 10;
+  for (int i = 0; i < enemies_in_play.size(); i++)
+  {
+    sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+    startTile.setFillColor(sf::Color(128, 128, 128));
+    startTile.setPosition(enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+    window.draw(startTile);
+  }
+}

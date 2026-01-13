@@ -24,6 +24,8 @@ class Enemy
     int getHealth(int enemy);
     int getDamage(int enemy);
     void takeTurn(sf::Vector2i player_pos);
+    void getEnemyLocations(int locations[]);
+    void drawEnemies(sf::RenderWindow& window);
 
 	private:
     int type;

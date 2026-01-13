@@ -23,6 +23,7 @@ sf::Vector2i Player::getPosition(Grid& grid) {
     {
       if (gridCopy[y][x] == 99)
       {
+        std::cout << "Player position found at: (" << x << ", " << y << ")" << std::endl;
         return sf::Vector2i(x, y);
       }
     }

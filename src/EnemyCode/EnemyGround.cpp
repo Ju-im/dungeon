@@ -58,7 +58,7 @@ sf::Vector3i EnemyGround::Move(int enemy)
   {
     case SLIME:
     {
-      std::cout << "Slime oozes forward slowly." << std::endl;
+      //std::cout << "Slime oozes forward slowly." << std::endl;
       x_move_distance = 1;
       y_move_distance = 1;
       sight_range     = 3;
@@ -66,7 +66,7 @@ sf::Vector3i EnemyGround::Move(int enemy)
     }
     case SKELETON:
     {
-      std::cout << "Skeleton clatters as it moves." << std::endl;
+      //std::cout << "Skeleton clatters as it moves." << std::endl;
       x_move_distance = 1;
       y_move_distance = 1;
       sight_range     = 3;
@@ -74,7 +74,7 @@ sf::Vector3i EnemyGround::Move(int enemy)
     }
     case SPIDER:
     {
-      std::cout << "Spider scurries quickly." << std::endl;
+      //std::cout << "Spider scurries quickly." << std::endl;
       x_move_distance = 2;
       y_move_distance = 2;
       sight_range     = 3;
@@ -82,7 +82,7 @@ sf::Vector3i EnemyGround::Move(int enemy)
     }
     case WOLF:
     {
-      std::cout << "Wolf prowls stealthily." << std::endl;
+      //std::cout << "Wolf prowls stealthily." << std::endl;
       x_move_distance = 1;
       y_move_distance = 1;
       sight_range     = 3;
