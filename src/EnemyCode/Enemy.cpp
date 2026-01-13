@@ -151,16 +151,16 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
       std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     }
   }
-  if (!enemies_in_play[enemy_selected].turn_taken)
-  {
-    // Random movement if player not in sight range
-    std::cout << "Enemy moves randomly." << std::endl;
+  //if (!enemies_in_play[enemy_selected].turn_taken)
+  //{
+  //  // Random movement if player not in sight range
+  //  std::cout << "Enemy moves randomly." << std::endl;
 
-    //int random_direction = (rand() % 2) -1;
-    enemies_in_play[enemy_selected].x +=  x_move_distance;
-    enemies_in_play[enemy_selected].y += ( y_move_distance);
-  }
-  std::cout << "Enemy" << enemies_in_play[enemy_selected].type << " new position: (" << enemies_in_play[enemy_selected].x << ", " << enemies_in_play[enemy_selected].y << ")" << std::endl;
+  //  //int random_direction = (rand() % 2) -1;
+  //  enemies_in_play[enemy_selected].x +=  x_move_distance;
+  //  enemies_in_play[enemy_selected].y += ( y_move_distance);
+  //}
+  //std::cout << "Enemy" << enemies_in_play[enemy_selected].type << " new position: (" << enemies_in_play[enemy_selected].x << ", " << enemies_in_play[enemy_selected].y << ")" << std::endl;
 }
 
 int Enemy::getHealth(int enemy)
