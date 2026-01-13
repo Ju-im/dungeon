@@ -18,8 +18,13 @@ bool Game::init()
   grid.printGrid();
   enemy.printEnemiesInPlay();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   //enemy.move(-9);
   spawnPlayer();
+=======
+  enemy.move(-9);
+  //spawnPlayer();
+>>>>>>> Stashed changes
 =======
   enemy.move(-9);
   //spawnPlayer();
