@@ -8,11 +8,16 @@ class Player
 	 Player();
   ~Player();
      bool init();
+  void render(sf::RenderWindow& window);
   sf::Vector2i getPosition(Grid& grid);
-     void getScreenPosition(Grid& grid, sf::RenderWindow& window);
+     sf::Vector2i getScreenPosition(Grid& grid);
      void moveX(int x, Grid& grid);
      void moveY(int y, Grid& grid);
+     void spawnPlayer();
      int CELL_SIZE = 10;
+     sf::Vector2i currentPos;
+     sf::Vector2i gridPos; 
+     sf::RectangleShape test;
 
 
  private:

@@ -17,18 +17,18 @@ bool Game::init()
   spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+  player.spawnPlayer();
+
   //enemy.move(-9);
-  spawnPlayer();
-=======
-  enemy.move(-9);
   //spawnPlayer();
->>>>>>> Stashed changes
-=======
-  enemy.move(-9);
+
+
   //spawnPlayer();
->>>>>>> Stashed changes
+
+
+
+  //spawnPlayer();
+
   player.init();
   
   return true;
@@ -76,7 +76,8 @@ void Game::render()
   grid.drawDungeon(window);
   enemy.drawEnemies(window);
   
-  player.getScreenPosition(grid, window);
+ 
+  player.render(window);
 }
 
 void Game::mouseClicked(sf::Event event)
