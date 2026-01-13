@@ -41,15 +41,15 @@ void Game::update(float dt)
   {
     case MENU:
     {
-      if (loop == 0)
-      {
-          enemy.takeTurn(player.getPosition(grid));
-        loop = 300;
-      }
-      else
-      {
-        loop -= 1;
-      }
+     // if (loop == 0)
+      //{
+      //    enemy.takeTurn(player.getPosition(grid));
+      //  loop = 300;
+     // }
+     // else
+    //  {
+     //   loop -= 1;
+     // }
       
     
     }
@@ -112,6 +112,7 @@ void Game::keyPressed(sf::Event event)
     std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
   }
+  enemy.takeTurn(player.getPosition(grid));
 }
 
 
