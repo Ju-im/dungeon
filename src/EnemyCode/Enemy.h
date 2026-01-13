@@ -5,7 +5,7 @@
 #include "EnemyGround.h"
 #include "EnemyFlying.h"
 #include "EnemyBoss.h"
-
+#include "../Player.h"
 // Enemy class
 // Container Class for different enemy types
 // Allows Enemy logic to be handled in one place,
@@ -17,13 +17,13 @@ class Enemy
 	~Enemy();
 	void attack(int enemy);
     bool checkIfAttackPossible(int (*matrix)[60]);
-    void move(int enemy);
+    void move(int enemy, sf::Vector2i player_pos);
 	void takeDamage(int amount); 
     sf::Vector3i spawn(int (*matrix)[60], int type);
     void printEnemiesInPlay();
     int getHealth(int enemy);
     int getDamage(int enemy);
-    void takeTurn(int enemy);
+    void takeTurn(sf::Vector2i player_pos);
 
 	private:
     int type;
@@ -54,5 +54,6 @@ class Enemy
 	EnemyGround enemyGround;
     EnemyFlying enemyFlying;
     EnemyBoss enemyBoss;
+    Player player;
 
 };

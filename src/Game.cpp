@@ -17,7 +17,7 @@ bool Game::init()
   spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
-  enemy.move(-9);
+  //enemy.move(-9);
   spawnPlayer();
   player.init();
   return true;
@@ -36,6 +36,8 @@ void Game::update(float dt)
       break;
     case GAME:
         {
+
+        enemy.takeTurn(player.getPosition(grid));
      
      
     }

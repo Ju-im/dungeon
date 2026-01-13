@@ -19,16 +19,24 @@ void Enemy::takeDamage(int amount)
   }
 }
 
-void Enemy::takeTurn(int enemy)
+void Enemy::takeTurn(sf::Vector2i player_pos)
 {
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.
   std::cout << "Enemy";
 
-  for (int i = 0; i < enemies_in_play.size(); i++)
+  for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
-    
+    if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
+    {
+      attack(enemy_selected);
+    }
+    else
+    {
+      std::cout << "Enemy decides to move." << std::endl;
+      move(enemy_selected, player_pos);
+    }
   }
 
 }
@@ -38,10 +46,11 @@ bool Enemy::checkIfAttackPossible(int (*matrix)[60])
 	// In a real implementation, this would involve checking the player's position relative to the enemy
 	// For now, this function checks if there is a tile in the matrix that is an enemy
   //std::cout << "Checking if attack is possible based on the matrix." << std::endl;
-    for (int i = 0; i < enemies_in_play.size(); i++)
-    {
-      attack(enemies_in_play[i].type);
-	}
+    //for (int i = 0; i < enemies_in_play.size(); i++)
+   // {
+   //   attack(enemies_in_play[i].type);
+	//}
+    return false;
 }
 
 void Enemy::attack(int enemy) 
@@ -77,13 +86,16 @@ void Enemy::attack(int enemy)
   }
 }
 
-void Enemy::move(int enemy)
+void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
 {
   // Placeholder logic for enemy movement
   // In a real implementation, this would involve pathfinding and movement
   // towards the player
+  int x_move_distance = 0;
+  int y_move_distance = 0;
+  int sight_range     = 0;
   std::cout << "Enemy is moving towards the player." << std::endl;
-  switch (enemy)
+  switch (enemies_in_play[enemy_selected].type)
   {
     case SLIME:
     case SKELETON:
@@ -91,13 +103,16 @@ void Enemy::move(int enemy)
     case WOLF:
     {
       std::cout << "Ground enemy moves." << std::endl;
+      sf::Vector3i enemy_stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
+      x_move_distance = enemy_stats.x;
+      y_move_distance = enemy_stats.y;
+      sight_range     = enemy_stats.z;
       break;
     }
     case DRAGON:
     case GIANT:
     case SLIME_KING:
     {
-      enemyBoss.Move(enemy);
       break;
     }
     case BAT:
@@ -111,6 +126,43 @@ void Enemy::move(int enemy)
       std::cout << "Unknown enemy type cannot move!" << std::endl;
       break;
     }
+  }
+  // Update enemy position based on movement logic
+  if ((enemies_in_play[enemy_selected].x - sight_range) < player_pos.x < enemies_in_play[enemy_selected].x + sight_range)
+  {  
+    if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
+    {
+      // if player is within sight range, move towards player
+      if (player_pos.y < enemies_in_play[enemy_selected].y)
+      {
+        enemies_in_play[enemy_selected].y -= y_move_distance;
+      }
+      else if (player_pos.y > enemies_in_play[enemy_selected].y)
+      {
+        enemies_in_play[enemy_selected].y += y_move_distance;
+      }
+      if (player_pos.x < enemies_in_play[enemy_selected].x)
+      {
+        enemies_in_play[enemy_selected].x -= x_move_distance;
+      }
+      else if (player_pos.x > enemies_in_play[enemy_selected].x)
+      {
+        enemies_in_play[enemy_selected].x += x_move_distance;
+      }
+      enemies_in_play[enemy_selected].turn_taken = true;
+      std::cout << "enemy moves towards player." << std::endl;
+    }
+  }
+  if (!enemies_in_play[enemy_selected].turn_taken)
+  {
+    // Random movement if player not in sight range
+    std::cout << "Enemy moves randomly." << std::endl;
+
+    //int x_direction = (rand() % 3) - 1; // -1, 0, or 1
+    //int y_direction = (rand() % 3) - 1; // -1, 0, or 1
+   // enemies_in_play[enemy_selected].x += x_direction * x_move_distance;
+   // enemies_in_play[enemy_selected].y += y_direction * y_move_distance;
+   // enemies_in_play[enemy_selected].turn_taken = true;
   }
 }
 

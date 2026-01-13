@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include < iostream>
+#include <iostream>
 // Ground-based enemy class
 // Inherits to the Enemy class and contains specific attributes and methods for ground enemies
 class EnemyGround
