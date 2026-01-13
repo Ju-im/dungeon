@@ -17,9 +17,10 @@ bool Game::init()
   spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
-  enemy.move(-9);
+  //enemy.move(-9);
   spawnPlayer();
   player.init();
+  
   return true;
 }
 
@@ -30,12 +31,22 @@ void Game::update(float dt)
   {
     case MENU:
     {
-    
+      if (loop == 0)
+      {
+          enemy.takeTurn(player.getPosition(grid));
+        loop = 300;
+      }
+      else
+      {
+        loop -= 1;
+      }
+      
     
     }
       break;
     case GAME:
         {
+
      
      
     }
@@ -53,6 +64,7 @@ void Game::update(float dt)
 void Game::render()
 {
   grid.drawDungeon(window);
+  enemy.drawEnemies(window);
   
   
 }
@@ -121,17 +133,17 @@ void Game::spawnEnemy(int amount)
     int(*gridCopy)[60] = grid.getAllGrid();
     int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
     sf::Vector3i result = enemy.spawn(gridCopy,type); 
-    grid.setGrid(result.y, result.z, result.x);
+    //grid.setGrid(result.y, result.z, result.x);
   }
   int type = ((rand() % 3) + 1) * -1;
   type += -6;
   int(*gridCopy)[60]  = grid.getAllGrid();
   sf::Vector3i result = enemy.spawn(gridCopy, type);
       // For boss enemies, occupy a 2x2 space
-      grid.setGrid(result.y, result.z, result.x);
-      grid.setGrid(result.y + 1, result.z, result.x);
-      grid.setGrid(result.y, result.z + 1, result.x);
-      grid.setGrid(result.y + 1, result.z + 1, result.x);
+      //grid.setGrid(result.y, result.z, result.x);
+      //grid.setGrid(result.y + 1, result.z, result.x);
+     // grid.setGrid(result.y, result.z + 1, result.x);
+      //grid.setGrid(result.y + 1, result.z + 1, result.x);
 } 
 void Game::spawnPlayer() 
 {

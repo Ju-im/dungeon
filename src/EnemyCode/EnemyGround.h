@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include < iostream>
+#include <iostream>
 // Ground-based enemy class
 // Inherits to the Enemy class and contains specific attributes and methods for ground enemies
 class EnemyGround
@@ -9,7 +9,7 @@ class EnemyGround
 		EnemyGround();
 		~EnemyGround();
 		void Attack(int enemy);
-        void Move(int enemy);
+        sf::Vector3i Move(int enemy);
         int getHealth(int enemy);
         int getDamage(int enemy);
 	private:

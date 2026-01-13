@@ -39,7 +39,7 @@ enum GAME_STATE
   Enemy enemy{};
   Player player;
   
-  
+  int loop = 300;
   
  
 };
