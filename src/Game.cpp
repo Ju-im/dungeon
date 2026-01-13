@@ -41,15 +41,15 @@ void Game::update(float dt)
   {
     case MENU:
     {
-      if (loop == 0)
-      {
-          enemy.takeTurn(player.getPosition(grid));
-        loop = 300;
-      }
-      else
-      {
-        loop -= 1;
-      }
+     // if (loop == 0)
+      //{
+      //    enemy.takeTurn(player.getPosition(grid));
+      //  loop = 300;
+     // }
+     // else
+    //  {
+     //   loop -= 1;
+     // }
       
     
     }
@@ -92,26 +92,27 @@ void Game::mouseClicked(sf::Event event)
 
 void Game::keyPressed(sf::Event event)
 {
-  if (event.key.code == sf::Keyboard::W)
+  if (event.key.code == sf::Keyboard::W|| event.key.code == sf::Keyboard::Up)
   {
     std::cout << "W pressed" << std::endl;
     player.moveY(-1, grid);
   }
-  if (event.key.code == sf::Keyboard::A)
+  if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
   {
     std::cout << "A pressed" << std::endl;
     player.moveX(-1, grid);
   }
-  if (event.key.code == sf::Keyboard::S)
+  if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
   {
     std::cout << "S pressed" << std::endl;
     player.moveY(1, grid);
   }
-  if (event.key.code == sf::Keyboard::D)
+  if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
   {
     std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
   }
+  enemy.takeTurn(player.getPosition(grid));
 }
 
 
