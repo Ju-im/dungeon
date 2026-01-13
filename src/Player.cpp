@@ -29,7 +29,21 @@ sf::Vector2i Player::getPosition(Grid& grid) {
     }
   }
 }
+void Player::getScreenPosition(Grid& grid, sf::RenderWindow& window)
+{
+  float spawn_x                  = static_cast<float>(CELL_SIZE) * 10;
+  int spawn_y                    = 30;
+  sf::Vector2i actual_screen_pos = { 30 * CELL_SIZE, 30 * CELL_SIZE };
+  sf::RectangleShape test(sf::Vector2f(CELL_SIZE , CELL_SIZE ));
 
+    //test.setSize({spawn_x, spawn_x});
+    test.setFillColor(sf::Color::White);
+  test.setPosition(
+    actual_screen_pos.x , actual_screen_pos.y);
+    std::cout << test.getPosition().y << std::endl;
+    window.draw(test);
+
+}
 void Player::moveX(int x, Grid& grid) 
 {
   int x_pos = this->getPosition(grid).x;

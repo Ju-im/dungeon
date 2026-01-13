@@ -17,8 +17,13 @@ bool Game::init()
   spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
+<<<<<<< Updated upstream
   //enemy.move(-9);
   spawnPlayer();
+=======
+  enemy.move(-9);
+  //spawnPlayer();
+>>>>>>> Stashed changes
   player.init();
   
   return true;
@@ -66,7 +71,7 @@ void Game::render()
   grid.drawDungeon(window);
   enemy.drawEnemies(window);
   
-  
+  player.getScreenPosition(grid, window);
 }
 
 void Game::mouseClicked(sf::Event event)
@@ -145,7 +150,7 @@ void Game::spawnEnemy(int amount)
      // grid.setGrid(result.y, result.z + 1, result.x);
       //grid.setGrid(result.y + 1, result.z + 1, result.x);
 } 
-void Game::spawnPlayer() 
-{
-  grid.setGrid(30, 30, 99);
-}
+//void Game::spawnPlayer() 
+//{
+//  grid.setGrid(30, 30, 99);
+//}
