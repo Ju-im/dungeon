@@ -16,13 +16,14 @@ class Enemy
 	Enemy();
 	~Enemy();
 	void attack(int enemy);
-    void checkIfAttackPossible(int (*matrix)[60]);
+    bool checkIfAttackPossible(int (*matrix)[60]);
     void move(int enemy);
 	void takeDamage(int amount); 
     sf::Vector3i spawn(int (*matrix)[60], int type);
     void printEnemiesInPlay();
     int getHealth(int enemy);
     int getDamage(int enemy);
+    void takeTurn(int enemy);
 
 	private:
     int type;
@@ -46,6 +47,7 @@ class Enemy
       int damage;
       int x;
       int y;
+      bool turn_taken;
     };
     EnemyIndividualStats stats;
     std::vector<EnemyIndividualStats> enemies_in_play;

@@ -19,7 +19,20 @@ void Enemy::takeDamage(int amount)
   }
 }
 
-void Enemy::checkIfAttackPossible(int (*matrix)[60])
+void Enemy::takeTurn(int enemy)
+{
+  // Placeholder logic for taking a turn
+  // In a real implementation, this would involve deciding whether to move,
+  // attack, etc.
+  std::cout << "Enemy";
+
+  for (int i = 0; i < enemies_in_play.size(); i++)
+  {
+    
+  }
+
+}
+bool Enemy::checkIfAttackPossible(int (*matrix)[60])
 {
 	// Placeholder logic for checking if an attack is possible
 	// In a real implementation, this would involve checking the player's position relative to the enemy
@@ -230,6 +243,7 @@ void Enemy::printEnemiesInPlay()
               << "Damage: " << enemies_in_play[i].damage << std::endl
               << "X: " << enemies_in_play[i].x << std::endl
               << "Y: " << enemies_in_play[i].y << std::endl
+              << "Turn Taken: " << enemies_in_play[i].turn_taken << std::endl
               << "----------------------\n";
   }
 }

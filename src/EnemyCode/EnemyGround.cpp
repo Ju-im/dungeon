@@ -49,42 +49,43 @@ void EnemyGround::Attack(int enemy)
   }
 }
 
-void EnemyGround::Move(int enemy)
+sf::Vector3i EnemyGround::Move(int enemy)
 {
+  int x_move_distance = 0;
+  int y_move_distance = 0;
+  int sight_range     = 0;
   switch (enemy)
   {
     case SLIME:
     {
       std::cout << "Slime oozes forward slowly." << std::endl;
-      /* if (slime can see the player)
-      {
-        set can_see_player to true.
-      }
-      else
-      {
-        int direction = rand() % 4;
-      }
-      set speed to how many tiles slime moves.
-      */
-      // Slime moves slowly, a basic ground enemy.
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 3;
       break;
     }
     case SKELETON:
     {
       std::cout << "Skeleton clatters as it moves." << std::endl;
-      // Skeleton moves at a moderate speed.
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 3;
       break;
     }
     case SPIDER:
     {
       std::cout << "Spider scurries quickly." << std::endl;
-      // Spider moves quickly.
+      x_move_distance = 2;
+      y_move_distance = 2;
+      sight_range     = 3;
       break;
     }
     case WOLF:
     {
       std::cout << "Wolf prowls stealthily." << std::endl;
-      // Wolf moves moderate, but wont wander randomly if player not in sight.
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 3;
       break;
     }
     default:
@@ -93,19 +94,7 @@ void EnemyGround::Move(int enemy)
       break;
     }
   }
-  /*
-  if (enemy can_see_enemy)
-  {
-  check path to player isnt in a wall,
-  move towards player by speed amount.
-  }
-  else
-  {
-  move in random direction by speed amount and the direction chosen earlier.
-  }
-  
-  update enemy position on grid, and in enemy struct in Enemy class.
-  */
+  return sf::Vector3i(x_move_distance, y_move_distance,sight_range);
 }
 
 int EnemyGround::getDamage(int enemy)
