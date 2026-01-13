@@ -72,9 +72,23 @@ void Game::keyPressed(sf::Event event)
   if (event.key.code == sf::Keyboard::W)
   {
     std::cout << "W pressed" << std::endl;
-    player.move(0, -1 , grid);
+    player.moveY(-1, grid);
   }
- 
+  if (event.key.code == sf::Keyboard::A)
+  {
+    std::cout << "A pressed" << std::endl;
+    player.moveX(-1, grid);
+  }
+  if (event.key.code == sf::Keyboard::S)
+  {
+    std::cout << "S pressed" << std::endl;
+    player.moveY(1, grid);
+  }
+  if (event.key.code == sf::Keyboard::D)
+  {
+    std::cout << "D pressed" << std::endl;
+    player.moveX(1, grid);
+  }
 }
 
 

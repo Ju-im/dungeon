@@ -8,7 +8,8 @@ class Player
   ~Player();
      bool init();
   sf::Vector2i getPosition(Grid& grid);
-  void move(int x, int y, Grid& grid);
+     void moveX(int x, Grid& grid);
+     void moveY(int y, Grid& grid);
 
 
 

@@ -29,15 +29,25 @@ sf::Vector2i Player::getPosition(Grid& grid) {
   }
 }
 
-void Player::move(int x, int y , Grid& grid) {
+void Player::moveX(int x, Grid& grid) 
+{
   int x_pos = this->getPosition(grid).x;
   int y_pos = this->getPosition(grid).y;
 
   // y,x
-  grid.setGrid(y_pos +y, x_pos, 99);
+  grid.setGrid(y_pos , x_pos+x, 99);
   grid.setGrid(y_pos , x_pos, 0);
   
 
+}
+void Player::moveY(int y, Grid& grid)
+{
+  int x_pos = this->getPosition(grid).x;
+  int y_pos = this->getPosition(grid).y;
+
+  // y,x
+  grid.setGrid(y_pos + y, x_pos, 99);
+  grid.setGrid(y_pos, x_pos, 0);
 }
 
 
