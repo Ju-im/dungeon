@@ -6,6 +6,7 @@ void EnemyBoss::Attack(int enemy)
 {
   switch (enemy)
   {
+    
 	case DRAGON:
 	{
 	  std::cout << "Dragon unleashes a fiery breath attack!" << std::endl;
@@ -74,40 +75,37 @@ void EnemyBoss::Attack(int enemy)
 	  break;
 	}
   }
-	
 }
 
-void EnemyBoss::Move(int enemy) 
+sf::Vector3i EnemyBoss::Move(int enemy)
 {
+  int x_move_distance = 0;
+  int y_move_distance = 0;
+  int sight_range     = 0;
   switch (enemy)
   {
 	case DRAGON:
 	{
 	  std::cout << "Dragon soars through the skies." << std::endl;
-	  /* if (dragon can see the player)
-	  {
-		set can_see_player to true.
-	  }
-	  else
-	  {
-		int direction = rand() % 4;
-	  }
-	  set speed to how many tiles dragon moves.
-      // Dragon will try to keep some distance from the player while moving.
-	  */
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 5;
 	  break;
 	}
 	case GIANT:
 	{
 	  std::cout << "Giant stomps heavily across the ground." << std::endl;
-      // Giant moves slowly, but always tries to get into close range.
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 5;
 	  break;
 	}
 	case SLIME_KING:
 	{
 	  std::cout << "Slime King oozes menacingly." << std::endl;
-      // Slime King tends to move randomly within the boss room, occasionally
-      // moving away the player.
+      x_move_distance = 1;
+      y_move_distance = 1;
+      sight_range     = 5;
 	  break;
 	}
 	default:
@@ -116,20 +114,7 @@ void EnemyBoss::Move(int enemy)
 	  break;
 	}
   }
-  /*
-  if (enemy can_see_enemy)
-  {
-  check path to player isnt in a wall,
-  move towards player by speed amount.
-  }
-  else
-  {
-  move in random direction by speed amount and the direction chosen earlier.
-  This movemnet is capped to a certan area, formed by the boss room.
-  }
-
-  update enemy position on grid, and in enemy struct in Enemy class.
-  */
+  return sf::Vector3i(x_move_distance, y_move_distance, sight_range);
 }
 
 int EnemyBoss::getDamage(int enemy)

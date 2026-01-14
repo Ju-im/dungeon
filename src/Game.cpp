@@ -14,7 +14,7 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(10);
+  spawnEnemy(1);
   grid.printGrid();
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);
@@ -112,7 +112,7 @@ void Game::keyPressed(sf::Event event)
     std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
   }
-  enemy.takeTurn(player.getPosition(grid));
+  enemy.takeTurn(player.getPosition(grid),grid);
 }
 
 

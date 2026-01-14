@@ -19,7 +19,7 @@ void Enemy::takeDamage(int amount)
   }
 }
 
-void Enemy::takeTurn(sf::Vector2i player_pos)
+void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
 {
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
@@ -34,7 +34,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos)
     }
     else
     {
-      move(enemy_selected, player_pos);
+      move(enemy_selected, player_pos, grid);
     }
   }
 
@@ -85,7 +85,7 @@ void Enemy::attack(int enemy)
   }
 }
 
-void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
+void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
 {
   // Placeholder logic for enemy movement
   // In a real implementation, this would involve pathfinding and movement
@@ -111,6 +111,10 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
     case GIANT:
     case SLIME_KING:
     {
+      sf::Vector3i enemy_stats = enemyBoss.Move(enemies_in_play[enemy_selected].type);
+      x_move_distance = enemy_stats.x;
+      y_move_distance = enemy_stats.y;
+      sight_range     = enemy_stats.z;
       break;
     }
     case BAT:
@@ -133,38 +137,81 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
   {  
     if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y && player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
     {
-      // if player is within sight range, move towards player
-      if (player_pos.y < enemies_in_play[enemy_selected].y)
+
+      switch (enemies_in_play[enemy_selected].type)
       {
-        enemies_in_play[enemy_selected].y -= y_move_distance;
+        case DRAGON:
+        case GIANT:
+        case SLIME_KING:
+        {
+          if (player_pos.y < enemies_in_play[enemy_selected].y)
+          {
+            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == BossRoom) 
+            {
+              enemies_in_play[enemy_selected].y -= y_move_distance;
+              std::cout << "Move y -1" << std::endl;
+              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) << std::endl;
+            }
+            std::cout << "!No Move y -1 No!" << std::endl;
+          }
+          else if (player_pos.y > enemies_in_play[enemy_selected].y)
+          {
+            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == BossRoom) 
+            {
+              enemies_in_play[enemy_selected].y += y_move_distance;
+              std::cout << "Move y +1" << std::endl;
+              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) << std::endl;
+            }
+            std::cout << "!No Move y +1 No!" << std::endl;
+          }
+          if (player_pos.x < enemies_in_play[enemy_selected].x)
+          {
+            if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
+            {
+              enemies_in_play[enemy_selected].x -= x_move_distance;
+              std::cout << "Move x -1" << std::endl;
+              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
+            }
+            std::cout << "!No Move x -1 No!" << std::endl;
+          }
+          else if (player_pos.x > enemies_in_play[enemy_selected].x)
+          {
+            if (grid.getGrid(enemies_in_play[enemy_selected].x  + x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
+            {
+              enemies_in_play[enemy_selected].x += x_move_distance;
+              std::cout << "Move x +1" << std::endl;
+              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
+            }
+            std::cout << "!No Move x +1 No!" << std::endl;
+          }
+          enemies_in_play[enemy_selected].turn_taken = true;
+          break;
+        }
+        default:
+        {
+          // if player is within sight range, move towards player
+          if (player_pos.y < enemies_in_play[enemy_selected].y)
+          {
+            enemies_in_play[enemy_selected].y -= y_move_distance;
+          }
+          else if (player_pos.y > enemies_in_play[enemy_selected].y)
+          {
+            enemies_in_play[enemy_selected].y += y_move_distance;
+          }
+          if (player_pos.x < enemies_in_play[enemy_selected].x)
+          {
+            enemies_in_play[enemy_selected].x -= x_move_distance;
+          }
+          else if (player_pos.x > enemies_in_play[enemy_selected].x)
+          {
+            enemies_in_play[enemy_selected].x += x_move_distance;
+          }
+          enemies_in_play[enemy_selected].turn_taken = true;
+          std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+        }
       }
-      else if (player_pos.y > enemies_in_play[enemy_selected].y)
-      {
-        enemies_in_play[enemy_selected].y += y_move_distance;
-      }
-      if (player_pos.x < enemies_in_play[enemy_selected].x)
-      {
-        enemies_in_play[enemy_selected].x -= x_move_distance;
-      }
-      else if (player_pos.x > enemies_in_play[enemy_selected].x)
-      {
-        enemies_in_play[enemy_selected].x += x_move_distance;
-      }
-      enemies_in_play[enemy_selected].turn_taken = true;
-      std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     }
   }
-  // Random enemy Movement - commented out unless needed
-  //if (!enemies_in_play[enemy_selected].turn_taken)
-  //{
-  //  // Random movement if player not in sight range
-  //  std::cout << "Enemy moves randomly." << std::endl;
-
-  //  //int random_direction = (rand() % 2) -1;
-  //  enemies_in_play[enemy_selected].x +=  x_move_distance;
-  //  enemies_in_play[enemy_selected].y += ( y_move_distance);
-  //}
-  //std::cout << "Enemy" << enemies_in_play[enemy_selected].type << " new position: (" << enemies_in_play[enemy_selected].x << ", " << enemies_in_play[enemy_selected].y << ")" << std::endl;
 }
 
 int Enemy::getHealth(int enemy)
@@ -241,14 +288,14 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
         {
           x = rand() % 60;
           y = rand() % 60;
-        } while (matrix[x][y] != 5);
+        } while (matrix[x][y] != BossRoom);
         try
         {
-          if (matrix[x][y + 1] == 5)
+          if (matrix[x][y + 1] == BossRoom)
           {
-            if (matrix[x + 1][y] == 5)
+            if (matrix[x + 1][y] == BossRoom)
             {
-              if (matrix[x + 1][y + 1] == 5)
+              if (matrix[x + 1][y + 1] == BossRoom)
               {
                 can_spawn = true;
               }
@@ -268,7 +315,7 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
       {
         x = rand() % 60;
         y = rand() % 60;
-      } while (matrix[x][y] == 1);
+      } while (matrix[x][y] == Wall);
       can_spawn = true;
       break;
     }
@@ -306,9 +353,21 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
   int CELL_SIZE = 10;
   for (int i = 0; i < enemies_in_play.size(); i++)
   {
-    sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-    startTile.setFillColor(sf::Color(128, 128, 128));
-    startTile.setPosition(enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
-    window.draw(startTile);
+    if (enemies_in_play[i].type == 7)
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color(255, 255, 0));
+      startTile.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+      window.draw(startTile);
+    }
+    else
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color(128, 128, 128));
+      startTile.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+      window.draw(startTile);
+    }
   }
 }

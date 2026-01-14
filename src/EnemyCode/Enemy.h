@@ -17,13 +17,13 @@ class Enemy
 	~Enemy();
 	void attack(int enemy);
     bool checkIfAttackPossible(int (*matrix)[60]);
-    void move(int enemy, sf::Vector2i player_pos);
+    void move(int enemy, sf::Vector2i player_pos, Grid& grid);
 	void takeDamage(int amount); 
     sf::Vector3i spawn(int (*matrix)[60], int type);
     void printEnemiesInPlay();
     int getHealth(int enemy);
     int getDamage(int enemy);
-    void takeTurn(sf::Vector2i player_pos);
+    void takeTurn(sf::Vector2i player_pos, Grid& grid);
     void getEnemyLocations(int locations[]);
     void drawEnemies(sf::RenderWindow& window);
 
@@ -50,6 +50,16 @@ class Enemy
       int x;
       int y;
       bool turn_taken;
+    };
+    enum RoomIndex
+    {
+      Wall         = 1,
+      Floor        = 0,
+      CombatRoom   = 2,
+      TreasureRoom = 3,
+      ShopRoom     = 4,
+      BossRoom     = 5,
+      StartRoom    = 6,
     };
     EnemyIndividualStats stats;
     std::vector<EnemyIndividualStats> enemies_in_play;
