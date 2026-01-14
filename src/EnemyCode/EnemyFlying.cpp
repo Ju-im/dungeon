@@ -34,29 +34,25 @@ void EnemyFlying::Attack(int enemy)
   }
 	
 }
-void EnemyFlying::Move(int enemy) 
+sf::Vector3i EnemyFlying::Move(int enemy)
 {
+  int x_move_distance = 0;
+  int y_move_distance = 0;
+  int sight_range     = 0;
   switch (enemy)
   {
 	case BAT:
 	{
-	  std::cout << "Bat flutters its wings and flies." << std::endl;
-      /* if (bat can see the player)
-      {
-        set can_see_player to true.
-      }
-      else
-      {
-        int direction = rand() % 4;
-      }
-      set speed to how many tiles bat moves.
-      */
-
+      x_move_distance = 2;
+      y_move_distance = 1;
+      sight_range     = 4;
 	  break;
     }
     case BABY_DRAGON:
     {
-      std::cout << "Baby Dragon soars through the air." << std::endl;
+      x_move_distance = 1;
+      y_move_distance = 2;
+      sight_range     = 4;
       break;
     }
 	default:
@@ -65,22 +61,7 @@ void EnemyFlying::Move(int enemy)
 	  break;
     }
   }
-  /*
-  if (enemy can_see_enemy)
-  {
-  check path to player isnt in a wall,
-  (path can include flying over ground obstacles or though walls,
-  but, must end on a tile that is not a wall)
-  move towards player by speed amount.
-  }
-  else
-  {
-  move in random direction by speed amount and the direction chosen earlier.
-  (can fly over ground obstacles or though walls, but cant end on a wall)
-  }
-  
-  update enemy position on grid, and in enemy struct in Enemy class.
-  */
+  return sf::Vector3i(x_move_distance, y_move_distance, sight_range);
 }
 
 int EnemyFlying::getHealth(int enemy) 

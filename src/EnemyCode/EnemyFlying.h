@@ -9,7 +9,7 @@ class EnemyFlying
 		EnemyFlying();
 		~EnemyFlying();
 		void Attack(int enemy);
-		void Move(int enemy);
+        sf::Vector3i Move(int enemy);
         int getHealth(int enemy);
         int getDamage(int enemy);
 

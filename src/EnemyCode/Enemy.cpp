@@ -116,7 +116,10 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
     case BAT:
     case BABY_DRAGON:
     {
-      //std::cout << "Flying enemy moves." << std::endl;
+      sf::Vector3i enemy_stats = enemyFlying.Move(enemies_in_play[enemy_selected].type);
+      x_move_distance = enemy_stats.x;
+      y_move_distance = enemy_stats.y;
+      sight_range     = enemy_stats.z;
       break;
     }
     default:
@@ -151,6 +154,7 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos)
       std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     }
   }
+  // Random enemy Movement - commented out unless needed
   //if (!enemies_in_play[enemy_selected].turn_taken)
   //{
   //  // Random movement if player not in sight range
