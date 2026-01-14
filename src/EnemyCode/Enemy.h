@@ -26,6 +26,7 @@ class Enemy
     void takeTurn(sf::Vector2i player_pos, Grid& grid);
     void getEnemyLocations(int locations[]);
     void drawEnemies(sf::RenderWindow& window);
+    bool checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance,int enemy_selected, sf::Vector2i player_pos);
 
 	private:
     int type;

@@ -14,7 +14,7 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(1);
+  spawnEnemy(10);
   grid.printGrid();
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);

@@ -85,6 +85,123 @@ void Enemy::attack(int enemy)
   }
 }
 
+bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance, int enemy_selected, sf::Vector2i player_pos) 
+{
+  switch (direction)
+  {
+    case 1: // Up
+    {
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == Wall) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == ShopRoom) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == StartRoom) 
+        {
+          return false;
+        }
+        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        {
+            if (enemies_in_play[enemy_selected].y - y_move_distance == enemies_in_play[each_enemy].y)
+            {
+              return false; 
+            }
+        }
+        if (enemies_in_play[enemy_selected].y - y_move_distance == player_pos.y) 
+        {
+          return false;
+        }
+        break;
+    }
+    case 2: // Down
+    {
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == Wall) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == ShopRoom) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == StartRoom) 
+        {
+          return false;
+        }
+        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        {
+            if (enemies_in_play[enemy_selected].y + y_move_distance == enemies_in_play[each_enemy].y)
+            {
+              return false; 
+            }
+        }
+        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y) 
+        {
+          return false;
+        }
+        break;
+    }
+    case 3: // Left
+    {
+        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
+        {
+          return false;
+        }
+        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        {
+            if (enemies_in_play[enemy_selected].x - x_move_distance == enemies_in_play[each_enemy].x)
+            {
+              return false; 
+            }
+        }
+        if (enemies_in_play[enemy_selected].x - x_move_distance == player_pos.y) 
+        {
+          return false;
+        }
+        break;
+    }
+    case 4: // Right
+    {
+        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
+        {
+          return false;
+        }
+        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
+        {
+          return false;
+        }
+        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        {
+            if (enemies_in_play[enemy_selected].x + x_move_distance == enemies_in_play[each_enemy].x)
+            {
+              return false; 
+            }
+        }
+        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.y) 
+        {
+          return false;
+        }
+        break;
+    }
+  }
+  return true;
+}
+
+
 void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
 {
   // Placeholder logic for enemy movement
@@ -192,19 +309,31 @@ void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
           // if player is within sight range, move towards player
           if (player_pos.y < enemies_in_play[enemy_selected].y)
           {
-            enemies_in_play[enemy_selected].y -= y_move_distance;
+            if (checkIfCanMove(grid,1,0,y_move_distance,enemy_selected,player_pos) == true)
+            {
+                enemies_in_play[enemy_selected].y -= y_move_distance;
+            }
           }
           else if (player_pos.y > enemies_in_play[enemy_selected].y)
           {
-            enemies_in_play[enemy_selected].y += y_move_distance;
+            if (checkIfCanMove(grid,2,0,y_move_distance,enemy_selected,player_pos) == true)
+            {
+                enemies_in_play[enemy_selected].y += y_move_distance;
+            }
           }
           if (player_pos.x < enemies_in_play[enemy_selected].x)
           {
-            enemies_in_play[enemy_selected].x -= x_move_distance;
+            if (checkIfCanMove(grid,3,x_move_distance,0,enemy_selected,player_pos) == true)
+            {
+              enemies_in_play[enemy_selected].x -= x_move_distance;
+            }
           }
           else if (player_pos.x > enemies_in_play[enemy_selected].x)
           {
-            enemies_in_play[enemy_selected].x += x_move_distance;
+            if (checkIfCanMove(grid,4,x_move_distance,0,enemy_selected,player_pos) == true)
+            {
+              enemies_in_play[enemy_selected].x += x_move_distance;
+            }
           }
           enemies_in_play[enemy_selected].turn_taken = true;
           std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
