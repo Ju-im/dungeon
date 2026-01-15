@@ -30,18 +30,21 @@ enum GAME_STATE
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);
   void spawnEnemy(int amount);
   void spawnPlayer();
-
-   int x = 0;
+  int x = 0;
   int y = 0;
   Grid grid;
   int (*gridCopy)[60]   = grid.getAllGrid();
-  GAME_STATE game_state = MENU;
+  GAME_STATE game_state = GAME;
   Enemy enemy{};
   Player player;
+  enum GameMenuOptions
+  {
+    Move = 1,
+  };
   
   int loop = 300;
   
- 
+  int option_selected = Move;
 };
 
 #endif // WHACKAMOLESFML_GAME_H
