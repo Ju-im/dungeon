@@ -119,7 +119,7 @@ void Game::keyPressed(sf::Event event)
     player.setDirection(2);
   }
   enemy.takeTurn(player.getPosition(grid),grid);
-  w.attack(player,grid, 3);
+  w.attack(player,grid, 4);
 }
 
 

@@ -106,6 +106,7 @@ void Weapon::render(sf::RenderWindow& window)
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
           {
+            pos.clear();
             int dir_x = 3 - y;
             int dir_y = 1 - x;
             // Draw wall tile at (i, j)
@@ -114,12 +115,8 @@ void Weapon::render(sf::RenderWindow& window)
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
-            if (loop)
-            {
-              std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
-                        << wallTile.getPosition().y << std::endl;
-              loop = false;
-            }
+            pos.push_back(wallTile.getPosition());
+           
             
             window.draw(wallTile);
             break;
@@ -131,6 +128,7 @@ void Weapon::render(sf::RenderWindow& window)
           {
             if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
             {
+              pos.clear();
               int dir_x = 3 - y;
               int dir_y = 1 - x;
               // Draw wall tile at (i, j)
@@ -145,7 +143,7 @@ void Weapon::render(sf::RenderWindow& window)
                           << wallTile.getPosition().y << std::endl;
                 loop = false;
               }
-
+              pos.push_back(wallTile.getPosition());
               window.draw(wallTile);
               break;
             }
@@ -156,6 +154,7 @@ void Weapon::render(sf::RenderWindow& window)
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
           {
+            pos.clear();
             int dir_x = 1 - x;
             int dir_y = 3 - y;
             // Draw wall tile at (i, j)
@@ -166,6 +165,7 @@ void Weapon::render(sf::RenderWindow& window)
               (player_pos.x + dir_x) * CELL_SIZE);
             std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
                       << wallTile.getPosition().y << std::endl;
+            pos.push_back(wallTile.getPosition());
             window.draw(wallTile);
             break;
           }
@@ -175,6 +175,7 @@ void Weapon::render(sf::RenderWindow& window)
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
           {
+            pos.clear();
             int dir_x = (1 - x);
             int dir_y = (3 - y);
             // Draw wall tile at (i, j)
@@ -185,6 +186,7 @@ void Weapon::render(sf::RenderWindow& window)
               (player_pos.x + dir_x) * CELL_SIZE);
             std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
                       << wallTile.getPosition().y << std::endl;
+            pos.push_back(wallTile.getPosition());
             window.draw(wallTile);
             break;
           }
@@ -195,6 +197,18 @@ void Weapon::render(sf::RenderWindow& window)
       }
     }
   }
+}
+
+std::vector<sf::Vector2f> Weapon::getAttackPos()
+{
+
+    for (int i = 0; i < pos.size(); i++)
+  {
+      pos[i].x = pos[i].x / CELL_SIZE;
+    pos[i].y = pos[i].y / CELL_SIZE;
+    
+    }
+  return pos;
 }
 
 
