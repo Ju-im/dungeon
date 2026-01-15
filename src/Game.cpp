@@ -18,7 +18,7 @@ bool Game::init()
   grid.printGrid();
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);
-
+  w.init();
   //enemy.move(-9);
   //spawnPlayer();
 
@@ -37,6 +37,7 @@ bool Game::init()
 // UPDATE FUNCTION
 void Game::update(float dt)
 {
+  w.update(dt, player, grid);
   switch (game_state)
   {
     case MENU:
@@ -76,7 +77,7 @@ void Game::render()
   grid.drawDungeon(window);
   enemy.drawEnemies(window);
   
- 
+ w.render(window);
   player.render(window);
 }
 
@@ -96,23 +97,29 @@ void Game::keyPressed(sf::Event event)
   {
     std::cout << "W pressed" << std::endl;
     player.moveY(-1, grid);
+    player.setDirection(-1);
+    
   }
   if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
   {
     std::cout << "A pressed" << std::endl;
     player.moveX(-1, grid);
+    player.setDirection(-2);
   }
   if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
   {
     std::cout << "S pressed" << std::endl;
     player.moveY(1, grid);
+    player.setDirection(1);
   }
   if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
   {
     std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
+    player.setDirection(2);
   }
   enemy.takeTurn(player.getPosition(grid),grid);
+  w.attack(player,grid, 3);
 }
 
 

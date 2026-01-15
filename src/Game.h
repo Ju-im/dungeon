@@ -5,6 +5,7 @@
 #include "Grid.h"
 #include "EnemyCode/Enemy.h"
 #include "Player.h"
+#include "Weapon.h"
 
 enum GAME_STATE
 {
@@ -38,6 +39,7 @@ enum GAME_STATE
   GAME_STATE game_state = MENU;
   Enemy enemy{};
   Player player;
+  Weapon w;
   
   int loop = 300;
   

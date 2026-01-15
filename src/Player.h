@@ -19,6 +19,9 @@ class Player
      sf::Vector2i currentPos;
      sf::Vector2i gridPos; 
      sf::RectangleShape test;
+     void setDirection(int dir);
+     int getDirection();
+     int player_dir = -2;
 
 
  private:

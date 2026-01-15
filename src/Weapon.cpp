@@ -6,59 +6,221 @@ Weapon::Weapon() {
 }
 Weapon::~Weapon() {}
 
-void Weapon::setAttackHeight(int height) {
-  attackHeight = height;
 
 
-}
-
-void Weapon::setAttackWidth(int width)
+void Weapon::attack(Player& player, Grid& grid, int type)
 {
-  attackWidth = width;
-}
+  
+  sf::Vector2i grid_pos =player.getScreenPosition(grid);
 
-void Weapon::attack(Player& player, Grid& grid)
-{
-  char dir = 'u';
-  if (dir == 'u')
+  switch (type)
   {
-    sf::Vector2i player_screen_pos = player.getScreenPosition(grid);
-    for (int i = 0; i < attackHeight; i++)
+    case (Dagger):
     {
-      int y = player_screen_pos.y;
-      int x = player_screen_pos.x;
-      box[i].setPosition(x, y + i + 1);
-      box.pop_back();
-      //white white white, white black white
+      attack_grid[2][1] = 3;
+      attack_grid[3][0] = 1;
+      attack_grid[3][2] = 2;
+      break;
     }
   
-  
+    case (Spear):
+    {
+      attack_grid[2][1] = 3;
+      attack_grid[1][1] = 1;
+      attack_grid[0][1] = 2;
+
+        break;
+    }
+    case (Bow):
+    {
+    
+      attack_grid[1][1] = 1;
+      attack_grid[0][1] = 2;
+
+      break;
+    }
+    case (Axe):
+    {
+      attack_grid[2][0] = 3;
+      attack_grid[2][2] = 1;
+      attack_grid[1][0] = 2;
+      attack_grid[1][1] = 1;
+      attack_grid[1][2] = 2;
+
+
+      break;
+    }
+    case (Sword):
+    {
+      attack_grid[2][0] = 3;
+      attack_grid[2][1] = 1;
+      attack_grid[2][2] = 2;
+      attack_grid[1][1] = 2;
+
+      break;
+    }
+    case (Staff):
+    {
+      attack_grid[2][1] = 3;
+      attack_grid[1][1] = 1;
+      attack_grid[0][0] = 2;
+      attack_grid[0][2] = 2;
+
+      break;
+    }
+   
+    default:
+      break;
   }
 
-
-
-}
-
-void Weapon::setNumberOfBoxes(int num) {
-  num_box = num;
-  box.resize(num_box);
-  for (int i = 0; i < box.size(); i++)
+ for (int i = 0; i < 4; i++)
   {
-    box[i].setFillColor(sf::Color::White);
-    box[i].setSize(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-  
+    for (int j = 0; j < 3; j++)
+    {
+      std::cout << attack_grid[i][j];
+    }
+    std::cout<<std::endl;
   }
 
 }
 
-void Weapon::setEmptySpace(int num, sf::Vector2i pos) {
+void Weapon::update(float dt, Player& player , Grid& grid) {
 
+    player_pos = player.getPosition(grid);
+  player_dir = player.getDirection();
+    
 
 
 }
 
-bool init() {
+void Weapon::render(sf::RenderWindow& window)
+{
+  for (int y = 0; y < Y; y++)
+  {
+    for (int x = 0; x < X; x++)
+    {
+      switch (player_dir)
+      {
 
+          case (1):
+        {
+          if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+          {
+            int dir_x = 3 - y;
+            int dir_y = 1 - x;
+            // Draw wall tile at (i, j)
+            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setPosition(
+              (player_pos.y + dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            if (loop)
+            {
+              std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
+                        << wallTile.getPosition().y << std::endl;
+              loop = false;
+            }
+            
+            window.draw(wallTile);
+            break;
+          }
+        }
+        
+          
+          case(-1) :
+          {
+            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            {
+              int dir_x = 3 - y;
+              int dir_y = 1 - x;
+              // Draw wall tile at (i, j)
+              sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+              wallTile.setFillColor(sf::Color::Black);
+              wallTile.setPosition(
+                (player_pos.y + dir_y) * CELL_SIZE,
+                (player_pos.x - dir_x) * CELL_SIZE);
+              if (loop)
+              {
+                std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
+                          << wallTile.getPosition().y << std::endl;
+                loop = false;
+              }
+
+              window.draw(wallTile);
+              break;
+            }
+          }
+          
+          
+        case (2):
+        {
+          if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+          {
+            int dir_x = 1 - x;
+            int dir_y = 3 - y;
+            // Draw wall tile at (i, j)
+            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setPosition(
+              (player_pos.y + dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
+                      << wallTile.getPosition().y << std::endl;
+            window.draw(wallTile);
+            break;
+          }
+        }
+
+        case (-2):
+        {
+          if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+          {
+            int dir_x = (1 - x);
+            int dir_y = (3 - y);
+            // Draw wall tile at (i, j)
+            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setPosition(
+              (player_pos.y - dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            std::cout << "X:" << wallTile.getPosition().x << "  " << " Y"
+                      << wallTile.getPosition().y << std::endl;
+            window.draw(wallTile);
+            break;
+          }
+
+          default:
+            break;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool Weapon::init() {
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+    
+    attack_grid[i][j] = 0;
+    
+    }
+  }
+  attack_grid[3][1] = 9;
 
 
 	return true;

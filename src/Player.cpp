@@ -69,6 +69,17 @@ void Player::spawnPlayer(Grid& grid) {
 
 
 }
+void Player::setDirection(int dir) {
+
+    player_dir = dir;
+
+
+}
+int Player::getDirection() {
+
+
+    return player_dir;
+}
 sf::Vector2i Player::getScreenPosition(Grid& grid)
 {
   currentPos = { gridPos.y * CELL_SIZE, gridPos.x * CELL_SIZE };
@@ -87,8 +98,8 @@ void Player::moveX(int x, Grid& grid)
   test.setPosition(actual_screen_pos.x, actual_screen_pos.y + x);
   
 
-  std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-            << std::endl;
+ /* std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
+            << std::endl;*/
   }
   // y,x
   
@@ -103,14 +114,14 @@ void Player::moveY(int y, Grid& grid)
   {
     gridPos                        = { gridPos.x + y, gridPos.y };
     sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
-    std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-              << std::endl;
+    /*std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
+              << std::endl;*/
     test.setPosition(actual_screen_pos.x + y, actual_screen_pos.y);
   }
   else
   {
-    std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-              << std::endl;
+    /*std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
+              << std::endl;*/
   }
   
 }
