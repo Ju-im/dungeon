@@ -39,12 +39,18 @@ enum GAME_STATE
   Player player;
   enum GameMenuOptions
   {
+    None = 0,
     Move = 1,
+    WeponAttack = 2,
+    SpellAttack = 3,
+    Item = 4,
   };
   
   int loop = 300;
   
-  int option_selected = Move;
+  int option_selected = None;
+  int option_highlighted = 0;
+  bool Player_Turn = false;
 };
 
 #endif // WHACKAMOLESFML_GAME_H
