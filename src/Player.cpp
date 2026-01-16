@@ -19,20 +19,7 @@ void Player::render(sf::RenderWindow& window) {
 }
 
  sf::Vector2i Player::getPosition(Grid& grid) {
-	//Change the hardcoded 60 into something else
- // int(*gridCopy)[60] = grid.getAllGrid();
- ///* for (int y = 0; y < 60; y++)
- // {
- //   for (int x = 0; x < 60; x++)
- //   {
- //     if (gridCopy[y][x] == 99)
- //     {
- //       std::cout << "Player position found at: (" << x << ", " << y << ")" << std::endl;
- //       return sf::Vector2i(x, y);
- //     }
- //   }
- // }*/
- 
+
   return gridPos;
 }
 
@@ -95,19 +82,13 @@ void Player::moveX(int x, Grid& grid)
      int y_grid         = gridPos.y + x;
      int x_grid         = gridPos.x;
      int(*gridCopy)[60] = grid.getAllGrid();
-     if (gridCopy[x_grid][y_grid] != 1)
+     if (gridCopy[x_grid][y_grid] != 1 && can_move)
      {
        gridPos = { gridPos.x, gridPos.y + x };
 
        sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
        test.setPosition(actual_screen_pos.x, actual_screen_pos.y + x);
      }
-  
-
-  
-
- /* std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-            << std::endl;*/
   }
 
   // y,x
@@ -125,19 +106,14 @@ void Player::moveY(int y, Grid& grid)
     int y_grid = gridPos.y;
     int x_grid = gridPos.x + y;
     int(*gridCopy)[60] = grid.getAllGrid();
-    if (gridCopy[x_grid][y_grid] != 1)
+    if (gridCopy[x_grid][y_grid] != 1 && can_move)
     {
       gridPos                        = { gridPos.x + y, gridPos.y };
       sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
-      /*std::cout << "gridPos x: " << gridPos.y << " gridPos y: " << gridPos.x
-                << std::endl;*/
+      
       test.setPosition(actual_screen_pos.x + y, actual_screen_pos.y);
     
     }
-    
-    
-    
- 
     
   }
   
