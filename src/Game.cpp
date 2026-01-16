@@ -14,11 +14,11 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(10);
+  spawnEnemy(2);
   grid.printGrid();
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);
-  w.init();
+  weapon.init();
   //enemy.move(-9);
   //spawnPlayer();
 
@@ -37,47 +37,33 @@ bool Game::init()
 // UPDATE FUNCTION
 void Game::update(float dt)
 {
-  w.update(dt, player, grid);
+  weapon.update(dt, player, grid);
   switch (game_state)
   {
     case MENU:
     {
-     // if (loop == 0)
-      //{
-      //    enemy.takeTurn(player.getPosition(grid));
-      //  loop = 300;
-     // }
-     // else
-    //  {
-     //   loop -= 1;
-     // }
-      
-    
-    }
-      break;
-    case GAME:
-        {
-
-     
-     
-    }
         break;
+    }
+      
+    case GAME:
+    {
+
+      enemy.takeDamage(0, weapon.getAttackPos());
+      weapon.clearPos();
+      break;
+    }
     case PAUSE:
     {
-    
+      break;
     }
-    break;
   }
- 
-  
 }
 
 void Game::render()
 {
   grid.drawDungeon(window);
   enemy.drawEnemies(window);
-  
- w.render(window);
+  weapon.render(window);
   player.render(window);
 }
 
@@ -119,7 +105,7 @@ void Game::keyPressed(sf::Event event)
     player.setDirection(2);
   }
   enemy.takeTurn(player.getPosition(grid),grid);
-  w.attack(player,grid, 4);
+  weapon.attack(player, grid, 2);
 }
 
 

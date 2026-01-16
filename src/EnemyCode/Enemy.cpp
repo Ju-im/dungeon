@@ -5,10 +5,24 @@ Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 
-void Enemy::takeDamage(int amount)
+void Enemy::takeDamage(int amount, std::vector<sf::Vector2f> attack_positions)
 {
   // Apply damage to specific enemy
-
+  if (attack_positions.size() > 0)
+  {
+    for (int i = 0; i < attack_positions.size(); i++)
+    {
+      //std::cout << attack_positions.size();
+      for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
+      {
+        if (attack_positions[i].y == enemies_in_play[enemy_selected].x && attack_positions[i].x == enemies_in_play[enemy_selected].y)
+        {
+          enemies_in_play[enemy_selected].health -= 0;
+          std::cout << "Enemy: " << enemies_in_play[enemy_selected].type << " is on [" << enemies_in_play[enemy_selected].health << "] health!" << std::endl;
+        }
+      }
+    }
+  }
   // If enemy dies, remove from enemies_in_play
   for (int i = 0; i < enemies_in_play.size(); i++)
   {

@@ -19,7 +19,7 @@ class Weapon
   std::vector<sf::Vector2f> getAttackPos();
   sf::RectangleShape hitbox;
   std::vector<sf::Vector2f> pos;
-
+  void clearPos();
   private:
   int CELL_SIZE    = 10;
   int attackHeight = 2;
