@@ -120,7 +120,7 @@ void Weapon::render(sf::RenderWindow& window)
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
-            pos.push_back(wallTile.getPosition());
+            pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
            
             
             window.draw(wallTile);
@@ -146,7 +146,7 @@ void Weapon::render(sf::RenderWindow& window)
               {
                 loop = false;
               }
-              pos.push_back(wallTile.getPosition());
+              pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
               window.draw(wallTile);
               break;
             }
@@ -166,7 +166,7 @@ void Weapon::render(sf::RenderWindow& window)
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
-            pos.push_back(wallTile.getPosition());
+            pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
             window.draw(wallTile);
             break;
           }
@@ -185,7 +185,7 @@ void Weapon::render(sf::RenderWindow& window)
             wallTile.setPosition(
               (player_pos.y - dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
-            pos.push_back(wallTile.getPosition());
+            pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
             window.draw(wallTile);
             break;
           }
@@ -208,8 +208,7 @@ std::vector<sf::Vector3i> Weapon::getAttackPos()
     grid_pos_selected.y = pos[i].y / CELL_SIZE;
     int grid_x          = pos[i].x / CELL_SIZE;
     int grid_y          = pos[i].y / CELL_SIZE;
-    //std::cout << attack_grid[2][0] << std::endl;
-    grid_pos_selected.z = attack_grid[2][0];
+    grid_pos_selected.z = pos[i].z;
 
     grid_pos.push_back(grid_pos_selected);
   }

@@ -18,7 +18,7 @@ class Weapon
   void render(sf::RenderWindow& window);
   std::vector<sf::Vector3i> getAttackPos();
   sf::RectangleShape hitbox;
-  std::vector<sf::Vector2f> pos;
+  std::vector<sf::Vector3f> pos;
   
   std::vector<sf::Vector3i> grid_pos;
   sf::Vector3i grid_pos_selected;
