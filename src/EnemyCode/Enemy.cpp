@@ -72,6 +72,35 @@ void Enemy::attack(int enemy)
   switch (enemy)
   {
     case SLIME:
+    {
+      for (int y = 0; y < Y; y++)
+      {
+        for (int x = 0; x < X; x++)
+        {
+          int(*attack_grid)[4][3] = enemyGround.Attack(enemy);
+          std::cout << "\n Pointer attack grid:  " << *attack_grid[y][x]
+                    << std::endl;
+          if (*attack_grid[y][x] != 0 && *attack_grid[y][x] != 9)
+          {
+            // pos.clear();
+            int dir_x = 3 - y;
+            int dir_y = 1 - x;
+            // Draw wall tile at (i, j)
+            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setPosition(
+              (enemies_in_play[enemy].y + dir_y) * CELL_SIZE,
+              (enemies_in_play[enemy].x + dir_x) * CELL_SIZE);
+           
+          }
+        }
+     
+        break;
+      }
+    
+    
+    
+    }
     case SKELETON:
     case SPIDER:
     case WOLF:
@@ -96,6 +125,7 @@ void Enemy::attack(int enemy)
     {
       std::cout << "Unknown enemy type cannot attack!" << std::endl;
       break;
+    
     }
   }
 }
@@ -390,7 +420,13 @@ int Enemy::getDamage(int enemy)
 {
     switch (enemy)
   {
-    case SLIME:
+      case SLIME:
+      
+       
+        
+      
+
+      
     case SKELETON:
     case SPIDER:
     case WOLF:
@@ -514,4 +550,6 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
       window.draw(startTile);
     }
   }
+
+
 }

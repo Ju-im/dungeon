@@ -18,6 +18,7 @@ int (*EnemyGround::Attack(int enemy))[4][3]
         { 0, 1, 0 }, 
         { 1, 99, 1 }
       };
+     
       return &attack_grid;
       break; 
     }

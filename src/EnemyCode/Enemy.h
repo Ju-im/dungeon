@@ -27,8 +27,11 @@ class Enemy
     void getEnemyLocations(int locations[]);
     void drawEnemies(sf::RenderWindow& window);
     bool checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance,int enemy_selected, sf::Vector2i player_pos);
-
+   
 	private:
+    int X         = 3;
+    int Y         = 4;
+    int CELL_SIZE = 10;
     int type;
     bool spawned = false;
     enum EnemyTypes
