@@ -198,17 +198,24 @@ void Weapon::render(sf::RenderWindow& window)
   }
 }
 
-std::vector<sf::Vector2f> Weapon::getAttackPos()
+std::vector<sf::Vector3i> Weapon::getAttackPos()
 {
-  std::cout << pos.size();
+  grid_pos.clear();
+
   for (int i = 0; i < pos.size(); i++)
   {
-    pos[i].x = pos[i].x / CELL_SIZE;
-    pos[i].y = pos[i].y / CELL_SIZE;
-    
+    grid_pos_selected.x = pos[i].x / CELL_SIZE;
+    grid_pos_selected.y = pos[i].y / CELL_SIZE;
+    int grid_x          = pos[i].x / CELL_SIZE;
+    int grid_y          = pos[i].y / CELL_SIZE;
+    //std::cout << attack_grid[2][0] << std::endl;
+    grid_pos_selected.z = attack_grid[2][0];
+
+    grid_pos.push_back(grid_pos_selected);
   }
-  return pos;
+  return grid_pos;
 }
+
 
 
 

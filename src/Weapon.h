@@ -16,9 +16,13 @@ class Weapon
   void update(float dt, Player& player, Grid& grid);
   void setNumberOfBoxes(int num);
   void render(sf::RenderWindow& window);
-  std::vector<sf::Vector2f> getAttackPos();
+  std::vector<sf::Vector3i> getAttackPos();
   sf::RectangleShape hitbox;
   std::vector<sf::Vector2f> pos;
+  
+  std::vector<sf::Vector3i> grid_pos;
+  sf::Vector3i grid_pos_selected;
+
   void clearPos();
   private:
   int CELL_SIZE    = 10;
