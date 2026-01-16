@@ -16,6 +16,7 @@ class EnemyGround
 	private:
 	 int health;
      int damage;
+    
 	 enum EnemyGroundTypes
 	 {
 	   SLIME = -1,
