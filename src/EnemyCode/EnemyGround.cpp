@@ -4,41 +4,56 @@ EnemyGround::EnemyGround(){}
 
 EnemyGround::~EnemyGround() {}
 
-void EnemyGround::Attack(int enemy) 
+
+int (*EnemyGround::Attack(int enemy))[4][3]
 {
   switch (enemy)
   {
     case SLIME:
     {
       std::cout << "Slime attacks with a sticky slap!" << std::endl;
-      /*
-      for (each tile in a shape around slime)
-      {
-        if (tile has player)
-        {
-          apply damage to player.
-        }
-      }
-      */
-      // Slime attacks in a + shape around it, low damage.
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, 
+        { 0, 0, 0 }, 
+        { 0, 1, 0 }, 
+        { 1, 99, 1 }
+      };
+      return &attack_grid;
       break;
     }
     case SKELETON:
     {
       std::cout << "Skeleton swings its rusty sword!" << std::endl;
-      // Skeleton attacks three tiles in front of it. in a line, moderate damage.
+      int attack_grid[4][3] = {
+        { 0, 1, 0 }, 
+        { 0, 1, 0 }, 
+        { 0, 1, 0 }, 
+        { 0, 99, 0 }
+      };
       break;
     }
     case SPIDER:
     {
       std::cout << "Spider bites viciously!" << std::endl;
-      // Spider attacks one adjacent tile, low damage.
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, 
+        { 0, 0, 0 }, 
+        { 1, 1, 1 }, 
+        { 0, 99, 0 }
+      };
+      return &attack_grid;
       break;
     }
     case WOLF:
     {
       std::cout << "Wolf lunges with sharp fangs!" << std::endl;
-      // Wolf attacks two tiles in front of it, in a line, high damage.
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, 
+        { 0, 1, 0 }, 
+        { 0, 1, 0 }, 
+        { 0, 99, 0 }
+      };
+      return &attack_grid;
       break;
     }
     default:

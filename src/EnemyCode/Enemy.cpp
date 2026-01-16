@@ -76,7 +76,7 @@ void Enemy::attack(int enemy)
     case SPIDER:
     case WOLF:
     {
-      enemyGround.Attack(enemy);
+     int attack_grid[4][3] = enemyGround.Attack(enemy);
       break;
     }
     case DRAGON:
