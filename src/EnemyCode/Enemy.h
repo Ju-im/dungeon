@@ -31,6 +31,8 @@ class Enemy
 	private:
     int type;
     bool spawned = false;
+    int CELL_SIZE= 10;
+    sf::Vector2i player_position;
     enum EnemyTypes
     {
       SLIME = -1, 

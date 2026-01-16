@@ -141,14 +141,15 @@ void Game::spawnEnemy(int amount)
   for (int i = 0; i < amount-1; i++)
   {
     int(*gridCopy)[60] = grid.getAllGrid();
-    int type            = ((rand()%6)+1)*-1; //Temp Number, change to be the enemy you want to spawn
+  /*  int type            = ((rand()%6)+1)*-1*/; //Temp Number, change to be the enemy you want to spawn
+    int type            = -1;
     sf::Vector3i result = enemy.spawn(gridCopy,type); 
     //grid.setGrid(result.y, result.z, result.x);
   }
-  int type = ((rand() % 3) + 1) * -1;
+ /* int type = ((rand() % 3) + 1) * -1;
   type += -6;
-  int(*gridCopy)[60]  = grid.getAllGrid();
-  sf::Vector3i result = enemy.spawn(gridCopy, type);
+  int(*gridCopy)[60]  = grid.getAllGrid();*/
+  //sf::Vector3i result = enemy.spawn(gridCopy, type);
       // For boss enemies, occupy a 2x2 space
       //grid.setGrid(result.y, result.z, result.x);
       //grid.setGrid(result.y + 1, result.z, result.x);

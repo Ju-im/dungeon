@@ -40,7 +40,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.
   std::cout << "Enemy";
-
+  player_position = player_pos;
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
     if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
@@ -64,34 +64,87 @@ bool Enemy::checkIfAttackPossible(int (*matrix)[60])
    // {
    //   attack(enemies_in_play[i].type);
 	//}
-    return false;
+    return true;
 }
 
 void Enemy::attack(int enemy) 
 {
+  
+  if (enemies_in_play[enemy].y * CELL_SIZE > player_position.x * CELL_SIZE)
+  {
+  
+  std::cout << "\nthe player is to the left" << std::endl;
+  }
   switch (enemy)
   {
     case SLIME:
+    {
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 1, 0 }, { 1, 9, 1 }
+      };
+      
+    
+    break;
+    }
     case SKELETON:
+    {
+      int attack_grid[4][3] = {
+        { 0, 1, 0 }, { 0, 1, 0 }, { 0, 1, 0 }, { 0, 9, 0 }
+      };
+
+
+        break;
+    }
     case SPIDER:
+    {
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, { 0, 0, 0 }, { 1, 0, 1 }, { 0, 9, 0 }
+      };
+      break;
+    
+    
+    }
+      
     case WOLF:
     {
-      enemyGround.Attack(enemy);
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, { 0, 1, 0 }, { 0, 1, 0 }, { 0, 9, 0}
+      };
       break;
     }
     case DRAGON:
+    {
+    
+    break;
+    }
     case GIANT:
+    {
+      break;
+    }
     case SLIME_KING:
     {
-      enemyBoss.Attack(enemy);
+      
       break;
     }
     case BAT:
-    case BABY_DRAGON:
     {
-      enemyFlying.Attack(enemy);
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 1, 0 }, { 0, 9, 0 }
+      };
       break;
     }
+      
+
+    case BABY_DRAGON:
+    {
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, { 0, 0, 0 }, { 0, 1, 0 }, { 1, 9, 1 }
+      };
+      break;
+    
+    }
+      
+    
     default:
     {
       std::cout << "Unknown enemy type cannot attack!" << std::endl;
