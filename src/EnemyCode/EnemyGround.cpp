@@ -19,7 +19,7 @@ int (*EnemyGround::Attack(int enemy))[4][3]
         { 1, 99, 1 }
       };
       return &attack_grid;
-      break;
+      break; 
     }
     case SKELETON:
     {
@@ -30,6 +30,7 @@ int (*EnemyGround::Attack(int enemy))[4][3]
         { 0, 1, 0 }, 
         { 0, 99, 0 }
       };
+      return &attack_grid;
       break;
     }
     case SPIDER:

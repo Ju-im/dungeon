@@ -76,20 +76,20 @@ void Enemy::attack(int enemy)
     case SPIDER:
     case WOLF:
     {
-     int attack_grid[4][3] = enemyGround.Attack(enemy);
+      int (*attack_grid)[4][3] = enemyGround.Attack(enemy);
       break;
     }
     case DRAGON:
     case GIANT:
     case SLIME_KING:
     {
-      enemyBoss.Attack(enemy);
+      //int(*attack_grid)[4][3] = enemyBoss.Attack(enemy);
       break;
     }
     case BAT:
     case BABY_DRAGON:
     {
-      enemyFlying.Attack(enemy);
+      int(*attack_grid)[4][3] = enemyFlying.Attack(enemy);
       break;
     }
     default:

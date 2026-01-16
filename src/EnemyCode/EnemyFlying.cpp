@@ -1,29 +1,32 @@
 #include "EnemyFlying.h"
 EnemyFlying::EnemyFlying() {}
 EnemyFlying::~EnemyFlying() {}
-void EnemyFlying::Attack(int enemy) 
+int (*EnemyFlying::Attack(int enemy))[4][3]
 {
   switch (enemy)
   {
     case BAT:
 	{
 	  std::cout << "Bat swoops down to attack!" << std::endl;
-	  /* 
-	  for (each tile adjacent to bat)
-	  {
-		if (tile has player)
-		{
-		  apply damage to player.
-		}
-	  }
-      */
-      // Bat attacks one adjacent tile, low damage.
+	  int attack_grid[4][3] = {
+        { 0, 0, 0 }, 
+        { 0, 0, 0 }, 
+        { 0, 1, 0 }, 
+        { 0, 99, 0 }
+      };
+      return &attack_grid;
 	  break;
 	}
 	case BABY_DRAGON:
 	{
 	  std::cout << "Baby Dragon breathes fire!" << std::endl;
-      // Baby Dragon attacks in a t in front of it, moderate damage.
+      int attack_grid[4][3] = {
+        { 0, 0, 0 }, 
+        { 1, 1, 1 }, 
+        { 0, 1, 0 }, 
+        { 0, 99, 0 }
+      };
+      return &attack_grid;
 	  break;
     }
 	default:
