@@ -24,6 +24,27 @@ class Player
      int player_dir = -2;
      bool can_move  = true;
 
+     enum WeaponType
+     {
+       Sword  = 0,
+       Axe    = 1,
+       Bow    = 2,
+       Staff  = 3,
+       Dagger = 4,
+       Spear  = 5
+
+     };
+
+     struct Inventory
+     {
+       int gold = 0;
+       int weapon = Dagger;
+       int spell_one = -1;
+       int spell_two = -1;
+       int spell_three = -1;
+       int spell_four  = -1;
+     };
+
 
 
  private:

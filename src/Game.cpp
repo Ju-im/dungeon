@@ -61,7 +61,8 @@ void Game::update(float dt)
 
 void Game::render()
 {
-  grid.drawDungeon(window);
+  //grid.drawDungeon(window);
+  grid.drawArea(player.gridPos.y, player.gridPos.x, window);
   enemy.drawEnemies(window);
   weapon.render(window);
   player.render(window);

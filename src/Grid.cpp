@@ -349,9 +349,9 @@ void Grid::setGrid(int x, int y, int value)
 
 void Grid::drawArea(int x, int y, sf::RenderWindow& window) {
 
-for (int Y = camera_height; Y > 0; Y--)
+for (int Y = (camera_height / 2); Y > (camera_height / 2)*-1; Y--)
   {
-  for (int X = camera_width; X > 0; X--)
+  for (int X = (camera_height / 2); X > (camera_height / 2) * -1; X--)
   {
     int true_x = x - X;
     int true_y = y - Y;
@@ -363,8 +363,10 @@ for (int Y = camera_height; Y > 0; Y--)
     {
       // Draw wall tile at (i, j)
       sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-      wallTile.setFillColor(sf::Color::Green);
+     // wallTile.setFillColor(sf::Color::Green);
+      
       wallTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      wallTile.setFillColor(sf::Color(0,255,0,255*(true_x + true_y / camera_height/2)));
       window.draw(wallTile);
     }
     else if (grid[true_y][true_x] == RoomIndex::BossRoom)

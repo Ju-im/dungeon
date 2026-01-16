@@ -53,8 +53,8 @@ class Grid
   void drawArea(int x, int y,sf::RenderWindow& window);
 
   /////////Camera/////////
-  int camera_height = 50;
-  int camera_width  = 50;
+  int camera_height = 10;
+  int camera_width  = 10;
   ////////////////////////
 
   int MAXROOMS      = 50;
