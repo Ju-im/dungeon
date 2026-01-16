@@ -32,6 +32,13 @@ sf::IntRect Grid::generateRoom(RoomType type)
 
   int x_gridPos = rand() % (X - roomWidth - 2) + 1;
   int y_gridPos = rand() % (Y - roomHeight - 2) + 1;
+  if (type == RoomType::Start)
+  {
+    roomWidth = 5;
+    roomHeight = 5;
+  
+  
+  }
   return sf::IntRect(x_gridPos, y_gridPos, roomWidth, roomHeight);
 }
 

@@ -59,8 +59,9 @@ class Grid
 
   int MAXROOMS      = 50;
   int roomCount     = 0;
-  int MAX_ROOM_SIZE = 20;
+  int MAX_ROOM_SIZE = 15;
   int MIN_ROOM_SIZE = 5;
+  
   int CELL_SIZE     = 10;
   int (*gridCopy)[60];
   float X_value = 0;
@@ -71,7 +72,9 @@ class Grid
   std::vector<Room> rooms;
   std::vector<RoomType> roomPlan = { RoomType::Start,    RoomType::Combat,
                                      RoomType::Combat,   RoomType::Combat,
-                                     RoomType::Treasure, RoomType::Shop,
+                                     RoomType::Combat, RoomType::Combat ,RoomType::Combat, RoomType::Combat, 
+    RoomType::Combat, RoomType::Combat,
+
                                      RoomType::Boss };
   bool start                     = true;
   sf::Vector2f startpos;

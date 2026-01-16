@@ -104,8 +104,13 @@ void Game::keyPressed(sf::Event event)
     player.moveX(1, grid);
     player.setDirection(2);
   }
+  if (event.key.code == sf::Keyboard::Space)
+  {
+  
+  player.can_move = !player.can_move;
+  }
   enemy.takeTurn(player.getPosition(grid),grid);
-  weapon.attack(player, grid, 99);
+  weapon.attack(player, grid, 0);
 }
 
 

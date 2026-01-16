@@ -22,6 +22,8 @@ class Player
      void setDirection(int dir);
      int getDirection();
      int player_dir = -2;
+     bool can_move  = true;
+
 
 
  private:
