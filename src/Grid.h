@@ -59,7 +59,7 @@ class Grid
 
   int MAXROOMS      = 50;
   int roomCount     = 0;
-  int MAX_ROOM_SIZE = 15;
+  int MAX_ROOM_SIZE = 10;
   int MIN_ROOM_SIZE = 5;
   
   int CELL_SIZE     = 10;
