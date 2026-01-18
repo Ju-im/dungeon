@@ -87,7 +87,7 @@ void Player::moveX(int x, Grid& grid)
        gridPos = { gridPos.x, gridPos.y + x };
 
        sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
-       test.setPosition(actual_screen_pos.x, actual_screen_pos.y + x);
+       test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
      }
   }
 
@@ -111,7 +111,7 @@ void Player::moveY(int y, Grid& grid)
       gridPos                        = { gridPos.x + y, gridPos.y };
       sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
       
-      test.setPosition(actual_screen_pos.x + y, actual_screen_pos.y);
+      test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
     
     }
     

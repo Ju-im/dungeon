@@ -21,15 +21,18 @@ bool Game::init()
   weapon.init();
   //enemy.move(-9);
   //spawnPlayer();
-
-
-  //spawnPlayer();
-
-
-
-  //spawnPlayer();
-
   player.init();
+  camera.setSize(16* 8, 16* 8);
+
+  
+  
+  //spawnPlayer();
+
+
+
+  //spawnPlayer();
+
+  
  
   return true;
 }
@@ -37,6 +40,8 @@ bool Game::init()
 // UPDATE FUNCTION
 void Game::update(float dt)
 {
+  //sf::Vector2f cameraCenter();
+
   weapon.update(dt, player, grid);
   switch (game_state)
   {
@@ -61,10 +66,18 @@ void Game::update(float dt)
 
 void Game::render()
 {
+  float x = static_cast<float>(player.getPosition(grid).y);
+  float y = static_cast<float>(player.getPosition(grid).x);
+  camera.setCenter(
+    x * CELL_SIZE + CELL_SIZE / 2.f, y * CELL_SIZE + CELL_SIZE / 2.f);
+  window.setView(camera);
   grid.drawDungeon(window);
+  
   enemy.drawEnemies(window);
   weapon.render(window);
   player.render(window);
+ 
+  
 }
 
 void Game::mouseClicked(sf::Event event)
@@ -79,6 +92,7 @@ void Game::mouseClicked(sf::Event event)
 
 void Game::keyPressed(sf::Event event)
 {
+
   if (event.key.code == sf::Keyboard::W|| event.key.code == sf::Keyboard::Up)
   {
     std::cout << "W pressed" << std::endl;

@@ -225,7 +225,7 @@ void Grid::drawDungeon(sf::RenderWindow& window)
 
 void Grid::generateDungeon()
 {
-  //rooms.clear();
+  rooms.clear();
 
   for (RoomType type : roomPlan)
   {

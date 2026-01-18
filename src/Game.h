@@ -24,7 +24,8 @@ enum GAME_STATE
   void mouseClicked(sf::Event event);
   void keyPressed(sf::Event event);
   sf::RenderWindow& window;
- 
+  sf::View camera;
+  int CELL_SIZE = 10;
   
 
  private:
