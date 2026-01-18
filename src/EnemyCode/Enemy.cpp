@@ -45,7 +45,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
   {
     if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
     {
-      attack(enemy_selected);
+      attack(enemy_selected );
     }
     else
     {
