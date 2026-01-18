@@ -73,14 +73,7 @@ void Weapon::attack(Player& player, Grid& grid, int type)
       break;
   }
 
- for (int i = 0; i < 4; i++)
-  {
-    for (int j = 0; j < 3; j++)
-    {
-      std::cout << attack_grid[i][j];
-    }
-    std::cout<<std::endl;
-  }
+
 
 }
 
@@ -106,7 +99,7 @@ void Weapon::render(sf::RenderWindow& window)
     {
       switch (player_dir)
       {
-
+          //down
           case (1):
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
@@ -128,7 +121,7 @@ void Weapon::render(sf::RenderWindow& window)
           }
         }
         
-          
+          //up
           case(-1) :
           {
             if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
@@ -142,17 +135,14 @@ void Weapon::render(sf::RenderWindow& window)
               wallTile.setPosition(
                 (player_pos.y + dir_y) * CELL_SIZE,
                 (player_pos.x - dir_x) * CELL_SIZE);
-              if (loop)
-              {
-                loop = false;
-              }
+              
               pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
               window.draw(wallTile);
               break;
             }
           }
           
-          
+          //left
         case (2):
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
@@ -171,7 +161,7 @@ void Weapon::render(sf::RenderWindow& window)
             break;
           }
         }
-
+        //right
         case (-2):
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)

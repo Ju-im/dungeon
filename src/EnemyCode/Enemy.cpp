@@ -43,9 +43,10 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
   player_position = player_pos;
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
+    std::cout << "Enemies in play: " << enemies_in_play.size() << std::endl;
     if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
     {
-      attack(enemy_selected );
+      attack(enemy_selected,enemies_in_play[enemy_selected].type);
     }
     else
     {
@@ -67,14 +68,11 @@ bool Enemy::checkIfAttackPossible(int (*matrix)[60])
     return true;
 }
 
-void Enemy::attack(int enemy) 
+void Enemy::attack(int enemy_index, int enemy)
 {
   
-  if (enemies_in_play[enemy].y * CELL_SIZE > player_position.x * CELL_SIZE)
-  {
+    attackTiles.clear();
   
-  std::cout << "\nthe player is to the left" << std::endl;
-  }
   switch (enemy)
   {
     case SLIME:
@@ -83,7 +81,104 @@ void Enemy::attack(int enemy)
         { 0, 0, 0 }, { 0, 0, 0 }, { 0, 1, 0 }, { 1, 9, 1 }
       };
       
-    
+      int enemy_x = enemies_in_play[enemy_index].y;
+      int enemy_y = enemies_in_play[enemy_index].x;
+
+     int distance_of_x = player_position.y - enemy_x;
+      int distance_of_y = player_position.x - enemy_y;
+
+      for (int y = 0; y < Y; y++)
+      {
+        for (int x = 0; x < X; x++)
+        {
+            //point down
+          if (enemy_y <= player_position.x && (distance_of_y >= distance_of_x))
+          {
+            std::cout << "Enemy Y: " << enemy_y
+                                       << " Player Y: " << player_position.x
+                                       << std::endl;
+            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            {
+              std::cout << "Enemy is above player." << std::endl;
+              // point down
+              int dir_x   = 3 - y;
+              int dir_y   = 1 - x;
+              int tileRow = enemies_in_play[enemy_index].x + dir_x;
+              int tileCol = enemies_in_play[enemy_index].y + dir_y;
+              sf::RectangleShape rect;
+              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
+              rect.setPosition(
+                (float)(tileCol * CELL_SIZE), (float)(tileRow * CELL_SIZE));
+              attackTiles.push_back(rect);
+            }
+           
+          }
+          
+          else if (enemy_y >= player_position.x && (distance_of_y <= distance_of_x))
+          {
+            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            {
+              int dir_x   = 3 - y;
+              int dir_y   = 1 - x;
+              int tileRow = enemies_in_play[enemy_index].x - dir_x;
+              int tileCol = enemies_in_play[enemy_index].y + dir_y;
+              sf::RectangleShape rect;
+              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
+              rect.setPosition(
+                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+              attackTiles.push_back(rect);
+              std::cout << "Enemy is below player." << std::endl;
+              // point up
+            }
+            
+          }
+          else if (enemy_x <= player_position.y - 1 && (distance_of_x >= distance_of_y))
+          {
+            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            {
+              std::cout << "Enemy is left of player." << std::endl;
+              int dir_x   = 1 - x;
+              int dir_y   = 3 - y;
+              int tileRow = enemies_in_play[enemy_index].x + dir_x;
+              int tileCol = enemies_in_play[enemy_index].y + dir_y;
+              sf::RectangleShape rect;
+              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
+              rect.setPosition(
+                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+              attackTiles.push_back(rect);
+              // point right
+            }
+           
+          }
+          else if (enemy_x >= player_position.y+1 && (distance_of_x <= distance_of_y))
+          {
+            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+           {
+              std::cout << "Enemy is right of player." << std::endl;
+              // point left
+              int dir_x   = 1 - x;
+              int dir_y   = 3 - y;
+              int tileRow = enemies_in_play[enemy_index].x + dir_x;
+              int tileCol = enemies_in_play[enemy_index].y - dir_y;
+              sf::RectangleShape rect;
+              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
+              rect.setPosition(
+                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+              attackTiles.push_back(rect);
+            }
+            
+          }
+         
+         
+        }
+        std::cout<<std::endl;
+      }
+      
+        
     break;
     }
     case SKELETON:
@@ -548,6 +643,11 @@ void Enemy::printEnemiesInPlay()
 void Enemy::drawEnemies(sf::RenderWindow& window)
 {
   int CELL_SIZE = 10;
+  
+  for (int i = 0; i < attackTiles.size(); i++)
+  {
+    window.draw(attackTiles[i]);
+  }
   for (int i = 0; i < enemies_in_play.size(); i++)
   {
     if (enemies_in_play[i].type == 7)
