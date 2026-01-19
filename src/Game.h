@@ -26,7 +26,7 @@ enum GAME_STATE
   sf::RenderWindow& window;
   sf::View camera;
   int CELL_SIZE = 10;
-  
+  sf::Vector2f halfSize;
 
  private:
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);

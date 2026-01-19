@@ -24,7 +24,12 @@ bool Game::init()
   player.init();
   camera.setSize(16* 8, 16* 8);
 
-  
+  halfSize = camera.getSize() / 2.f;
+  float clampedX =
+    std::clamp(camera.getCenter().x, halfSize.x, 60 * CELL_SIZE - halfSize.x);
+
+  float clampedY =
+    std::clamp(camera.getCenter().y, halfSize.y, 60 * CELL_SIZE - halfSize.y);
   
   //spawnPlayer();
 
@@ -66,10 +71,25 @@ void Game::update(float dt)
 
 void Game::render()
 {
-  float x = static_cast<float>(player.getPosition(grid).y);
-  float y = static_cast<float>(player.getPosition(grid).x);
-  camera.setCenter(
-    x * CELL_SIZE + CELL_SIZE / 2.f, y * CELL_SIZE + CELL_SIZE / 2.f);
+  sf::Vector2i screenGridPos = player.getScreenPosition(grid);
+  //player position screen
+  float targetCx = static_cast<float>(screenGridPos.x) + CELL_SIZE / 2.f;
+  float targetCy = static_cast<float>(screenGridPos.y) + CELL_SIZE / 2.f;
+
+  sf::Vector2f viewHalf = camera.getSize() / 2.f;
+  const float mapPixelW = 60.f * static_cast<float>(CELL_SIZE);
+  const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
+  if (camera.getSize().x >= mapPixelW)
+    targetCx = mapPixelW / 2.f;
+  else
+    targetCx = std::clamp(targetCx, viewHalf.x, mapPixelW - viewHalf.x);
+
+  if (camera.getSize().y >= mapPixelH)
+    targetCy = mapPixelH / 2.f;
+  else
+    targetCy = std::clamp(targetCy, viewHalf.y, mapPixelH - viewHalf.y);
+
+  camera.setCenter(targetCx, targetCy);
   window.setView(camera);
   grid.drawDungeon(window);
   
