@@ -14,6 +14,64 @@ bool Player::init()
   stats.weapon = 4;
   stats.spell  = 0;
   stats.item   = 0;
+
+  if (!WeaponUI.loadFromFile("../Data/Images/UI/pixil-layer-Background.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  WeaponUI.setSmooth(false);
+  WeaponUISprite.setTexture(WeaponUI);
+  WeaponUISprite.setScale(0.5f, 0.5f);
+  
+  if (!DaggerWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-5.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  DaggerWeaponIcon.setSmooth(false);
+  DaggerIconSprite.setTexture(DaggerWeaponIcon);
+  DaggerIconSprite.setScale(0.5f, 0.5f);
+
+  if (!SwordWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-1.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  SwordWeaponIcon.setSmooth(false);
+  SwordIconSprite.setTexture(SwordWeaponIcon);
+  SwordIconSprite.setScale(0.5f, 0.5f);
+  //--------------------------------------
+  if (!BowWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-2.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  BowWeaponIcon.setSmooth(false);
+  BowIconSprite.setTexture(BowWeaponIcon);
+  BowIconSprite.setScale(0.5f, 0.5f);
+
+  if (!AxeWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-3.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  AxeWeaponIcon.setSmooth(false);
+  AxeIconSprite.setTexture(AxeWeaponIcon);
+  AxeIconSprite.setScale(0.5f, 0.5f);
+
+  if (!StaffWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-4.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  StaffWeaponIcon.setSmooth(false);
+  StaffIconSprite.setTexture(StaffWeaponIcon);
+  StaffIconSprite.setScale(0.5f, 0.5f);
+
+  if (!SpearWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-6.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  SpearWeaponIcon.setSmooth(false);
+  SpearIconSprite.setTexture(SpearWeaponIcon);
+  SpearIconSprite.setScale(0.5f, 0.5f);
+
+  
   return true;
 }
 
@@ -128,6 +186,7 @@ void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 {
   drawHealthBar(window, camera);
   drawWeaponSlot(window, camera);
+
   drawSpellSlot(window, camera);
   drawItemSlot(window, camera);
 }
@@ -141,10 +200,39 @@ void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 }
 void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
 {
-  sf::RectangleShape weaponSlot(sf::Vector2f(12, 12));
-  weaponSlot.setFillColor(sf::Color(150, 150, 150));
-  weaponSlot.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
-  window.draw(weaponSlot);
+  //sf::RectangleShape weaponSlot(sf::Vector2f(12, 12));
+  //weaponSlot.setFillColor(sf::Color(150, 150, 150));
+  WeaponUISprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+  window.draw(WeaponUISprite);
+  switch (stats.weapon)
+  {
+    case 1:
+      SwordIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(SwordIconSprite);
+      break;
+    case 2:
+       BowIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(BowIconSprite);
+        break;
+    case 3:
+       AxeIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(AxeIconSprite);
+        break;
+    case 4:
+      DaggerIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(DaggerIconSprite);
+      break;
+    case 5:
+      StaffIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(StaffIconSprite);
+      break;
+    case 6:
+      SpearIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+      window.draw(SpearIconSprite);
+      break;
+    default:
+      break;
+  }
 }
 void Player::drawSpellSlot(sf::RenderWindow& window, sf::View camera)
 {
