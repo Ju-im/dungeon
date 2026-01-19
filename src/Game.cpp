@@ -67,33 +67,59 @@ void Game::update(float dt)
 
 void Game::render()
 {
-  sf::Vector2i screenGridPos = player.getScreenPosition(grid);
-  //player position screen
-  float targetCx = static_cast<float>(screenGridPos.x) + CELL_SIZE / 2.f;
-  float targetCy = static_cast<float>(screenGridPos.y) + CELL_SIZE / 2.f;
+    if (player_camera) {
 
-  sf::Vector2f viewHalf = camera.getSize() / 2.f;
-  const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
-  const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
-  if (camera.getSize().x >= mapPixelW)
-    targetCx = mapPixelW / 2.f;
-  else
-    targetCx = std::clamp(targetCx, viewHalf.x, mapPixelW - viewHalf.x);
+        sf::Vector2i screenGridPos = player.getScreenPosition(grid);
+      // player position screen
+      float targetCx = static_cast<float>(screenGridPos.x) + CELL_SIZE / 2.f;
+      float targetCy = static_cast<float>(screenGridPos.y) + CELL_SIZE / 2.f;
 
-  if (camera.getSize().y >= mapPixelH)
-    targetCy = mapPixelH / 2.f;
-  else
-    targetCy = std::clamp(targetCy, viewHalf.y, mapPixelH - viewHalf.y);
+      sf::Vector2f viewHalf = camera.getSize() / 2.f;
+      const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
+      if (camera.getSize().x >= mapPixelW)
+        targetCx = mapPixelW / 2.f;
+      else
+        targetCx = std::clamp(targetCx, viewHalf.x, mapPixelW - viewHalf.x);
 
-  camera.setCenter(targetCx, targetCy);
-  window.setView(camera);
-  grid.drawDungeon(window);
+      if (camera.getSize().y >= mapPixelH)
+        targetCy = mapPixelH / 2.f;
+      else
+        targetCy = std::clamp(targetCy, viewHalf.y, mapPixelH - viewHalf.y);
+
+      camera.setCenter(targetCx, targetCy);
+      window.setView(camera);
+      grid.drawDungeon(window);
+
+      enemy.drawEnemies(window);
+      weapon.render(window);
+      player.render(window);
+      player.renderUI(window, camera);
+
+
+  }
+    else
+    {
+      // Show the entire map: create a view that covers the whole map in pixels
+      const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
+
+      // Construct a view that maps the full map rectangle to the window
+      sf::View fullView(sf::FloatRect(0.f, 0.f, mapPixelW, mapPixelH));
+      // Optionally, keep aspect ratio: you can set center/size instead:
+      // fullView.setCenter(mapPixelW / 2.f, mapPixelH / 2.f);
+      // fullView.setSize(mapPixelW, mapPixelH);
+
+      window.setView(fullView);
+      grid.drawDungeon(window);
+      enemy.drawEnemies(window);
+      weapon.render(window);
+      player.render(window);
+    
+    }
   
-  enemy.drawEnemies(window);
-  weapon.render(window);
-  player.render(window);
-  player.renderUI(window,camera);
  
+  
   
 }
 
@@ -149,6 +175,11 @@ void Game::keyPressed(sf::Event event)
   player.can_move = !player.can_move;
   }
   weapon.attack(player, grid, 99);
+  if (event.key.code == sf::Keyboard::E)
+  {
+    player_camera = !player_camera;
+  
+  }
 }
 
 

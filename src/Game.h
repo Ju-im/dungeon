@@ -39,6 +39,7 @@ enum PlayerOptions
   int CELL_SIZE = 10;
   sf::Vector2f halfSize;
   void gameTurn();
+  bool player_camera = true;
   
  
 
