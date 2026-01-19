@@ -76,6 +76,7 @@ void Game::render()
   enemy.drawEnemies(window);
   weapon.render(window);
   player.render(window);
+  player.renderUI(window,camera);
  
   
 }

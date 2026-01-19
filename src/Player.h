@@ -24,6 +24,11 @@ class Player
      int player_dir = -2;
      bool can_move  = true;
 
+     void renderUI(sf::RenderWindow& window, sf::View camera);
+     void drawHealthBar(sf::RenderWindow& window, sf::View camera);
+     void drawWeaponSlot(sf::RenderWindow& window, sf::View camera);
+     void drawSpellSlot(sf::RenderWindow& window, sf::View camera);
+     void drawItemSlot(sf::RenderWindow& window, sf::View camera);
 
 
  private:

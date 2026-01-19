@@ -120,3 +120,40 @@ void Player::moveY(int y, Grid& grid)
 }
 
 
+void Player::renderUI(sf::RenderWindow& window, sf::View camera)
+{
+  drawHealthBar(window, camera);
+  drawWeaponSlot(window, camera);
+  drawSpellSlot(window, camera);
+  drawItemSlot(window, camera);
+}
+
+void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
+{
+  sf::RectangleShape healthBar(sf::Vector2f(30, 10));
+  healthBar.setFillColor(sf::Color(100, 100, 100));
+  healthBar.setPosition(camera.getCenter().x + 30,camera.getCenter().y-58);
+  window.draw(healthBar);
+}
+void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
+{
+  sf::RectangleShape weaponSlot(sf::Vector2f(12, 12));
+  weaponSlot.setFillColor(sf::Color(150, 150, 150));
+  weaponSlot.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+  window.draw(weaponSlot);
+}
+void Player::drawSpellSlot(sf::RenderWindow& window, sf::View camera)
+{
+  sf::RectangleShape spellSlot(sf::Vector2f(12, 12));
+  spellSlot.setFillColor(sf::Color(150, 150, 150));
+  spellSlot.setPosition(camera.getCenter().x - 45, camera.getCenter().y - 58);
+  window.draw(spellSlot);
+}
+void Player::drawItemSlot(sf::RenderWindow& window, sf::View camera)
+{
+  sf::RectangleShape itemSlot(sf::Vector2f(12, 12));
+  itemSlot.setFillColor(sf::Color(150, 150, 150));
+  itemSlot.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+  window.draw(itemSlot);
+}
+
