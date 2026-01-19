@@ -15,15 +15,15 @@ bool Player::init()
   stats.spell  = 0;
   stats.item   = 0;
 
-  if (!WeaponUI.loadFromFile("../Data/Images/UI/pixil-layer-Background.png"))
+   if (!WeaponUI.loadFromFile("../Data/Images/UI/Weapon-UI.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
   WeaponUI.setSmooth(false);
   WeaponUISprite.setTexture(WeaponUI);
   WeaponUISprite.setScale(0.5f, 0.5f);
-  
-  if (!DaggerWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-5.png"))
+
+  if (!DaggerWeaponIcon.loadFromFile("../Data/Images/UI/Dagger-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
@@ -31,15 +31,15 @@ bool Player::init()
   DaggerIconSprite.setTexture(DaggerWeaponIcon);
   DaggerIconSprite.setScale(0.5f, 0.5f);
 
-  if (!SwordWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-1.png"))
+  if (!SwordWeaponIcon.loadFromFile("../Data/Images/UI/Sword-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
   SwordWeaponIcon.setSmooth(false);
   SwordIconSprite.setTexture(SwordWeaponIcon);
   SwordIconSprite.setScale(0.5f, 0.5f);
-
-  if (!BowWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-2.png"))
+  //--------------------------------------
+  if (!BowWeaponIcon.loadFromFile("../Data/Images/UI/Bow-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
@@ -47,7 +47,7 @@ bool Player::init()
   BowIconSprite.setTexture(BowWeaponIcon);
   BowIconSprite.setScale(0.5f, 0.5f);
 
-  if (!AxeWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-3.png"))
+  if (!AxeWeaponIcon.loadFromFile("../Data/Images/UI/Axe-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
@@ -55,7 +55,7 @@ bool Player::init()
   AxeIconSprite.setTexture(AxeWeaponIcon);
   AxeIconSprite.setScale(0.5f, 0.5f);
 
-  if (!StaffWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-4.png"))
+  if (!StaffWeaponIcon.loadFromFile("../Data/Images/UI/Staff-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
@@ -63,7 +63,7 @@ bool Player::init()
   StaffIconSprite.setTexture(StaffWeaponIcon);
   StaffIconSprite.setScale(0.5f, 0.5f);
 
-  if (!SpearWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-6.png"))
+  if (!SpearWeaponIcon.loadFromFile("../Data/Images/UI/Spear-Layer.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
