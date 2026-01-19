@@ -73,7 +73,7 @@ void Game::render()
   float targetCy = static_cast<float>(screenGridPos.y) + CELL_SIZE / 2.f;
 
   sf::Vector2f viewHalf = camera.getSize() / 2.f;
-  const float mapPixelW = 60.f * static_cast<float>(CELL_SIZE);
+  const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
   const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
   if (camera.getSize().x >= mapPixelW)
     targetCx = mapPixelW / 2.f;

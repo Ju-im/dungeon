@@ -89,7 +89,7 @@ void Player::render(sf::RenderWindow& window) {
 void Player::spawnPlayer(Grid& grid) {
 
     float spawn_x = static_cast<float>(CELL_SIZE);
-  int spawn_y   = 30;
+  
 
   
   int(*gridCopy)[60]             = grid.getAllGrid();
