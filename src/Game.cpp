@@ -99,6 +99,8 @@ void Game::keyPressed(sf::Event event)
     std::cout << "W pressed" << std::endl;
     player.moveY(-1, grid);
     player.setDirection(-1);
+    player.stats.weapon += 1;
+    std::cout << player.stats.weapon << std::endl;
     
   }
   if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
@@ -112,6 +114,8 @@ void Game::keyPressed(sf::Event event)
     std::cout << "S pressed" << std::endl;
     player.moveY(1, grid);
     player.setDirection(1);
+    player.stats.weapon -= 1;
+    std::cout << player.stats.weapon << std::endl;
   }
   if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
   {

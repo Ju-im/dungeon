@@ -26,6 +26,24 @@ class Player
      sf::Texture WeaponUI;
      sf::Sprite WeaponUISprite;
 
+     sf::Texture DaggerWeaponIcon;
+     sf::Sprite DaggerIconSprite;
+
+     sf::Texture SwordWeaponIcon;
+     sf::Sprite SwordIconSprite;
+
+      sf::Texture BowWeaponIcon;
+     sf::Sprite BowIconSprite;
+
+      sf::Texture AxeWeaponIcon;
+     sf::Sprite AxeIconSprite;
+
+      sf::Texture StaffWeaponIcon;
+     sf::Sprite StaffIconSprite;
+
+      sf::Texture SpearWeaponIcon;
+     sf::Sprite SpearIconSprite;
+
      void renderUI(sf::RenderWindow& window, sf::View camera);
      void drawHealthBar(sf::RenderWindow& window, sf::View camera);
      void drawWeaponSlot(sf::RenderWindow& window, sf::View camera);
