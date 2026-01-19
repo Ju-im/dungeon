@@ -23,6 +23,8 @@ class Player
      int getDirection();
      int player_dir = -2;
      bool can_move  = true;
+     sf::Texture WeaponUI;
+     sf::Sprite WeaponUISprite;
 
      void renderUI(sf::RenderWindow& window, sf::View camera);
      void drawHealthBar(sf::RenderWindow& window, sf::View camera);

@@ -14,6 +14,15 @@ bool Player::init()
   stats.weapon = 4;
   stats.spell  = 0;
   stats.item   = 0;
+
+  if (!WeaponUI.loadFromFile("../Data/Images/UI/pixil-layer-Background.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  WeaponUI.setSmooth(false);
+  WeaponUISprite.setTexture(WeaponUI);
+  WeaponUISprite.setScale(0.5f, 0.5f);
+  
   return true;
 }
 
@@ -128,6 +137,7 @@ void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 {
   drawHealthBar(window, camera);
   drawWeaponSlot(window, camera);
+
   drawSpellSlot(window, camera);
   drawItemSlot(window, camera);
 }
@@ -141,10 +151,10 @@ void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 }
 void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
 {
-  sf::RectangleShape weaponSlot(sf::Vector2f(12, 12));
-  weaponSlot.setFillColor(sf::Color(150, 150, 150));
-  weaponSlot.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
-  window.draw(weaponSlot);
+  //sf::RectangleShape weaponSlot(sf::Vector2f(12, 12));
+  //weaponSlot.setFillColor(sf::Color(150, 150, 150));
+  WeaponUISprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
+  window.draw(WeaponUISprite);
 }
 void Player::drawSpellSlot(sf::RenderWindow& window, sf::View camera)
 {
