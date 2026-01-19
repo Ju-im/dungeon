@@ -13,6 +13,17 @@ enum GAME_STATE
   GAME,
   PAUSE
 };
+
+enum PlayerOptions
+{
+    Null =0,
+  Up     = 1,
+  down   = 2,
+  left   = 3,
+  right  = 4,
+  attack = 5
+
+};
   class Game
 {
  public:
@@ -27,8 +38,12 @@ enum GAME_STATE
   sf::View camera;
   int CELL_SIZE = 10;
   sf::Vector2f halfSize;
+  void gameTurn();
+  
+ 
 
  private:
+  PlayerOptions type = PlayerOptions::Up;
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);
   void spawnEnemy(int amount);
   void spawnPlayer();

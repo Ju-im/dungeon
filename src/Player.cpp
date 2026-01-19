@@ -38,7 +38,7 @@ bool Player::init()
   SwordWeaponIcon.setSmooth(false);
   SwordIconSprite.setTexture(SwordWeaponIcon);
   SwordIconSprite.setScale(0.5f, 0.5f);
-  //--------------------------------------
+
   if (!BowWeaponIcon.loadFromFile("../Data/Images/UI/pixil-layer-2.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;

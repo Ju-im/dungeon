@@ -36,14 +36,15 @@ void Enemy::takeDamage(int amount, std::vector<sf::Vector3i> attack_positions)
 
 void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
 {
+  std::cout << "test! :)";
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.
-  std::cout << "Enemy";
+
   player_position = player_pos;
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
-    std::cout << "Enemies in play: " << enemies_in_play.size() << std::endl;
+   //std::cout << "Enemies in play: " << enemies_in_play.size() << std::endl;
     if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
     {
       attack(enemy_selected,enemies_in_play[enemy_selected].type);
@@ -65,7 +66,7 @@ bool Enemy::checkIfAttackPossible(int (*matrix)[60])
    // {
    //   attack(enemies_in_play[i].type);
 	//}
-    return true;
+    return false;
 }
 
 void Enemy::attack(int enemy_index, int enemy)
@@ -94,12 +95,9 @@ void Enemy::attack(int enemy_index, int enemy)
             //point down
           if (enemy_y <= player_position.x && (distance_of_y >= distance_of_x))
           {
-            std::cout << "Enemy Y: " << enemy_y
-                                       << " Player Y: " << player_position.x
-                                       << std::endl;
             if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
             {
-              std::cout << "Enemy is above player." << std::endl;
+
               // point down
               int dir_x   = 3 - y;
               int dir_y   = 1 - x;
@@ -129,7 +127,7 @@ void Enemy::attack(int enemy_index, int enemy)
               rect.setPosition(
                 (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
               attackTiles.push_back(rect);
-              std::cout << "Enemy is below player." << std::endl;
+
               // point up
             }
             
@@ -138,7 +136,7 @@ void Enemy::attack(int enemy_index, int enemy)
           {
             if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
             {
-              std::cout << "Enemy is left of player." << std::endl;
+
               int dir_x   = 1 - x;
               int dir_y   = 3 - y;
               int tileRow = enemies_in_play[enemy_index].x + dir_x;
@@ -157,7 +155,7 @@ void Enemy::attack(int enemy_index, int enemy)
           {
             if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
            {
-              std::cout << "Enemy is right of player." << std::endl;
+
               // point left
               int dir_x   = 1 - x;
               int dir_y   = 3 - y;

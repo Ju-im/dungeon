@@ -24,12 +24,8 @@ bool Game::init()
   player.init();
   camera.setSize(16* 8, 16* 8);
 
-  halfSize = camera.getSize() / 2.f;
-  float clampedX =
-    std::clamp(camera.getCenter().x, halfSize.x, 60 * CELL_SIZE - halfSize.x);
+  
 
-  float clampedY =
-    std::clamp(camera.getCenter().y, halfSize.y, 60 * CELL_SIZE - halfSize.y);
   
   //spawnPlayer();
 
@@ -57,7 +53,7 @@ void Game::update(float dt)
       
     case GAME:
     {
-
+      gameTurn();
       enemy.takeDamage(0, weapon.getAttackPos());
       weapon.clearPos();
       break;
@@ -116,43 +112,107 @@ void Game::keyPressed(sf::Event event)
 
   if (event.key.code == sf::Keyboard::W|| event.key.code == sf::Keyboard::Up)
   {
-    std::cout << "W pressed" << std::endl;
+    /*std::cout << "W pressed" << std::endl;
     player.moveY(-1, grid);
     player.setDirection(-1);
     player.stats.weapon += 1;
-    std::cout << player.stats.weapon << std::endl;
+    std::cout << player.stats.weapon << std::endl;*/
+    type = Up;
     
   }
   if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
   {
-    std::cout << "A pressed" << std::endl;
+    /*std::cout << "A pressed" << std::endl;
     player.moveX(-1, grid);
-    player.setDirection(-2);
+    player.setDirection(-2);*/
+    type = left;
   }
   if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
   {
-    std::cout << "S pressed" << std::endl;
+    /*std::cout << "S pressed" << std::endl;
     player.moveY(1, grid);
     player.setDirection(1);
     player.stats.weapon -= 1;
-    std::cout << player.stats.weapon << std::endl;
+    std::cout << player.stats.weapon << std::endl;*/
+    type = down;
   }
   if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
   {
-    std::cout << "D pressed" << std::endl;
+    /*std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
-    player.setDirection(2);
+    player.setDirection(2);*/
+    type = right;
   }
   if (event.key.code == sf::Keyboard::Space)
   {
-  
+  type = attack;
   player.can_move = !player.can_move;
   }
-  enemy.takeTurn(player.getPosition(grid),grid);
   weapon.attack(player, grid, 99);
 }
 
 
+
+void Game::gameTurn() {
+    
+    switch (type)
+  {
+      case Up:
+      {
+        player.moveY(-1, grid);
+        player.setDirection(-1);
+        player.stats.weapon += 1;
+        std::cout << player.stats.weapon << std::endl;
+      
+      
+      
+      }
+        break;
+      case down:
+      {
+      
+          player.moveY(1, grid);
+        player.setDirection(1);
+        player.stats.weapon -= 1;
+        std::cout << player.stats.weapon << std::endl;
+      }
+        break;
+      case left:
+      {
+        std::cout << "A pressed" << std::endl;
+        player.moveX(-1, grid);
+        player.setDirection(-2);
+        
+        
+        
+      }
+        break;
+      case right:
+      {
+        player.moveX(1, grid);
+        player.setDirection(2);
+      
+      
+      }
+        break;
+      case attack:
+      {
+      
+      player.can_move = !player.can_move;
+      }
+        break;
+      default:
+        break;
+  };
+  if (type != Null)
+  {
+    enemy.takeTurn(player.getPosition(grid), grid);
+  }
+  type = Null;
+
+
+
+}
 
 bool Game::collisionCheck(sf::Vector2i click, sf::Sprite& sprite)
 {
