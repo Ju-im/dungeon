@@ -30,6 +30,19 @@ class Player
      void drawSpellSlot(sf::RenderWindow& window, sf::View camera);
      void drawItemSlot(sf::RenderWindow& window, sf::View camera);
 
+     struct PlayerStats
+     {
+       int health;
+       int weapon;
+       int spell;
+       int item;
+     };
+     PlayerStats stats;
+
+     int getHealth();
+     int getWeapon();
+     int getSpell();
+     int getItem();
 
  private:
      

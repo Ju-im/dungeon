@@ -10,6 +10,10 @@ Player::~Player() {
 
 bool Player::init()
 {
+  stats.health = 4;
+  stats.weapon = 4;
+  stats.spell  = 0;
+  stats.item   = 0;
   return true;
 }
 
@@ -157,3 +161,19 @@ void Player::drawItemSlot(sf::RenderWindow& window, sf::View camera)
   window.draw(itemSlot);
 }
 
+int Player::getHealth()
+{
+  return stats.health;
+}
+int Player::getWeapon()
+{
+  return stats.weapon;
+}
+int Player::getSpell()
+{
+  return stats.spell;
+}
+int Player::getItem()
+{
+  return stats.item;
+}
