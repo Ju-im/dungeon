@@ -12,9 +12,9 @@ class Weapon
 
 
   void attack(Player& player, Grid& grid, int type);
-  void drawFrontAttack(sf::Vector2i pos);
+
   void update(float dt, Player& player, Grid& grid);
-  void setNumberOfBoxes(int num);
+
   void render(sf::RenderWindow& window);
   std::vector<sf::Vector3i> getAttackPos();
   sf::RectangleShape hitbox;
@@ -22,6 +22,8 @@ class Weapon
   
   std::vector<sf::Vector3i> grid_pos;
   sf::Vector3i grid_pos_selected;
+
+
 
   void clearPos();
   private:

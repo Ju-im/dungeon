@@ -86,6 +86,12 @@ void Weapon::update(float dt, Player& player , Grid& grid) {
 
 }
 
+
+
+
+
+
+
 void Weapon::clearPos() 
 {
   pos.clear();

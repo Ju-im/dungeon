@@ -25,7 +25,7 @@ bool Grid::init()
   }
   WallTileTexture.setSmooth(false);
   WallTileSprite.setTexture(WallTileTexture);
-  WallTileSprite.setScale(0.3f, 0.3f);
+  WallTileSprite.setScale(0.32f, 0.32f);
   return true;
 }
 

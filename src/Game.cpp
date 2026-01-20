@@ -55,8 +55,15 @@ void Game::update(float dt)
     {
       gameTurn();
       enemy.takeDamage(0, weapon.getAttackPos());
+     
       weapon.clearPos();
       break;
+            // Replace this line:
+            // player.setInGrid(enemy.getAllCopyGrid());
+
+            // With this:
+            
+            
     }
     case PAUSE:
     {
@@ -174,8 +181,7 @@ void Game::keyPressed(sf::Event event)
   type = attack;
   player.can_move = !player.can_move;
   }
-
-  weapon.attack(player, grid, 0);
+  
   if (event.key.code == sf::Keyboard::E)
   {
     player_camera = !player_camera;
@@ -186,6 +192,8 @@ void Game::keyPressed(sf::Event event)
   
   type = attackselected;
   }
+   
+  player.setInGrid(enemy.gridClassCopy);
 }
 
 
@@ -199,6 +207,12 @@ void Game::gameTurn() {
         player.moveY(-1, grid);
         player.setDirection(-1);
         player.stats.weapon += 1;
+        if (player.stats.weapon > 5) {
+            player.stats.weapon = 1;
+        }
+        int player_weapon_type = player.stats.weapon;
+        std::cout << "Player Weapon Type: " << player_weapon_type << std::endl;
+        weapon.attack(player, grid, 0); 
         player.stats.item += 1;
         std::cout << player.stats.item << std::endl;
       
@@ -212,6 +226,12 @@ void Game::gameTurn() {
           player.moveY(1, grid);
         player.setDirection(1);
         player.stats.weapon -= 1;
+        if (player.stats.weapon < 1) {
+            player.stats.weapon = 5;
+        }
+        int player_weapon_type = player.stats.weapon;
+        std::cout << "Player Weapon Type: " << player_weapon_type << std::endl;
+        weapon.attack(player, grid, player_weapon_type); 
         player.stats.item -= 1;
         std::cout << player.stats.item << std::endl;
       }

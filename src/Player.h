@@ -15,6 +15,7 @@ class Player
      void moveX(int x, Grid& grid);
      void moveY(int y, Grid& grid);
      void spawnPlayer(Grid& grid);
+     void setInGrid(Grid& grid);
      int CELL_SIZE = 10;
      sf::Vector2i currentPos;
      sf::Vector2i gridPos; 
@@ -82,4 +83,14 @@ class Player
 
  private:
      
+};
+enum PlayerWeaponType
+{
+  Sw  = 0,
+  A    = 1,
+  B   = 2,
+  St = 3,
+  D= 4,
+  Sp = 5
+
 };

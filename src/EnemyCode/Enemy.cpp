@@ -388,6 +388,8 @@ bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y
 }
 
 
+
+
 void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
 {
   // Placeholder logic for enemy movement
@@ -663,12 +665,14 @@ void Enemy::setInGrid(Grid& grid) {
 
       gridClassCopy.setGrid(enemies_in_play[i].x, enemies_in_play[i].y, 99);
   }
-  
+  //gridClassCopy.printGrid();
 
 
 
 
 }
+
+
 
 void Enemy::printEnemiesInPlay() 
 {

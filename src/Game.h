@@ -52,7 +52,10 @@ enum PlayerOptions
   int x = 0;
   int y = 0;
   Grid grid;
-  int (*gridCopy)[60]   = grid.getAllGrid();
+  /// <summary>
+   int (*gridCopy)[60]   = grid.getAllGrid();
+  /// </summary>
+  
   GAME_STATE game_state = GAME;
   Enemy enemy{};
   Player player;

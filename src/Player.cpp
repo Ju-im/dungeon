@@ -209,6 +209,17 @@ void Player::moveX(int x, Grid& grid)
 }
 
 
+void Player::setInGrid(Grid& grid)
+{
+  // get the enemy positions amd copy them into the gridClassCopy
+  int(*gridCopy)[60] = grid.getAllGrid();
+  grid.setGrid(gridPos.x, gridPos.y, 88);
+  
+}
+
+
+
+
 
 void Player::moveY(int y, Grid& grid)
 {
@@ -257,27 +268,27 @@ void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
   window.draw(WeaponUISprite);
   switch (stats.weapon)
   {
-    case 1:
+    case PlayerWeaponType::Sw:
       SwordIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(SwordIconSprite);
       break;
-    case 2:
+    case PlayerWeaponType::B:
        BowIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(BowIconSprite);
         break;
-    case 3:
+    case PlayerWeaponType::A:
        AxeIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(AxeIconSprite);
         break;
-    case 4:
+    case PlayerWeaponType::D:
       DaggerIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(DaggerIconSprite);
       break;
-    case 5:
+    case PlayerWeaponType::St:
       StaffIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(StaffIconSprite);
       break;
-    case 6:
+    case PlayerWeaponType::Sp:
       SpearIconSprite.setPosition(camera.getCenter().x - 60, camera.getCenter().y - 58);
       window.draw(SpearIconSprite);
       break;
