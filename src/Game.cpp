@@ -75,8 +75,8 @@ void Game::render()
       float targetCy = static_cast<float>(screenGridPos.y) + CELL_SIZE / 2.f;
 
       sf::Vector2f viewHalf = camera.getSize() / 2.f;
-      const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
-      const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelW = 60.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelH = 60.f * static_cast<float>(CELL_SIZE);
       if (camera.getSize().x >= mapPixelW)
         targetCx = mapPixelW / 2.f;
       else
@@ -101,8 +101,8 @@ void Game::render()
     else
     {
       // Show the entire map: create a view that covers the whole map in pixels
-      const float mapPixelW = 59.f * static_cast<float>(CELL_SIZE);
-      const float mapPixelH = 59.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelW = 60.f * static_cast<float>(CELL_SIZE);
+      const float mapPixelH = 60.f * static_cast<float>(CELL_SIZE);
 
       // Construct a view that maps the full map rectangle to the window
       sf::View fullView(sf::FloatRect(0.f, 0.f, mapPixelW, mapPixelH));
@@ -179,6 +179,11 @@ void Game::keyPressed(sf::Event event)
   {
     player_camera = !player_camera;
   
+  }
+  if (event.key.code == sf::Keyboard::Enter)
+  {
+  
+  type = attackselected;
   }
 }
 

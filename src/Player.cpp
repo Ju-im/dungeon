@@ -118,39 +118,48 @@ void Player::spawnPlayer(Grid& grid) {
 
 
 }
+
+
 void Player::setDirection(int dir) {
 
     player_dir = dir;
 
 
 }
+
+
 int Player::getDirection() {
 
 
     return player_dir;
 }
+
+
 sf::Vector2i Player::getScreenPosition(Grid& grid)
 {
   currentPos = { gridPos.y * CELL_SIZE, gridPos.x * CELL_SIZE };
   return currentPos;
 
 }
+
+
+
 void Player::moveX(int x, Grid& grid) 
 {
-
-   if (gridPos.y + x > -1 && gridPos.y + x < 59)
+  
+  if (gridPos.y + x > -1 && gridPos.y + x < 60)
   {
      
      int y_grid         = gridPos.y + x;
      int x_grid         = gridPos.x;
      int(*gridCopy)[60] = grid.getAllGrid();
      if (gridCopy[x_grid][y_grid] != 1 && can_move)
-     {
+    {
        gridPos = { gridPos.x, gridPos.y + x };
 
        sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
        test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
-     }
+    }
   }
 
   // y,x
@@ -159,10 +168,13 @@ void Player::moveX(int x, Grid& grid)
   
 
 }
+
+
+
 void Player::moveY(int y, Grid& grid)
 {
 
-  if (gridPos.x + y > -1 && gridPos.x+y < 59)
+  if (gridPos.x + y > -1 && gridPos.x+y < 60)
   {
     
     int y_grid = gridPos.y;

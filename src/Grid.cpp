@@ -9,9 +9,9 @@ Grid::Grid()
 Grid::~Grid() {}
 bool Grid::init()
 {
-  for (int i = 0; i < X - 1; i++)
+  for (int i = 0; i < X ; i++)
   {
-    for (int j = 0; j < Y - 1; j++)
+    for (int j = 0; j < Y ; j++)
     {
       grid[i][j] = RoomIndex::Wall;
     }
@@ -158,9 +158,9 @@ void Grid::connectRooms(const sf::IntRect& a, const sf::IntRect& b, int width)
 
 void Grid::drawDungeon(sf::RenderWindow& window)
 {
-  for (int i = 0; i < X - 1; i++)
+  for (int i = 0; i < X ; i++)
   {
-    for (int j = 0; j < Y - 1; j++)
+    for (int j = 0; j < Y ; j++)
     {
       if (grid[i][j] == RoomIndex::Wall)
       {
@@ -262,9 +262,9 @@ void Grid::generateDungeon()
 
 void Grid::printGrid()
 {
-  for (int i = 0; i < X - 1; i++)
+  for (int i = 0; i < X ; i++)
   {
-    for (int j = 0; j < Y - 1; j++)
+    for (int j = 0; j < Y ; j++)
     {
       std::cout << grid[i][j];
     }

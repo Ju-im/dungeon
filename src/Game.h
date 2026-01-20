@@ -21,7 +21,8 @@ enum PlayerOptions
   down   = 2,
   left   = 3,
   right  = 4,
-  attack = 5
+  attack = 5,
+  attackselected = 6
 
 };
   class Game
