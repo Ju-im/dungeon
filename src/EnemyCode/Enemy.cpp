@@ -264,14 +264,18 @@ bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y
         {
           return false;
         }
-        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
         {
             if (enemies_in_play[enemy_selected].y - y_move_distance == enemies_in_play[each_enemy].y)
             {
               return false; 
             }
         }
-        if (enemies_in_play[enemy_selected].y - y_move_distance == player_pos.y) 
+        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+        {
+          return false;
+        }
+        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
         {
           return false;
         }
@@ -291,14 +295,18 @@ bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y
         {
           return false;
         }
-        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
         {
             if (enemies_in_play[enemy_selected].y + y_move_distance == enemies_in_play[each_enemy].y)
             {
               return false; 
             }
         }
-        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y) 
+        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+        {
+          return false;
+        }
+        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
         {
           return false;
         }
@@ -318,14 +326,18 @@ bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y
         {
           return false;
         }
-        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
         {
             if (enemies_in_play[enemy_selected].x - x_move_distance == enemies_in_play[each_enemy].x)
             {
               return false; 
             }
         }
-        if (enemies_in_play[enemy_selected].x - x_move_distance == player_pos.y) 
+        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+        {
+          return false;
+        }
+        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
         {
           return false;
         }
@@ -345,14 +357,18 @@ bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y
         {
           return false;
         }
-        for (int each_enemy = 0; each_enemy > enemies_in_play.size(); each_enemy++) 
+        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
         {
             if (enemies_in_play[enemy_selected].x + x_move_distance == enemies_in_play[each_enemy].x)
             {
               return false; 
             }
         }
-        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.y) 
+        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x) 
+        {
+          return false;
+        }
+        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
         {
           return false;
         }

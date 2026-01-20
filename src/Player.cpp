@@ -13,7 +13,7 @@ bool Player::init()
   stats.health = 4;
   stats.weapon = 4;
   stats.spell  = 0;
-  stats.item   = 0;
+  stats.item   = 3;
 
    if (!WeaponUI.loadFromFile("../Data/Images/UI/Weapon-UI.png"))
   {
@@ -71,6 +71,45 @@ bool Player::init()
   SpearIconSprite.setTexture(SpearWeaponIcon);
   SpearIconSprite.setScale(0.5f, 0.5f);
 
+  if (!BackpackIconTexture.loadFromFile("../Data/Images/UI/Backpack-Layer.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  BackpackIconTexture.setSmooth(false);
+  BackpackIconSprite.setTexture(BackpackIconTexture);
+  BackpackIconSprite.setScale(0.5f, 0.5f);
+
+  if(!Potion3IconTexture.loadFromFile("../Data/Images/UI/Potion-3Charge.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  Potion3IconTexture.setSmooth(false);
+  Potion3IconSprite.setTexture(Potion3IconTexture);
+  Potion3IconSprite.setScale(0.5f, 0.5f);
+
+   if (!Potion2IconTexture.loadFromFile("../Data/Images/UI/Potion-2Charge.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  Potion2IconTexture.setSmooth(false);
+  Potion2IconSprite.setTexture(Potion2IconTexture);
+  Potion2IconSprite.setScale(0.5f, 0.5f);
+
+   if (!Potion1IconTexture.loadFromFile("../Data/Images/UI/Potion-1Charge.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  Potion1IconTexture.setSmooth(false);
+  Potion1IconSprite.setTexture(Potion1IconTexture);
+  Potion1IconSprite.setScale(0.5f, 0.5f);
+
+   if (!Potion0IconTexture.loadFromFile("../Data/Images/UI/Potion-Empty.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  Potion0IconTexture.setSmooth(false);
+  Potion0IconSprite.setTexture(Potion0IconTexture);
+  Potion0IconSprite.setScale(0.5f, 0.5f);
   
   return true;
 }
@@ -198,9 +237,9 @@ void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 {
   drawHealthBar(window, camera);
   drawWeaponSlot(window, camera);
-
+  drawBackpack(window, camera);
   drawSpellSlot(window, camera);
-  drawItemSlot(window, camera);
+  drawPotion(window, camera);
 }
 
 void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
@@ -253,12 +292,35 @@ void Player::drawSpellSlot(sf::RenderWindow& window, sf::View camera)
   spellSlot.setPosition(camera.getCenter().x - 45, camera.getCenter().y - 58);
   window.draw(spellSlot);
 }
-void Player::drawItemSlot(sf::RenderWindow& window, sf::View camera)
+
+void Player::drawBackpack(sf::RenderWindow& window, sf::View camera)
 {
-  sf::RectangleShape itemSlot(sf::Vector2f(12, 12));
-  itemSlot.setFillColor(sf::Color(150, 150, 150));
-  itemSlot.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
-  window.draw(itemSlot);
+  BackpackIconSprite.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+  window.draw(BackpackIconSprite);
+}
+
+void Player::drawPotion(sf::RenderWindow& window, sf::View camera)
+{
+  switch (stats.item)
+  {
+    case 1:
+      Potion1IconSprite.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+      window.draw(Potion1IconSprite);
+      break;
+    case 2:
+      Potion2IconSprite.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+      window.draw(Potion2IconSprite);
+      break;
+    case 3:
+      Potion3IconSprite.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+      window.draw(Potion3IconSprite);
+      break;
+    default:
+      Potion0IconSprite.setPosition(camera.getCenter().x - 30, camera.getCenter().y - 58);
+      window.draw(Potion0IconSprite);
+      break;
+      break;
+  }
 }
 
 int Player::getHealth()

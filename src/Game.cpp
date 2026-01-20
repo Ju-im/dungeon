@@ -198,6 +198,7 @@ void Game::gameTurn() {
         player.moveY(-1, grid);
         player.setDirection(-1);
         player.stats.weapon += 1;
+        player.stats.item += 1;
         std::cout << player.stats.weapon << std::endl;
       
       
@@ -210,6 +211,7 @@ void Game::gameTurn() {
           player.moveY(1, grid);
         player.setDirection(1);
         player.stats.weapon -= 1;
+        player.stats.item -= 1;
         std::cout << player.stats.weapon << std::endl;
       }
         break;

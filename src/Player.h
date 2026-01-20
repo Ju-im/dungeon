@@ -44,11 +44,27 @@ class Player
       sf::Texture SpearWeaponIcon;
      sf::Sprite SpearIconSprite;
 
+     sf::Texture BackpackIconTexture;
+     sf::Sprite BackpackIconSprite;
+
+     sf::Texture Potion3IconTexture;
+     sf::Sprite Potion3IconSprite;
+
+     sf::Texture Potion2IconTexture;
+     sf::Sprite Potion2IconSprite;
+
+     sf::Texture Potion1IconTexture;
+     sf::Sprite Potion1IconSprite;
+
+     sf::Texture Potion0IconTexture;
+     sf::Sprite Potion0IconSprite;
+
      void renderUI(sf::RenderWindow& window, sf::View camera);
      void drawHealthBar(sf::RenderWindow& window, sf::View camera);
      void drawWeaponSlot(sf::RenderWindow& window, sf::View camera);
      void drawSpellSlot(sf::RenderWindow& window, sf::View camera);
-     void drawItemSlot(sf::RenderWindow& window, sf::View camera);
+     void drawBackpack(sf::RenderWindow& window, sf::View camera);
+     void drawPotion(sf::RenderWindow& window, sf::View camera);
 
      struct PlayerStats
      {
