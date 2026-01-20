@@ -17,8 +17,15 @@ bool Grid::init()
       grid[i][j] = RoomIndex::Wall;
     }
     std::cout << std::endl;
-  }
 
+  }
+  if (!WallTileTexture.loadFromFile("../Data/Images/Map Tiles/Wall.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  WallTileTexture.setSmooth(false);
+  WallTileSprite.setTexture(WallTileTexture);
+  WallTileSprite.setScale(0.3f, 0.3f);
   return true;
 }
 
@@ -166,10 +173,11 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       if (grid[i][j] == RoomIndex::Wall)
       {
         // Draw wall tile at (i, j)
-        sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        /*sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         wallTile.setFillColor(sf::Color::Green);
-        wallTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(wallTile);
+        wallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);*/
+        WallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+       window.draw(WallTileSprite);
       }
       else if (grid[i][j] == RoomIndex::BossRoom)
       {

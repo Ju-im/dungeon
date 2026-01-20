@@ -174,7 +174,8 @@ void Game::keyPressed(sf::Event event)
   type = attack;
   player.can_move = !player.can_move;
   }
-  weapon.attack(player, grid, 99);
+
+  weapon.attack(player, grid, 0);
   if (event.key.code == sf::Keyboard::E)
   {
     player_camera = !player_camera;

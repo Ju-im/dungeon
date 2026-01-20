@@ -49,6 +49,9 @@ class Grid
   int getGrid(int x, int y);
   int (*getAllGrid())[60];
   void setGrid(int x, int y, int value);
+  
+  sf::Sprite WallTileSprite;
+  sf::Texture WallTileTexture;
  
   void drawArea(int x, int y,sf::RenderWindow& window);
 
