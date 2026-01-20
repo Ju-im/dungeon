@@ -5,6 +5,14 @@ Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 
+void Enemy::init() {
+
+    gridClassCopy.init();
+  gridClassCopy.generateDungeon();
+
+}
+
+
 void Enemy::takeDamage(int amount, std::vector<sf::Vector3i> attack_positions)
 {
   // Apply damage to specific enemy
@@ -40,7 +48,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.
-
+  setInGrid(grid);
   player_position = player_pos;
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
@@ -621,6 +629,28 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
   {
     return sf::Vector3i(0, 0, 0);
   }
+}
+
+void Enemy::setInGrid(Grid& grid) {
+
+  int(*gridCopy)[60] = grid.getAllGrid();
+  for (int i = 0; i < 60; i++)
+  {
+    for (int j = 0; j < 60; j++)
+    {
+      gridClassCopy.setGrid(i, j, gridCopy[i][j]);
+    }
+  }
+    for (int i = 0; i < enemies_in_play.size(); i++)
+  {
+
+      gridClassCopy.setGrid(enemies_in_play[i].x, enemies_in_play[i].y, 99);
+  }
+  
+  gridClassCopy.printGrid();
+
+
+
 }
 
 void Enemy::printEnemiesInPlay() 

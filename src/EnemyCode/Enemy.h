@@ -15,11 +15,13 @@ class Enemy
 	public:
 	Enemy();
 	~Enemy();
+    void init();
 	void attack(int enemy_index,int enemy);
     bool checkIfAttackPossible(int (*matrix)[60]);
     void move(int enemy, sf::Vector2i player_pos, Grid& grid);
     void takeDamage(int amount, std::vector<sf::Vector3i>); 
     sf::Vector3i spawn(int (*matrix)[60], int type);
+    void setInGrid(Grid& grid);
     void printEnemiesInPlay();
     int getHealth(int enemy);
     int getDamage(int enemy);
@@ -28,6 +30,7 @@ class Enemy
     bool checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance,int enemy_selected, sf::Vector2i player_pos);
     sf::RectangleShape wallTile;
 	private:
+    Grid gridClassCopy;
     int type;
     bool spawned = false;
     int CELL_SIZE= 10;
