@@ -212,7 +212,7 @@ void Game::gameTurn() {
         }
         int player_weapon_type = player.stats.weapon;
         std::cout << "Player Weapon Type: " << player_weapon_type << std::endl;
-        weapon.attack(player, grid, 0); 
+        weapon.attack(player, grid, player_weapon_type); 
         player.stats.item += 1;
         std::cout << player.stats.item << std::endl;
       
