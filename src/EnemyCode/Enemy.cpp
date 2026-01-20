@@ -663,7 +663,7 @@ void Enemy::setInGrid(Grid& grid) {
       gridClassCopy.setGrid(enemies_in_play[i].x, enemies_in_play[i].y, 99);
   }
   
-  gridClassCopy.printGrid();
+
 
 
 

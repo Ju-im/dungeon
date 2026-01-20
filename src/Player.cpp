@@ -13,7 +13,7 @@ bool Player::init()
   stats.health = 4;
   stats.weapon = 4;
   stats.spell  = 0;
-  stats.item   = 3;
+  stats.item   = 2;
 
    if (!WeaponUI.loadFromFile("../Data/Images/UI/Weapon-UI.png"))
   {

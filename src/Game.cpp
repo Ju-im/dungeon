@@ -199,7 +199,7 @@ void Game::gameTurn() {
         player.setDirection(-1);
         player.stats.weapon += 1;
         player.stats.item += 1;
-        std::cout << player.stats.weapon << std::endl;
+        std::cout << player.stats.item << std::endl;
       
       
       
@@ -212,12 +212,12 @@ void Game::gameTurn() {
         player.setDirection(1);
         player.stats.weapon -= 1;
         player.stats.item -= 1;
-        std::cout << player.stats.weapon << std::endl;
+        std::cout << player.stats.item << std::endl;
       }
         break;
       case left:
       {
-        std::cout << "A pressed" << std::endl;
+        
         player.moveX(-1, grid);
         player.setDirection(-2);
         
