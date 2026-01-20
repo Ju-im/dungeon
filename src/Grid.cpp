@@ -9,6 +9,7 @@ Grid::Grid()
 Grid::~Grid() {}
 bool Grid::init()
 {
+
   for (int i = 0; i < X ; i++)
   {
     for (int j = 0; j < Y ; j++)
@@ -211,7 +212,7 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       }
      
       
-      else
+      else if (grid[i][j] == RoomIndex::Floor)
       {
         // Draw floor tile at (i, j)
         sf::RectangleShape floorTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
