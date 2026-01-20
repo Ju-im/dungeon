@@ -10,7 +10,7 @@ Weapon::~Weapon() {}
 
 void Weapon::attack(Player& player, Grid& grid, int type)
 {
-  
+  this->init();
   sf::Vector2i grid_pos =player.getScreenPosition(grid);
 
   switch (type)
