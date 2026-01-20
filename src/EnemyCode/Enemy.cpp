@@ -44,11 +44,11 @@ void Enemy::takeDamage(int amount, std::vector<sf::Vector3i> attack_positions)
 
 void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
 {
-  
+  std::cout << "test! :)";
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.
-  setInGrid(grid);
+  
   player_position = player_pos;
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
@@ -63,6 +63,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
     }
   }
 
+  setInGrid(grid);
 }
 bool Enemy::checkIfAttackPossible(int (*matrix)[60])
 {
@@ -648,8 +649,8 @@ sf::Vector3i Enemy::spawn(int (*matrix)[60],int type)
 }
 
 void Enemy::setInGrid(Grid& grid) {
-
-  int(*gridCopy)[60] = grid.getAllGrid();
+  // get the enemy positions amd copy them into the gridClassCopy
+  int(*gridCopy)[60] = grid.getAllGrid(); 
   for (int i = 0; i < 60; i++)
   {
     for (int j = 0; j < 60; j++)
@@ -663,7 +664,7 @@ void Enemy::setInGrid(Grid& grid) {
       gridClassCopy.setGrid(enemies_in_play[i].x, enemies_in_play[i].y, 99);
   }
   
-  
+
 
 
 
