@@ -150,7 +150,15 @@ void Game::keyPressed(sf::Event event)
     player.setDirection(-1);
     player.stats.weapon += 1;
     std::cout << player.stats.weapon << std::endl;*/
-    type = Up;
+    if (type == attack)
+    {
+      type = Null;
+    }
+    else
+    {
+      type = Up;
+    }
+    
     
   }
   if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
@@ -158,7 +166,16 @@ void Game::keyPressed(sf::Event event)
     /*std::cout << "A pressed" << std::endl;
     player.moveX(-1, grid);
     player.setDirection(-2);*/
-    type = left;
+    
+     if (type == attack)
+    {
+      type = Null;
+    }
+    else
+    {
+      type = left;
+    }
+    
   }
   if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
   {
@@ -167,14 +184,31 @@ void Game::keyPressed(sf::Event event)
     player.setDirection(1);
     player.stats.weapon -= 1;
     std::cout << player.stats.weapon << std::endl;*/
-    type = down;
+    
+    if (type == attack)
+    {
+      type = Null;
+    }
+    else
+    {
+      type = down;
+    }
   }
   if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
   {
     /*std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
     player.setDirection(2);*/
-    type = right;
+    
+    if (type == attack)
+    {
+      type = Null;
+    }
+    else
+    {
+      type = right;
+    }
+
   }
   if (event.key.code == sf::Keyboard::Space)
   {
@@ -220,7 +254,10 @@ void Game::gameTurn() {
         weapon.attack(player, grid, player_weapon_type); */
         player.stats.item += 1;
         //std::cout << player.stats.item << std::endl;
-        type = enemyturn;
+        if (player.can_move == true)
+        {
+          type = enemyturn;
+        }
       
       
       
@@ -240,7 +277,11 @@ void Game::gameTurn() {
         weapon.attack(player, grid, player_weapon_type); */
         player.stats.item -= 1;
         //std::cout << player.stats.item << std::endl;
-        type = enemyturn;
+        
+         if (player.can_move == true)
+        {
+          type = enemyturn;
+        }
       }
         break;
       case left:
@@ -248,7 +289,10 @@ void Game::gameTurn() {
         
         player.moveX(-1, grid);
         player.setDirection(-2);
-        type = enemyturn;
+        if (player.can_move == true)
+        {
+          type = enemyturn;
+        }
         
         
         
@@ -258,7 +302,11 @@ void Game::gameTurn() {
       {
         player.moveX(1, grid);
         player.setDirection(2);
-        type = enemyturn;
+        if (player.can_move == true)
+        {
+          type = enemyturn;
+        }
+        
       
       
       }
@@ -267,7 +315,15 @@ void Game::gameTurn() {
       {
         
       player.can_move = !player.can_move;
-        weapon.attack(player, grid, player.getWeapon());
+        if (player.can_move == false) {
+          weapon.attack(player, grid, player.getWeapon());
+        }
+        else
+        {
+          weapon.attack(player, grid, 99);
+        
+        }
+        
      
 
 

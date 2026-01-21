@@ -100,7 +100,7 @@ void Weapon::clearPos()
 void Weapon::render(sf::RenderWindow& window)
 {
   t           = clock.getElapsedTime().asSeconds();
-  sf::Uint8 a = static_cast<sf::Uint8>(std::sin(t * 3.0f + 4) * 127 + 128);
+  sf::Uint8 a = static_cast<sf::Uint8>(std::sin(t * 6.0f) * 127 + 128);
   for (int y = 0; y < Y; y++)
   {
     for (int x = 0; x < X; x++)
