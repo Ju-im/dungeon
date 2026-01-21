@@ -173,11 +173,110 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       if (grid[i][j] == RoomIndex::Wall)
       {
         // Draw wall tile at (i, j)
-        /*sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        wallTile.setFillColor(sf::Color::Green);
-        wallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);*/
+        sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         WallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-       window.draw(WallTileSprite);
+        WallTileSprite.setRotation(0);
+        WallTileSprite.setTextureRect(sf::IntRect(0, 0, WallTileSprite.getLocalBounds().width, WallTileSprite.getLocalBounds().height));
+        WallTileSprite.setOrigin(0, 0);
+        
+        bool up = false;
+        bool down = false;
+        bool left = false;
+        bool right = false;
+        if (grid[i-1][j] != Wall)
+        {
+          up = true;
+        }
+        if (grid[i+1][j] != Wall)
+        {
+          down = true;
+        }
+        if (grid[i][j-1] != Wall)
+        {
+          left = true;
+        }
+        if (grid[i][j+1] != Wall)
+        {
+          right = true;
+        }
+        if (up && down && left && right)
+        {
+         
+        }
+        else if (up && down && left)
+        {
+          
+        }
+        else if (up && down && right)
+        {
+          //wallTile.setTextureRect(sf::IntRect(32, 96, 32, 32));
+        }
+        else if (left && right && up)
+        {
+          //wallTile.setTextureRect(sf::IntRect(0, 96, 32, 32));
+        }
+        else if (left && right && down)
+        {
+          //wallTile.setTextureRect(sf::IntRect(128, 96, 32, 32));
+        }
+        else if (up && down)
+        {
+          //wallTile.setTextureRect(sf::IntRect(96, 64, 32, 32));
+        }
+        else if (left && right)
+        {
+          //wallTile.setTextureRect(sf::IntRect(64, 64, 32, 32));
+        }
+        else if (up && left)
+        {
+          //wallTile.setTextureRect(sf::IntRect(32, 64, 32, 32));
+        }
+        else if (up && right)
+        {
+          //wallTile.setTextureRect(sf::IntRect(0, 64, 32, 32));
+        }
+        else if (down && left)
+        {
+          //wallTile.setTextureRect(sf::IntRect(128, 64, 32, 32));
+        }
+        else if (down && right)
+        {
+          //wallTile.setTextureRect(sf::IntRect(160, 64, 32, 32));
+        }
+        else if (up)
+        {
+          /*bird.setTextureRect(sf::IntRect(
+            0, 0, bird.getLocalBounds().width, bird.getLocalBounds().height));*/
+          WallTileSprite.setTextureRect(sf::IntRect(WallTileSprite.getLocalBounds().width, WallTileSprite.getLocalBounds().height, -WallTileSprite.getLocalBounds().width, -WallTileSprite.getLocalBounds().height));
+          //WallTileSprite.setRotation(180);
+          window.draw(WallTileSprite);
+        }
+        else if (down)
+        {
+          //WallTileSprite.setTextureRect(sf::IntRect(64, 32, 32, 32));
+          window.draw(WallTileSprite);
+          //wallTile.setRotation(180);
+        }
+        else if (right)
+        {
+          WallTileSprite.setOrigin(WallTileSprite.getLocalBounds().width, 0);
+          WallTileSprite.setRotation(-90);
+          window.draw(WallTileSprite);
+        }
+        else if (left)
+        {
+          WallTileSprite.setOrigin(0, WallTileSprite.getLocalBounds().height);
+          WallTileSprite.setRotation(90);
+          window.draw(WallTileSprite);
+        }
+        else
+        {
+          sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+          wallTile.setFillColor(sf::Color::Green);
+          wallTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(wallTile);
+        }
+        //window.draw(WallTileSprite);
       }
       else if (grid[i][j] == RoomIndex::BossRoom)
       {
