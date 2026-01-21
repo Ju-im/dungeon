@@ -10,7 +10,7 @@ Player::~Player() {
 
 bool Player::init()
 {
-  stats.health = 4;
+  stats.health = 2;
   stats.weapon = 4;
   stats.spell  = 0;
   stats.item   = 2;
@@ -110,7 +110,60 @@ bool Player::init()
   Potion0IconTexture.setSmooth(false);
   Potion0IconSprite.setTexture(Potion0IconTexture);
   Potion0IconSprite.setScale(0.5f, 0.5f);
+
+  if (!HeartTexture.loadFromFile("../Data/Images/UI/Hearts/Full red heart.png"))
+  {
+    std::cout << "Failed to load heart texture" << std::endl;
+  }
+  HeartTexture.setSmooth(false);
+  HeartSprite.setTexture(HeartTexture);
   
+  if (!HalfRedHeartTexture.loadFromFile("../Data/Images/UI/Hearts/Half empty heart.png"))
+  {
+    std::cout << "Failed to load heart empty texture" << std::endl;
+  }
+  if (!EmptyHeartTexture.loadFromFile("../Data/Images/UI/Hearts/Empty heart.png"))
+  {
+    std::cout << "Failed to load empty texture" << std::endl;
+  }
+  EmptyHeartTexture.setSmooth(false);
+
+  if (!FullSteelHeartTexture.loadFromFile("../Data/Images/UI/Hearts/Full steel heart.png"))
+  {
+    std::cout << "Failed to load full steel texture" << std::endl;
+  }
+  FullSteelHeartTexture.setSmooth(false);
+
+  if (!HalfSteel_HalfRedHeartTexture.loadFromFile("../Data/Images/UI/Hearts/"
+                                                  "Half steel heart.png"))
+  {
+    std::cout << "Failed to load half steel half red heart texture" << std::endl;
+  }
+  HalfSteel_HalfRedHeartTexture.setSmooth(false);
+
+
+  if (!HalfRedHeartTexture.loadFromFile("../Data/Images/UI/Hearts/Half empty heart.png"))
+  {
+    std::cout << "Failed to load half red texture" << std::endl;
+  }
+
+  if (!HalfSteel_HalfEmptyTexture.loadFromFile("../Data/Images/UI/Hearts/"
+                                              "Half empty half steel.png"))
+  {
+    std::cout << "Failed to load half empty half steel texture" << std::endl;
+  }
+  HalfSteel_HalfEmptyTexture.setSmooth(false);
+  for (int i = 0; i < stats.health; i++)
+  {
+    sf::Sprite heart;
+    heart.setTexture(HeartTexture);
+   heart.setScale(0.5f, 0.5f);
+    hearts.push_back(heart);
+  } 
+  
+
+  
+
   return true;
 }
 
@@ -185,7 +238,7 @@ sf::Vector2i Player::getScreenPosition(Grid& grid)
 
 void Player::moveX(int x, Grid& grid) 
 {
-  
+
   if (gridPos.y + x > -1 && gridPos.y + x < 60)
   {
      
@@ -200,6 +253,8 @@ void Player::moveX(int x, Grid& grid)
        test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
     }
   }
+
+
 
   // y,x
   
@@ -255,10 +310,12 @@ void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 
 void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 {
-  sf::RectangleShape healthBar(sf::Vector2f(30, 10));
-  healthBar.setFillColor(sf::Color(100, 100, 100));
-  healthBar.setPosition(camera.getCenter().x + 30,camera.getCenter().y-58);
-  window.draw(healthBar);
+  for (int i = 0; i < stats.health; i++)
+  {
+    hearts[0].setPosition(camera.getCenter().x + 30 + (0 * 16), camera.getCenter().y - 58);
+    window.draw(hearts[0]);
+  }
+ 
 }
 void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
 {
