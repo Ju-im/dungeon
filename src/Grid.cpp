@@ -26,6 +26,39 @@ bool Grid::init()
   WallTileTexture.setSmooth(false);
   WallTileSprite.setTexture(WallTileTexture);
   WallTileSprite.setScale(0.32f, 0.32f);
+
+  if (!TwoWallTileTexture.loadFromFile("../Data/Images/Map Tiles/Two Wall.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  TwoWallTileTexture.setSmooth(false);
+  TwoWallTileSprite.setTexture(TwoWallTileTexture);
+  TwoWallTileSprite.setScale(0.32f, 0.32f);
+
+  if (!ThreeWallTileTexture.loadFromFile("../Data/Images/Map Tiles/Three Wall.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  ThreeWallTileTexture.setSmooth(false);
+  ThreeWallTileSprite.setTexture(ThreeWallTileTexture);
+  ThreeWallTileSprite.setScale(0.32f, 0.32f);
+
+  if (!WallTileTexture.loadFromFile("../Data/Images/Map Tiles/Empty Tile.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  EmptyWallTileTexture.setSmooth(false);
+  EmptyWallTileSprite.setTexture(EmptyWallTileTexture);
+  EmptyWallTileSprite.setScale(0.32f, 0.32f);
+
+  if (!CornerWallTileTexture.loadFromFile("../Data/Images/Map Tiles/Corner Tile.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  CornerWallTileTexture.setSmooth(false);
+  CornerWallTileSprite.setTexture(CornerWallTileTexture);
+  CornerWallTileSprite.setScale(0.32f, 0.32f);
+
   return true;
 }
 
@@ -179,6 +212,19 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         WallTileSprite.setTextureRect(sf::IntRect(0, 0, WallTileSprite.getLocalBounds().width, WallTileSprite.getLocalBounds().height));
         WallTileSprite.setOrigin(0, 0);
         
+        TwoWallTileSprite.setOrigin(0, 0);
+        TwoWallTileSprite.setRotation(0);
+
+        ThreeWallTileSprite.setOrigin(0, 0);
+        ThreeWallTileSprite.setRotation(0);
+
+        CornerWallTileSprite.setOrigin(0, 0);
+        CornerWallTileSprite.setRotation(0);
+        CornerWallTileSprite.setTextureRect(sf::IntRect(0, 0, CornerWallTileSprite.getLocalBounds().width, CornerWallTileSprite.getLocalBounds().height));
+
+        EmptyWallTileSprite.setOrigin(0, 0);
+        EmptyWallTileSprite.setRotation(0);
+        
         bool up = false;
         bool down = false;
         bool left = false;
@@ -201,49 +247,63 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         }
         if (up && down && left && right)
         {
-         
+         //
         }
         else if (up && down && left)
         {
-          
+          window.draw(ThreeWallTileSprite);
         }
         else if (up && down && right)
         {
-          //wallTile.setTextureRect(sf::IntRect(32, 96, 32, 32));
+          //window.draw(ThreeWallTileSprite);
         }
-        else if (left && right && up)
+        else if (left && right && up)//
         {
-          //wallTile.setTextureRect(sf::IntRect(0, 96, 32, 32));
+          ThreeWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(ThreeWallTileSprite);
         }
         else if (left && right && down)
         {
-          //wallTile.setTextureRect(sf::IntRect(128, 96, 32, 32));
+          //window.draw(ThreeWallTileSprite);
         }
-        else if (up && down)
+        else if (up && down)// - Done
         {
-          //wallTile.setTextureRect(sf::IntRect(96, 64, 32, 32));
+          TwoWallTileSprite.setOrigin(TwoWallTileSprite.getLocalBounds().width, 0);
+          TwoWallTileSprite.setRotation(-90);
+          TwoWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(TwoWallTileSprite);
         }
-        else if (left && right)
+        else if (left && right)//
         {
-          //wallTile.setTextureRect(sf::IntRect(64, 64, 32, 32));
+          TwoWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(TwoWallTileSprite);
         }
-        else if (up && left)
+        else if (up && left)//
         {
-          //wallTile.setTextureRect(sf::IntRect(32, 64, 32, 32));
+          CornerWallTileSprite.setTextureRect(sf::IntRect(CornerWallTileSprite.getLocalBounds().width, CornerWallTileSprite.getLocalBounds().height, -CornerWallTileSprite.getLocalBounds().width, -WallTileSprite.getLocalBounds().height));
+          CornerWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(CornerWallTileSprite);
         }
-        else if (up && right)
+        else if (up && right)//
         {
-          //wallTile.setTextureRect(sf::IntRect(0, 64, 32, 32));
+          CornerWallTileSprite.setOrigin(CornerWallTileSprite.getLocalBounds().width, 0);
+          CornerWallTileSprite.setRotation(-90);
+          CornerWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(CornerWallTileSprite);
         }
-        else if (down && left)
+        else if (down && left)//
         {
-          //wallTile.setTextureRect(sf::IntRect(128, 64, 32, 32));
+          CornerWallTileSprite.setOrigin(0, CornerWallTileSprite.getLocalBounds().height);
+          CornerWallTileSprite.setRotation(90);
+          CornerWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(CornerWallTileSprite);
         }
-        else if (down && right)
+        else if (down && right)//
         {
-          //wallTile.setTextureRect(sf::IntRect(160, 64, 32, 32));
+          CornerWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(CornerWallTileSprite);
         }
-        else if (up)
+        else if (up)//
         {
           /*bird.setTextureRect(sf::IntRect(
             0, 0, bird.getLocalBounds().width, bird.getLocalBounds().height));*/
@@ -251,19 +311,19 @@ void Grid::drawDungeon(sf::RenderWindow& window)
           //WallTileSprite.setRotation(180);
           window.draw(WallTileSprite);
         }
-        else if (down)
+        else if (down)//
         {
           //WallTileSprite.setTextureRect(sf::IntRect(64, 32, 32, 32));
           window.draw(WallTileSprite);
           //wallTile.setRotation(180);
         }
-        else if (right)
+        else if (right)//
         {
           WallTileSprite.setOrigin(WallTileSprite.getLocalBounds().width, 0);
           WallTileSprite.setRotation(-90);
           window.draw(WallTileSprite);
         }
-        else if (left)
+        else if (left)//
         {
           WallTileSprite.setOrigin(0, WallTileSprite.getLocalBounds().height);
           WallTileSprite.setRotation(90);
@@ -271,10 +331,8 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         }
         else
         {
-          sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-          wallTile.setFillColor(sf::Color::Green);
-          wallTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-          window.draw(wallTile);
+          EmptyWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(EmptyWallTileSprite);
         }
         //window.draw(WallTileSprite);
       }

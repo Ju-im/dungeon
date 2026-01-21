@@ -52,6 +52,19 @@ class Grid
   
   sf::Sprite WallTileSprite;
   sf::Texture WallTileTexture;
+  
+  sf::Sprite TwoWallTileSprite;
+  sf::Texture TwoWallTileTexture;
+  
+  sf::Sprite ThreeWallTileSprite;
+  sf::Texture ThreeWallTileTexture;
+  
+  sf::Sprite EmptyWallTileSprite;
+  sf::Texture EmptyWallTileTexture;
+  
+  sf::Sprite CornerWallTileSprite;
+  sf::Texture CornerWallTileTexture;
+
  
   void drawArea(int x, int y,sf::RenderWindow& window);
 
