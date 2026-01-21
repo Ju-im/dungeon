@@ -99,6 +99,8 @@ void Weapon::clearPos()
 
 void Weapon::render(sf::RenderWindow& window)
 {
+  t           = clock.getElapsedTime().asSeconds();
+  sf::Uint8 a = static_cast<sf::Uint8>(std::sin(t * 3.0f + 4) * 127 + 128);
   for (int y = 0; y < Y; y++)
   {
     for (int x = 0; x < X; x++)
@@ -115,7 +117,7 @@ void Weapon::render(sf::RenderWindow& window)
             int dir_y = 1 - x;
             // Draw wall tile at (i, j)
             sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setFillColor(sf::Color(0,0,0,a));
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
@@ -137,7 +139,7 @@ void Weapon::render(sf::RenderWindow& window)
               int dir_y = 1 - x;
               // Draw wall tile at (i, j)
               sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-              wallTile.setFillColor(sf::Color::Black);
+              wallTile.setFillColor(sf::Color(0, 0, 0, a));
               wallTile.setPosition(
                 (player_pos.y + dir_y) * CELL_SIZE,
                 (player_pos.x - dir_x) * CELL_SIZE);
@@ -158,7 +160,7 @@ void Weapon::render(sf::RenderWindow& window)
             int dir_y = 3 - y;
             // Draw wall tile at (i, j)
             sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setFillColor(sf::Color(0, 0, 0, a));
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
@@ -177,7 +179,7 @@ void Weapon::render(sf::RenderWindow& window)
             int dir_y = (3 - y);
             // Draw wall tile at (i, j)
             sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-            wallTile.setFillColor(sf::Color::Black);
+            wallTile.setFillColor(sf::Color(0, 0, 0, a));
             wallTile.setPosition(
               (player_pos.y - dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);

@@ -60,6 +60,19 @@ class Player
      sf::Texture Potion0IconTexture;
      sf::Sprite Potion0IconSprite;
 
+     sf::Texture HeartTexture;
+
+     sf::Texture EmptyHeartTexture;
+     sf::Texture FullSteelHeartTexture;
+     sf::Texture HalfSteel_HaflEmptyHeartTexture;
+     sf::Texture HalfRedHeartTexture;
+     sf::Texture HalfSteel_HalfEmptyTexture;
+     sf::Texture HalfSteel_HalfRedHeartTexture;
+
+     sf::Sprite HeartSprite;
+
+     std::vector<sf::Sprite> hearts;
+
      void renderUI(sf::RenderWindow& window, sf::View camera);
      void drawHealthBar(sf::RenderWindow& window, sf::View camera);
      void drawWeaponSlot(sf::RenderWindow& window, sf::View camera);

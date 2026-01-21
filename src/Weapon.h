@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <iostream>
 #include <vector>
+#include <math.h>
 class Weapon
 {
  public:
@@ -40,6 +41,8 @@ class Weapon
    sf::Vector2i player_pos;
    int player_dir = 0;
    bool loop      = true;
+   sf::Clock clock;
+   float t = 0.0f;
 };
 
 enum WeaponType
