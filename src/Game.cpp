@@ -54,7 +54,7 @@ void Game::update(float dt)
     case GAME:
     {
       gameTurn();
-      enemy.takeDamage(0, weapon.getAttackPos());
+      //enemy.takeDamage(0, weapon.getAttackPos());
      
       weapon.clearPos();
       break;
@@ -340,6 +340,7 @@ void Game::gameTurn() {
 
           player.can_move = true;
           type            = enemyturn;
+          enemy.takeDamage(0, weapon.getAttackPos());
         }
       }
       }
