@@ -56,7 +56,7 @@ void Game::update(float dt)
       gameTurn();
       player.update(dt);
       //enemy.takeDamage(0, weapon.getAttackPos());
-      weapon.clearPos();
+      //weapon.clearPos();
       updatePlayerExploreGrid();
       break;
             
@@ -215,7 +215,7 @@ void Game::keyPressed(sf::Event event)
  
   }
   
-  if (event.key.code == sf::Keyboard::M)
+  if (event.key.code == sf::Keyboard::E)
   {
     player_camera = !player_camera;
     player.can_move = !player.can_move;

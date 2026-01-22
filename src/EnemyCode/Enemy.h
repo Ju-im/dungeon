@@ -17,7 +17,7 @@ class Enemy
 	~Enemy();
     void init();
 	void attack(int enemy_index,int enemy);
-    bool checkIfAttackPossible(int (*matrix)[60]);
+    bool checkIfAttackPossible();
     void move(int enemy, sf::Vector2i player_pos, Grid& grid);
     void takeDamage(int amount, std::vector<sf::Vector3i>); 
     sf::Vector3i spawn(int (*matrix)[60], int type);

@@ -10,7 +10,7 @@ Player::~Player() {
 
 bool Player::init()
 {
-  stats.health = 4;
+  stats.health = 2;
   stats.weapon = 4;
   stats.spell  = 0;
   stats.item   = 2;
@@ -153,6 +153,7 @@ bool Player::init()
     std::cout << "Failed to load half empty half steel texture" << std::endl;
   }
   HalfSteel_HalfEmptyTexture.setSmooth(false);
+<<<<<<< Updated upstream
   
   if (!PlayerupSword.loadFromFile("../Data/Images/Player/pixil-layer-Front Sword.png"))
   {
@@ -176,6 +177,10 @@ bool Player::init()
   
   
   for (int i = 0; i < stats.health; i++)
+=======
+  hearts.resize(3);
+  for (int i = 0; i < 3; i++)
+>>>>>>> Stashed changes
   {
     sf::Sprite heart;
     heart.setTexture(HeartTexture);
@@ -317,11 +322,19 @@ void Player::moveX(int x, Grid& grid)
 void Player::setInGrid(Grid& grid)
 {
   // get the enemy positions amd copy them into the gridClassCopy
-  int(*gridCopy)[60] = grid.getAllGrid();
+  
   grid.setGrid(gridPos.x, gridPos.y, 88);
+  playerinGridPos = { gridPos.x, gridPos.y };
   
 }
 
+sf::Vector2i Player::getInGridPos() {
+
+
+    
+    return playerinGridPos;
+
+}
 
 
 
@@ -360,7 +373,7 @@ void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 
 void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 {
-  for (int i = 0; i < stats.health; i++)
+  for (int i = 0; i < 3; i++)
   {
     hearts[i].setPosition(camera.getCenter().x + 30 + (0 * 16), camera.getCenter().y - 58);
     window.draw(hearts[i]);

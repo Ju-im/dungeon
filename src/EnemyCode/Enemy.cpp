@@ -53,7 +53,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
   for (int enemy_selected = 0; enemy_selected < enemies_in_play.size(); enemy_selected++)
   {
    //std::cout << "Enemies in play: " << enemies_in_play.size() << std::endl;
-    if (checkIfAttackPossible(NULL)) // Replace NULL with actual matrix
+    if (checkIfAttackPossible()) // Replace NULL with actual matrix
     {
       attack(enemy_selected,enemies_in_play[enemy_selected].type);
     }
@@ -65,7 +65,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
 
   setInGrid(grid);
 }
-bool Enemy::checkIfAttackPossible(int (*matrix)[60])
+bool Enemy::checkIfAttackPossible()
 {
 	// Placeholder logic for checking if an attack is possible
 	// In a real implementation, this would involve checking the player's position relative to the enemy
@@ -74,13 +74,28 @@ bool Enemy::checkIfAttackPossible(int (*matrix)[60])
     //for (int i = 0; i < enemies_in_play.size(); i++)
    // {
    //   attack(enemies_in_play[i].type);
-	//}
     return false;
 }
 
 void Enemy::attack(int enemy_index, int enemy)
 {
-  
+  //}
+  //sf::Vector2i player_grid_pos;
+  //int(*gridCopy)[60] = gridClassCopy.getAllGrid();
+  //for (int y = 0; y < 60; y++)
+  //{
+  //  for (int x = 0; x < 60; x++)
+  //  {
+  //    if (gridCopy[y][x] == 88) // Assuming 88 represents the player
+  //    {
+  //      player_grid_pos = { x, y };
+  //      return true;
+  //    }
+  //  }
+  //}
+
+
+  //return false;
     attackTiles.clear();
   
   switch (enemy)
@@ -96,7 +111,13 @@ void Enemy::attack(int enemy_index, int enemy)
 
      int distance_of_x = player_position.y - enemy_x;
       int distance_of_y = player_position.x - enemy_y;
+    /* if (distance_of_x > 1)
+     {
 
+
+     
+     
+    }*/
       for (int y = 0; y < Y; y++)
       {
         for (int x = 0; x < X; x++)

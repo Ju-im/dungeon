@@ -16,6 +16,7 @@ class Player
      void moveY(int y, Grid& grid);
      void spawnPlayer(Grid& grid);
      void setInGrid(Grid& grid);
+     sf::Vector2i getInGridPos();
      int CELL_SIZE = 10;
      sf::Vector2i currentPos;
      sf::Vector2i gridPos; 
@@ -81,6 +82,8 @@ class Player
 
 
      std::vector<sf::Sprite> hearts;
+
+     sf::Vector2i playerinGridPos;
 
      void renderUI(sf::RenderWindow& window, sf::View camera);
      void drawHealthBar(sf::RenderWindow& window, sf::View camera);

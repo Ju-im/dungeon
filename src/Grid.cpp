@@ -270,31 +270,13 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         EmptyWallTileSprite.setOrigin(0, 0);
         EmptyWallTileSprite.setRotation(0);
         
-        bool up = false;
-        bool down = false;
-        bool left = false;
-        bool right = false;
-        if (grid[i-1][j] != Wall)
-        {
-          up = true;
-        }
-        if (grid[i+1][j] != Wall)
-        {
-          down = true;
-        }
-        if (grid[i][j-1] != Wall)
-        {
-          left = true;
-        }
-        if (grid[i][j+1] != Wall)
-        {
-          right = true;
-        }
-        if (up && down && left && right)
-        {
-          std::cout << "ALL SIDES CLOSED, AAAAAHHHHHHH!!!!!" << std::endl;
-        }
-        else if (up && down && left) //
+        
+        bool up    = (i > 0) && grid[i - 1][j] != RoomIndex::Wall;
+        bool down  = (i < X - 1) && grid[i + 1][j] != RoomIndex::Wall;
+        bool left  = (j > 0) && grid[i][j - 1] != RoomIndex::Wall;
+        bool right = (j < Y - 1) && grid[i][j + 1] != RoomIndex::Wall;
+
+         if (up && down && left) //
         {
           ThreeWallTileSprite.setOrigin(ThreeWallTileSprite.getLocalBounds().width, 0);
           ThreeWallTileSprite.setRotation(-90);
