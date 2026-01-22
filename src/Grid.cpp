@@ -43,7 +43,7 @@ bool Grid::init()
   ThreeWallTileSprite.setTexture(ThreeWallTileTexture);
   ThreeWallTileSprite.setScale(0.32f, 0.32f);
 
-  if (!WallTileTexture.loadFromFile("../Data/Images/Map Tiles/Empty Tile.png"))
+  if (!EmptyWallTileTexture.loadFromFile("../Data/Images/Map Tiles/Empty Tile.png"))
   {
     std::cout << "Failed to load weapon UI texture" << std::endl;
   }
@@ -217,6 +217,7 @@ void Grid::drawDungeon(sf::RenderWindow& window)
 
         ThreeWallTileSprite.setOrigin(0, 0);
         ThreeWallTileSprite.setRotation(0);
+        ThreeWallTileSprite.setTextureRect(sf::IntRect(0, 0, ThreeWallTileSprite.getLocalBounds().width, ThreeWallTileSprite.getLocalBounds().height));
 
         CornerWallTileSprite.setOrigin(0, 0);
         CornerWallTileSprite.setRotation(0);
@@ -247,15 +248,21 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         }
         if (up && down && left && right)
         {
-         //
+          std::cout << "ALL SIDES CLOSED, AAAAAHHHHHHH!!!!!" << std::endl;
         }
-        else if (up && down && left)
+        else if (up && down && left) //
         {
+          ThreeWallTileSprite.setOrigin(ThreeWallTileSprite.getLocalBounds().width, 0);
+          ThreeWallTileSprite.setRotation(-90);
+          ThreeWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
           window.draw(ThreeWallTileSprite);
         }
-        else if (up && down && right)
+        else if (up && down && right)//
         {
-          //window.draw(ThreeWallTileSprite);
+          ThreeWallTileSprite.setOrigin(0, ThreeWallTileSprite.getLocalBounds().height);
+          ThreeWallTileSprite.setRotation(90);
+          ThreeWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(ThreeWallTileSprite);
         }
         else if (left && right && up)//
         {
@@ -264,7 +271,9 @@ void Grid::drawDungeon(sf::RenderWindow& window)
         }
         else if (left && right && down)
         {
-          //window.draw(ThreeWallTileSprite);
+          ThreeWallTileSprite.setTextureRect(sf::IntRect(ThreeWallTileSprite.getLocalBounds().width, ThreeWallTileSprite.getLocalBounds().height, -ThreeWallTileSprite.getLocalBounds().width, -ThreeWallTileSprite.getLocalBounds().height));
+          ThreeWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+          window.draw(ThreeWallTileSprite);
         }
         else if (up && down)// - Done
         {
@@ -329,7 +338,7 @@ void Grid::drawDungeon(sf::RenderWindow& window)
           WallTileSprite.setRotation(90);
           window.draw(WallTileSprite);
         }
-        else
+        else//
         {
           EmptyWallTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
           window.draw(EmptyWallTileSprite);
