@@ -64,6 +64,18 @@ class Grid
   
   sf::Sprite CornerWallTileSprite;
   sf::Texture CornerWallTileTexture;
+  //
+  sf::Sprite ShopTileSprite;
+  sf::Texture ShopTileTexture;
+
+  sf::Sprite DirtTileSprite;
+  sf::Texture DirtTileTexture;
+
+  sf::Sprite GrassTileSprite;
+  sf::Texture GrassTileTexture;
+
+  sf::Sprite BossTileSprite;
+  sf::Texture BossTileTexture;
 
  
   void drawArea(int x, int y,sf::RenderWindow& window);
@@ -84,6 +96,7 @@ class Grid
   float Y_value = 0;
 
   int grid[60][60];
+  int tilemap[60][60];
 
   std::vector<Room> rooms;
   std::vector<RoomType> roomPlan = { RoomType::Start,    RoomType::Combat,
