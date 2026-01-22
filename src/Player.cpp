@@ -153,7 +153,7 @@ bool Player::init()
     std::cout << "Failed to load half empty half steel texture" << std::endl;
   }
   HalfSteel_HalfEmptyTexture.setSmooth(false);
-<<<<<<< Updated upstream
+
   
   if (!PlayerupSword.loadFromFile("../Data/Images/Player/pixil-layer-Front Sword.png"))
   {
@@ -176,11 +176,9 @@ bool Player::init()
 
   
   
-  for (int i = 0; i < stats.health; i++)
-=======
+
   hearts.resize(3);
   for (int i = 0; i < 3; i++)
->>>>>>> Stashed changes
   {
     sf::Sprite heart;
     heart.setTexture(HeartTexture);
