@@ -417,6 +417,14 @@ void Game::updatePlayerExploreGrid()
   {
     for (int y = 0; y < 7; y++)
     {
+        if (grid.inBounds(player.getPosition(grid).x + x, player.getPosition(grid).y + y) == false)
+        {
+          continue;
+        }
+        if (grid.inBounds(player.getPosition(grid).x - x, player.getPosition(grid).y - y) == false)
+        {
+          continue;
+        }
         playerExploreGrid[player.getPosition(grid).x+x][player.getPosition(grid).y+y] = 1;
         playerExploreGrid[player.getPosition(grid).x-x][player.getPosition(grid).y-y] = 1;
         playerExploreGrid[player.getPosition(grid).x+x][player.getPosition(grid).y-y] = 1;
