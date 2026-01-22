@@ -118,6 +118,7 @@ void Game::render()
       enemy.drawEnemies(window);
       weapon.render(window);
       player.render(window);
+      
       drawPlayerExploreGrid(window);
     
     }
@@ -213,9 +214,10 @@ void Game::keyPressed(sf::Event event)
  
   }
   
-  if (event.key.code == sf::Keyboard::E)
+  if (event.key.code == sf::Keyboard::M)
   {
     player_camera = !player_camera;
+    player.can_move = !player.can_move;
   
   }
 
