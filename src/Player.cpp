@@ -10,7 +10,7 @@ Player::~Player() {
 
 bool Player::init()
 {
-  stats.health = 2;
+  stats.health = 4;
   stats.weapon = 4;
   stats.spell  = 0;
   stats.item   = 2;
@@ -312,8 +312,8 @@ void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 {
   for (int i = 0; i < stats.health; i++)
   {
-    hearts[0].setPosition(camera.getCenter().x + 30 + (0 * 16), camera.getCenter().y - 58);
-    window.draw(hearts[0]);
+    hearts[i].setPosition(camera.getCenter().x + 30 + (0 * 16), camera.getCenter().y - 58);
+    window.draw(hearts[i]);
   }
  
 }

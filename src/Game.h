@@ -42,7 +42,9 @@ enum PlayerOptions
   sf::Vector2f halfSize;
   void gameTurn();
   bool player_camera = true;
-  
+  void updatePlayerExploreGrid();
+  void resetPlayerExploreGrid();
+  void drawPlayerExploreGrid(sf::RenderWindow& window);
  
 
  private:
@@ -78,6 +80,9 @@ enum PlayerOptions
   int option_selected = None;
   int option_highlighted = 0;
   bool Player_Turn = false;
+
+
+  int playerExploreGrid[60][60];
 };
 
 #endif // WHACKAMOLESFML_GAME_H

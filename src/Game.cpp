@@ -55,13 +55,9 @@ void Game::update(float dt)
     {
       gameTurn();
       //enemy.takeDamage(0, weapon.getAttackPos());
-     
       weapon.clearPos();
+      updatePlayerExploreGrid();
       break;
-            // Replace this line:
-            // player.setInGrid(enemy.getAllCopyGrid());
-
-            // With this:
             
             
     }
@@ -122,6 +118,7 @@ void Game::render()
       enemy.drawEnemies(window);
       weapon.render(window);
       player.render(window);
+      drawPlayerExploreGrid(window);
     
     }
   
@@ -409,3 +406,45 @@ void Game::spawnEnemy(int amount)
 //{
 //  grid.setGrid(30, 30, 99);
 //}
+
+void Game::updatePlayerExploreGrid()
+{
+  for (int x = 0; x < 7; x++)
+  {
+    for (int y = 0; y < 7; y++)
+    {
+        playerExploreGrid[player.getPosition(grid).x+x][player.getPosition(grid).y+y] = 1;
+        playerExploreGrid[player.getPosition(grid).x-x][player.getPosition(grid).y-y] = 1;
+        playerExploreGrid[player.getPosition(grid).x+x][player.getPosition(grid).y-y] = 1;
+        playerExploreGrid[player.getPosition(grid).x-x][player.getPosition(grid).y+y] = 1;
+    }
+  }
+}
+
+void Game::resetPlayerExploreGrid()
+{
+  for (int i = 0; i < 60; i++)
+  {
+    for (int j = 0; j < 60; j++)
+    {
+      playerExploreGrid[i][j] = 0;
+    }
+  }
+}
+
+void Game::drawPlayerExploreGrid(sf::RenderWindow& window)
+{
+  for (int i = 0; i < 60; i++)
+  {
+    for (int j = 0; j < 60; j++)
+    {
+      if (playerExploreGrid[i][j] != 1)
+      {
+        sf::RectangleShape exploredTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        exploredTile.setFillColor(sf::Color(0,0,0));
+        exploredTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(exploredTile);
+      }
+    }
+  }
+}
