@@ -21,7 +21,9 @@ class Player
      sf::Vector2i gridPos; 
      sf::RectangleShape test;
      void setDirection(int dir);
+     void SpriteDirection();
      int getDirection();
+     void update(float dt);
      int player_dir = -2;
      bool can_move  = true;
      sf::Texture WeaponUI;
@@ -70,6 +72,13 @@ class Player
      sf::Texture HalfSteel_HalfRedHeartTexture;
 
      sf::Sprite HeartSprite;
+
+     sf::Texture PlayerupSword;
+     sf::Texture PlayerleftSword;
+     sf::Texture PlayerrightSword;
+
+     sf::Sprite PlayerSprite;
+
 
      std::vector<sf::Sprite> hearts;
 

@@ -54,6 +54,7 @@ void Game::update(float dt)
     case GAME:
     {
       gameTurn();
+      player.update(dt);
       //enemy.takeDamage(0, weapon.getAttackPos());
       weapon.clearPos();
       updatePlayerExploreGrid();
@@ -237,6 +238,7 @@ void Game::keyPressed(sf::Event event)
 
 
 void Game::gameTurn() {
+  
  
     switch (type)
   {

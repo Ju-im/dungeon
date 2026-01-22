@@ -153,6 +153,28 @@ bool Player::init()
     std::cout << "Failed to load half empty half steel texture" << std::endl;
   }
   HalfSteel_HalfEmptyTexture.setSmooth(false);
+  
+  if (!PlayerupSword.loadFromFile("../Data/Images/Player/pixil-layer-Front Sword.png"))
+  {
+    std::cout << "Failed to load player up texture" << std::endl;
+  }
+
+  PlayerupSword.setSmooth(false);
+  PlayerSprite.setScale(0.32f, 0.32f);
+  
+  if (!PlayerleftSword.loadFromFile("../Data/Images/Player/pixil-layer-Left "
+                                  "Sword.png"))
+  {
+    std::cout << "Failed to load player up texture" << std::endl;
+  }
+  if (!PlayerrightSword.loadFromFile("../Data/Images/Player/pixil-layer-Right "
+                                  "Sword.png"))
+  {
+    std::cout << "Failed to load player up texture" << std::endl;
+  }
+
+  
+  
   for (int i = 0; i < stats.health; i++)
   {
     sf::Sprite heart;
@@ -169,7 +191,7 @@ bool Player::init()
 
 void Player::render(sf::RenderWindow& window) {
 
-    window.draw(test);
+    window.draw(PlayerSprite);
 }
 
  sf::Vector2i Player::getPosition(Grid& grid) {
@@ -177,6 +199,12 @@ void Player::render(sf::RenderWindow& window) {
   return gridPos;
 }
 
+ void Player::update(float dt) {
+
+     SpriteDirection();
+
+
+ }
 
 void Player::spawnPlayer(Grid& grid) {
 
@@ -203,7 +231,7 @@ void Player::spawnPlayer(Grid& grid) {
                                      gridspawnPosition.x * CELL_SIZE };
   test.setSize({spawn_x, spawn_x});
   test.setFillColor(sf::Color::White);
-  test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
+  PlayerSprite.setPosition(actual_screen_pos.x, actual_screen_pos.y);
   currentPos = actual_screen_pos;
   std::cout << test.getPosition().y << std::endl;
 
@@ -224,6 +252,28 @@ int Player::getDirection() {
 
 
     return player_dir;
+}
+
+void Player::SpriteDirection() {
+  if (player_dir == -2)
+  {
+    PlayerSprite.setTexture(PlayerleftSword);
+   }
+  if (player_dir == -1)
+  {
+    PlayerSprite.setTexture(PlayerupSword);
+  }
+  if (player_dir == 1)
+  {
+    PlayerSprite.setTexture(PlayerupSword);
+  }
+  if (player_dir == 2)
+  {
+    PlayerSprite.setTexture(PlayerrightSword);
+  }
+  
+    
+  
 }
 
 
@@ -250,7 +300,7 @@ void Player::moveX(int x, Grid& grid)
        gridPos = { gridPos.x, gridPos.y + x };
 
        sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
-       test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
+       PlayerSprite.setPosition(actual_screen_pos.x, actual_screen_pos.y);
     }
   }
 
@@ -290,7 +340,7 @@ void Player::moveY(int y, Grid& grid)
       gridPos                        = { gridPos.x + y, gridPos.y };
       sf::Vector2i actual_screen_pos = this->getScreenPosition(grid);
       
-      test.setPosition(actual_screen_pos.x, actual_screen_pos.y);
+      PlayerSprite.setPosition(actual_screen_pos.x, actual_screen_pos.y);
     
     }
     
