@@ -58,9 +58,53 @@ bool Grid::init()
   CornerWallTileTexture.setSmooth(false);
   CornerWallTileSprite.setTexture(CornerWallTileTexture);
   CornerWallTileSprite.setScale(0.32f, 0.32f);
+  //--------------------------------------------------
+  if (!ShopTileTexture.loadFromFile("../Data/Images/Map Tiles/Shop.png"))
+    {
+      std::cout << "Failed to load weapon UI texture" << std::endl;
+    }
+  ShopTileTexture.setSmooth(false);
+  ShopTileSprite.setTexture(ShopTileTexture);
+  ShopTileSprite.setScale(0.32f, 0.32f);
+  //
+  if (!DirtTileTexture.loadFromFile("../Data/Images/Map Tiles/Dirt.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  DirtTileTexture.setSmooth(false);
+  DirtTileSprite.setTexture(DirtTileTexture);
+  DirtTileSprite.setScale(0.32f, 0.32f);
+
+  if (!GrassTileTexture.loadFromFile("../Data/Images/Map Tiles/Grass.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  GrassTileTexture.setSmooth(false);
+  GrassTileSprite.setTexture(GrassTileTexture);
+  GrassTileSprite.setScale(0.32f, 0.32f);
+
+  if (!BossTileTexture.loadFromFile("../Data/Images/Map Tiles/Boss.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  BossTileTexture.setSmooth(false);
+  BossTileSprite.setTexture(BossTileTexture);
+  BossTileSprite.setScale(0.32f, 0.32f);
+
+
+  
+  for (int x = 0; x < 60; x++)
+  {
+    for (int y = 0; y < 60; y++)
+    {
+      tilemap[x][y] = rand() % 9 + 1;
+      std::cout << "Hello";
+    }
+  }
 
   return true;
 }
+
 
 sf::IntRect Grid::generateRoom(RoomType type)
 {
@@ -347,19 +391,17 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       }
       else if (grid[i][j] == RoomIndex::BossRoom)
       {
-        sf::RectangleShape bossTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        bossTile.setFillColor(sf::Color::Red);
-        bossTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(bossTile);
+        BossTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(BossTileSprite);
       }
-      else if (grid[i][j] == RoomIndex::CombatRoom)
+      else if (grid[i][j] == RoomIndex::CombatRoom)//NEED
       {
-        sf::RectangleShape combatTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        combatTile.setFillColor(sf::Color::Yellow);
-        combatTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(combatTile);
+        sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+        startTile.setFillColor(sf::Color::Yellow);
+        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(startTile);
       }
-      else if (grid[i][j] == RoomIndex::StartRoom)
+      else if (grid[i][j] == RoomIndex::StartRoom) //Need
       {
         sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         startTile.setFillColor(sf::Color::Magenta);
@@ -372,12 +414,10 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       }
       else if (grid[i][j] == RoomIndex::ShopRoom)
       {
-        sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        startTile.setFillColor(sf::Color::Cyan);
-        startTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(startTile);
+        ShopTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+        window.draw(ShopTileSprite);
       }
-      else if (grid[i][j] == RoomIndex::TreasureRoom)
+      else if (grid[i][j] == RoomIndex::TreasureRoom) // NEED
       {
         sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
         startTile.setFillColor(sf::Color::Black);
@@ -388,11 +428,16 @@ void Grid::drawDungeon(sf::RenderWindow& window)
       
       else if (grid[i][j] == RoomIndex::Floor)
       {
-        // Draw floor tile at (i, j)
-        sf::RectangleShape floorTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-        floorTile.setFillColor(sf::Color::Blue);
-        floorTile.setPosition(j * CELL_SIZE, i * CELL_SIZE);
-        window.draw(floorTile);
+          if (tilemap[i][j] < 9)
+          {
+            DirtTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+            window.draw(DirtTileSprite);
+          }
+          else
+          {
+            GrassTileSprite.setPosition(j * CELL_SIZE, i * CELL_SIZE);
+            window.draw(GrassTileSprite);
+          }
       }
     }
   }
