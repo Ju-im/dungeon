@@ -182,7 +182,7 @@ bool Player::init()
   {
     sf::Sprite heart;
     heart.setTexture(HeartTexture);
-   heart.setScale(0.5f, 0.5f);
+    heart.setScale(0.5f, 0.5f);
     hearts.push_back(heart);
   } 
 

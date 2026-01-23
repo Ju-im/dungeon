@@ -44,7 +44,7 @@ void Enemy::takeDamage(int amount, std::vector<sf::Vector3i> attack_positions)
 
 void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
 {
-  std::cout << "test! :)";
+  std::cout << "";
   // Placeholder logic for taking a turn
   // In a real implementation, this would involve deciding whether to move,
   // attack, etc.

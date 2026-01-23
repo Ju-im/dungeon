@@ -98,7 +98,6 @@ bool Grid::init()
     for (int y = 0; y < 60; y++)
     {
       tilemap[x][y] = rand() % 9 + 1;
-      std::cout << "Hello";
     }
   }
 

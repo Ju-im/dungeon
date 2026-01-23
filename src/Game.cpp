@@ -55,8 +55,9 @@ void Game::update(float dt)
     {
       gameTurn();
       player.update(dt);
+      player.SpriteDirection();
       //enemy.takeDamage(0, weapon.getAttackPos());
-      //weapon.clearPos();
+      weapon.clearPos();
       updatePlayerExploreGrid();
       break;
             
@@ -152,10 +153,12 @@ void Game::keyPressed(sf::Event event)
     if (type == attack)
     {
       type = Null;
+      gameTurn();
     }
     else
     {
       type = Up;
+      gameTurn();
     }
     
     
@@ -169,10 +172,12 @@ void Game::keyPressed(sf::Event event)
      if (type == attack)
     {
       type = Null;
+      gameTurn();
     }
     else
     {
       type = left;
+      gameTurn();
     }
     
   }
@@ -187,10 +192,12 @@ void Game::keyPressed(sf::Event event)
     if (type == attack)
     {
       type = Null;
+      gameTurn();
     }
     else
     {
       type = down;
+      gameTurn();
     }
   }
   if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right)
@@ -202,17 +209,18 @@ void Game::keyPressed(sf::Event event)
     if (type == attack)
     {
       type = Null;
+      gameTurn();
     }
     else
     {
       type = right;
+      gameTurn();
     }
 
   }
   if (event.key.code == sf::Keyboard::Space)
   {
   type = attack;
- 
   }
   
   if (event.key.code == sf::Keyboard::E)
@@ -221,15 +229,10 @@ void Game::keyPressed(sf::Event event)
     player.can_move = !player.can_move;
   
   }
-
-  if (event.key.code == sf::Keyboard::Space)
-  {
-    type = attack;
-  }
   if (event.key.code == sf::Keyboard::Enter)
   {
-  
   type = attackselected;
+    gameTurn();
   }
    
   player.setInGrid(enemy.gridClassCopy);
@@ -342,6 +345,7 @@ void Game::gameTurn() {
           player.can_move = true;
           type            = enemyturn;
           enemy.takeDamage(0, weapon.getAttackPos());
+          weapon.clearPos();
         }
       }
       }

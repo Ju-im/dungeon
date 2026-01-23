@@ -18,7 +18,7 @@ void Weapon::attack(Player& player, Grid& grid, int type)
     case (Dagger):
     {
       attack_grid[2][1] = 3;
-      attack_grid[3][0] = 1;
+      attack_grid[3][0] = 4;
       attack_grid[3][2] = 2;
       break;
     }
@@ -117,14 +117,26 @@ void Weapon::render(sf::RenderWindow& window)
             int dir_y = 1 - x;
             // Draw wall tile at (i, j)
             sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            sf::Text damagetext;
+            
+            damagetext.setFont(font1); 
+            damagetext.setString(std::to_string(attack_grid[y][x]));
+            
+            damagetext.setPosition(
+              ((player_pos.y + dir_y) * CELL_SIZE)+1,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            damagetext.setCharacterSize(8);
+            damagetext.setFillColor(sf::Color::White);
             wallTile.setFillColor(sf::Color(0,0,0,a));
             wallTile.setPosition(
               (player_pos.y + dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
             pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
-           
+          
             
             window.draw(wallTile);
+            window.draw(damagetext);
+            
             break;
           }
         }
@@ -137,6 +149,16 @@ void Weapon::render(sf::RenderWindow& window)
               //pos.clear();
               int dir_x = 3 - y;
               int dir_y = 1 - x;
+              sf::Text damagetext;
+
+              damagetext.setFont(font1);
+              damagetext.setString(std::to_string(attack_grid[y][x]));
+
+              damagetext.setPosition(
+                (player_pos.y + dir_y) * CELL_SIZE,
+                (player_pos.x - dir_x) * CELL_SIZE);
+              damagetext.setCharacterSize(8);
+              damagetext.setFillColor(sf::Color::White);
               // Draw wall tile at (i, j)
               sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
               wallTile.setFillColor(sf::Color(0, 0, 0, a));
@@ -146,47 +168,80 @@ void Weapon::render(sf::RenderWindow& window)
               
               pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
               window.draw(wallTile);
+              window.draw(damagetext);
+              
               break;
             }
           }
           
           //left
-        case (2):
-        {
-          if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
-          {
-            //pos.clear();
-            int dir_x = 1 - x;
-            int dir_y = 3 - y;
-            // Draw wall tile at (i, j)
-            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-            wallTile.setFillColor(sf::Color(0, 0, 0, a));
-            wallTile.setPosition(
-              (player_pos.y + dir_y) * CELL_SIZE,
-              (player_pos.x + dir_x) * CELL_SIZE);
-            pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
-            window.draw(wallTile);
-            break;
-          }
-        }
-        //right
         case (-2):
         {
           if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
           {
-            //pos.clear();
+            // pos.clear();
             int dir_x = (1 - x);
             int dir_y = (3 - y);
+            sf::Text damagetext;
+
+            damagetext.setFont(font1);
+            damagetext.setString(std::to_string(attack_grid[y][x]));
+
+            damagetext.setPosition(
+              (player_pos.y - dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            damagetext.setCharacterSize(8);
+            damagetext.setFillColor(sf::Color::White);
             // Draw wall tile at (i, j)
             sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
             wallTile.setFillColor(sf::Color(0, 0, 0, a));
             wallTile.setPosition(
               (player_pos.y - dir_y) * CELL_SIZE,
               (player_pos.x + dir_x) * CELL_SIZE);
-            pos.push_back(sf::Vector3f(wallTile.getPosition().x,wallTile.getPosition().y, attack_grid[y][x]));
+            pos.push_back(sf::Vector3f(
+              wallTile.getPosition().x,
+              wallTile.getPosition().y,
+              attack_grid[y][x]));
             window.draw(wallTile);
+            window.draw(damagetext);
+
             break;
           }
+         
+        }
+        //right
+        case (2):
+        {
+          if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+          {
+            // pos.clear();
+            int dir_x = 1 - x;
+            int dir_y = 3 - y;
+            sf::Text damagetext;
+
+            damagetext.setFont(font1);
+            damagetext.setString(std::to_string(attack_grid[y][x]));
+
+            damagetext.setPosition(
+              (player_pos.y + dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            damagetext.setCharacterSize(8);
+            damagetext.setFillColor(sf::Color::White);
+            // Draw wall tile at (i, j)
+            sf::RectangleShape wallTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+            wallTile.setFillColor(sf::Color(0, 0, 0, a));
+            wallTile.setPosition(
+              (player_pos.y + dir_y) * CELL_SIZE,
+              (player_pos.x + dir_x) * CELL_SIZE);
+            pos.push_back(sf::Vector3f(
+              wallTile.getPosition().x,
+              wallTile.getPosition().y,
+              attack_grid[y][x]));
+            window.draw(wallTile);
+            window.draw(damagetext);
+            break;
+          }
+        
 
           default:
             break;
@@ -232,6 +287,14 @@ bool Weapon::init() {
     }
   }
   attack_grid[3][1] = 9;
+  
+  if (!font1.loadFromFile("../Data/Fonts/OpenSans-Bold.ttf"))
+  {
+    std::cout << "Failed to load font!" << std::endl;
+    return false;
+  }
+  font1.setSmooth(false);
+  damageText.setFont(font1);
 
 
 	return true;
