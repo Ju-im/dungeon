@@ -61,7 +61,7 @@ bool Grid::init()
   //--------------------------------------------------
   if (!ShopTileTexture.loadFromFile("../Data/Images/Map Tiles/Shop.png"))
     {
-      std::cout << "Failed to load weapon UI texture" << std::endl;
+      std::cout << "Failed to load Shop Tile texture" << std::endl;
     }
   ShopTileTexture.setSmooth(false);
   ShopTileSprite.setTexture(ShopTileTexture);
@@ -69,7 +69,7 @@ bool Grid::init()
   //
   if (!DirtTileTexture.loadFromFile("../Data/Images/Map Tiles/Dirt.png"))
   {
-    std::cout << "Failed to load weapon UI texture" << std::endl;
+    std::cout << "Failed to load Dirt Tile texture" << std::endl;
   }
   DirtTileTexture.setSmooth(false);
   DirtTileSprite.setTexture(DirtTileTexture);
@@ -77,7 +77,7 @@ bool Grid::init()
 
   if (!GrassTileTexture.loadFromFile("../Data/Images/Map Tiles/Grass.png"))
   {
-    std::cout << "Failed to load weapon UI texture" << std::endl;
+    std::cout << "Failed to load Grass Tile texture" << std::endl;
   }
   GrassTileTexture.setSmooth(false);
   GrassTileSprite.setTexture(GrassTileTexture);
@@ -85,12 +85,11 @@ bool Grid::init()
 
   if (!BossTileTexture.loadFromFile("../Data/Images/Map Tiles/Boss.png"))
   {
-    std::cout << "Failed to load weapon UI texture" << std::endl;
+    std::cout << "Failed to load Boss Tile texture" << std::endl;
   }
   BossTileTexture.setSmooth(false);
   BossTileSprite.setTexture(BossTileTexture);
   BossTileSprite.setScale(0.32f, 0.32f);
-
 
   
   for (int x = 0; x < 60; x++)
@@ -98,7 +97,6 @@ bool Grid::init()
     for (int y = 0; y < 60; y++)
     {
       tilemap[x][y] = rand() % 9 + 1;
-      std::cout << "Hello";
     }
   }
 
@@ -596,10 +594,9 @@ for (int Y = camera_height; Y > 0; Y--)
     }
     else if (grid[true_y][true_x] == RoomIndex::ShopRoom)
     {
-      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-      startTile.setFillColor(sf::Color::Cyan);
-      startTile.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
-      window.draw(startTile);
+      
+      ShopTileSprite.setPosition(true_x * CELL_SIZE, true_y * CELL_SIZE);
+      window.draw(ShopTileSprite);
     }
     else if (grid[true_y][true_x] == RoomIndex::TreasureRoom)
     {

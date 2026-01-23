@@ -177,14 +177,17 @@ bool Player::init()
   
   
 
-  hearts.resize(3);
-  for (int i = 0; i < 3; i++)
+ hearts.clear();
+  hearts.reserve(stats.health);
+  for (int i = 0; i < stats.health; i++)
   {
     sf::Sprite heart;
     heart.setTexture(HeartTexture);
-   heart.setScale(0.5f, 0.5f);
+    heart.setScale(0.5f, 0.5f);
     hearts.push_back(heart);
   } 
+  std::cout << "Heart size list: " << hearts.size() << std::endl;
+  PlayerSprite.setTexture(PlayerupSword);
   
 
   
@@ -205,7 +208,8 @@ void Player::render(sf::RenderWindow& window) {
  void Player::update(float dt) {
 
      SpriteDirection();
-
+ 
+ 
 
  }
 
@@ -262,19 +266,22 @@ void Player::SpriteDirection() {
   {
     PlayerSprite.setTexture(PlayerleftSword);
    }
-  if (player_dir == -1)
+  else if (player_dir == -1)
   {
     PlayerSprite.setTexture(PlayerupSword);
   }
-  if (player_dir == 1)
+  else if (player_dir == 1)
   {
     PlayerSprite.setTexture(PlayerupSword);
   }
-  if (player_dir == 2)
+  else if (player_dir == 2)
   {
     PlayerSprite.setTexture(PlayerrightSword);
   }
-  
+  else
+  {
+    std::cout << player_dir << " - ERRORRRRRR" << std::endl;
+  }
     
   
 }
@@ -335,7 +342,23 @@ sf::Vector2i Player::getInGridPos() {
 }
 
 
+void Player::takeDamage() {
+  if (stats.health <= 0 || hearts.empty())
+  {
+    return;
+  }
 
+ stats.health -= 1;
+  hearts.pop_back();
+
+ //for (int i = 0; i < hearts.size(); i++)
+ //{
+ //  sf::Sprite heart;
+ //  heart.setTexture(HeartTexture);
+ //  heart.setScale(0.5f, 0.5f);
+ //  hearts.push_back(heart);
+ //}
+}
 
 void Player::moveY(int y, Grid& grid)
 {
@@ -362,21 +385,32 @@ void Player::moveY(int y, Grid& grid)
 
 void Player::renderUI(sf::RenderWindow& window, sf::View camera)
 {
-  drawHealthBar(window, camera);
+  
   drawWeaponSlot(window, camera);
   drawBackpack(window, camera);
   drawSpellSlot(window, camera);
   drawPotion(window, camera);
+
+  drawHealthBar(window, camera);
 }
 
 void Player::drawHealthBar(sf::RenderWindow& window, sf::View camera)
 {
-  for (int i = 0; i < 3; i++)
+  const float startX  = camera.getCenter().x + 30.f;
+  const float startY  = camera.getCenter().y - 58.f;
+  const float spacing = 16.f; // horizontal spacing between hearts (adjust if
+                              // needed)
+
+  // Draw the background/main heart sprite at the start position (if used as a
+  // background/icon)
+ 
+
+  // Draw each heart with spacing so they don't overlap
+  for (size_t i = 0; i < hearts.size(); ++i)
   {
-    hearts[i].setPosition(camera.getCenter().x + 30 + (0 * 16), camera.getCenter().y - 58);
+    hearts[i].setPosition(startX + static_cast<float>(i) * spacing, startY);
     window.draw(hearts[i]);
   }
- 
 }
 void Player::drawWeaponSlot(sf::RenderWindow& window, sf::View camera)
 {

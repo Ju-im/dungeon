@@ -39,6 +39,8 @@ class Weapon
    int X = 3;
    int Y = 4;
    sf::Vector2i player_pos;
+   sf::Text damageText;
+   sf::Font font1;
    int player_dir = 0;
    bool loop      = true;
    sf::Clock clock;

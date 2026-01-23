@@ -16,7 +16,7 @@ class Enemy
 	Enemy();
 	~Enemy();
     void init();
-	void attack(int enemy_index,int enemy);
+	void attack(int enemy_index,int enemy,Player& player);
     bool checkIfAttackPossible();
     void move(int enemy, sf::Vector2i player_pos, Grid& grid);
     void takeDamage(int amount, std::vector<sf::Vector3i>); 
@@ -25,11 +25,13 @@ class Enemy
     void printEnemiesInPlay();
     int getHealth(int enemy);
     int getDamage(int enemy);
-    void takeTurn(sf::Vector2i player_pos, Grid& grid);
+    void takeTurn(sf::Vector2i player_pos, Grid& grid, Player& player);
     void drawEnemies(sf::RenderWindow& window);
+    void drawAttackTiles(sf::RenderWindow& window);
     bool checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance,int enemy_selected, sf::Vector2i player_pos);
     sf::RectangleShape wallTile;
     int (*getAllCopyGrid())[60];
+    std::vector<sf::RectangleShape> attackTiles;
     Grid gridClassCopy;
 
 	private:
@@ -60,6 +62,7 @@ class Enemy
       int x;
       int y;
       bool turn_taken;
+      std::vector<sf::RectangleShape> attackTiles;
     };
     enum RoomIndex
     {
@@ -71,7 +74,7 @@ class Enemy
       BossRoom     = 5,
       StartRoom    = 6,
     };
-    std::vector<sf::RectangleShape> attackTiles;
+    
     EnemyIndividualStats stats;
     std::vector<EnemyIndividualStats> enemies_in_play;
 	EnemyGround enemyGround;

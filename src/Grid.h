@@ -77,6 +77,7 @@ class Grid
   sf::Sprite BossTileSprite;
   sf::Texture BossTileTexture;
 
+
  
   void drawArea(int x, int y,sf::RenderWindow& window);
 
@@ -100,7 +101,7 @@ class Grid
   int tilemap[60][60];
 
   std::vector<Room> rooms;
-  std::vector<RoomType> roomPlan = { RoomType::Start,    RoomType::Combat,
+  std::vector<RoomType> roomPlan = { RoomType::Start,    RoomType::Shop,
                                      RoomType::Combat,   RoomType::Combat,
                                      RoomType::Combat, RoomType::Combat ,RoomType::Combat, RoomType::Combat, 
     RoomType::Combat, RoomType::Combat,

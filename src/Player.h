@@ -13,6 +13,7 @@ class Player
   sf::Vector2i getPosition(Grid& grid);
      sf::Vector2i getScreenPosition(Grid& grid);
      void moveX(int x, Grid& grid);
+     void takeDamage();
      void moveY(int y, Grid& grid);
      void spawnPlayer(Grid& grid);
      void setInGrid(Grid& grid);

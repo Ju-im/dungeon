@@ -103,22 +103,22 @@ int EnemyGround::getDamage(int enemy)
   {
     case SLIME:
     {
-      damage = 5;
+      damage = 1;
       break;
     }
     case SKELETON:
     {
-      damage = 10;
+      damage = 1;
       break;
     }
     case SPIDER:
     {
-      damage = 8;
+      damage = 1;
       break;
     }
     case WOLF:
     {
-      damage = 12;
+      damage = 1;
       break;
     }
     default:
