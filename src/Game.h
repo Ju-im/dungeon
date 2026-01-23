@@ -49,6 +49,7 @@ enum PlayerOptions
 
  private:
   PlayerOptions type = PlayerOptions::Up;
+  sf::CircleShape ball;
   bool collisionCheck(sf::Vector2i click, sf::Sprite& sprite);
   void spawnEnemy(int amount);
   void spawnPlayer();

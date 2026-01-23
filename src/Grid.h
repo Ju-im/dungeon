@@ -94,6 +94,7 @@ class Grid
   int (*gridCopy)[60];
   float X_value = 0;
   float Y_value = 0;
+  
 
   int grid[60][60];
   int tilemap[60][60];
