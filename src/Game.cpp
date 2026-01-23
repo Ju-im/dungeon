@@ -233,6 +233,8 @@ void Game::keyPressed(sf::Event event)
   {
   type = attackselected;
     gameTurn();
+  player.stats.health -= 1;
+  player.hearts.pop_back();
   }
    
   player.setInGrid(enemy.gridClassCopy);
