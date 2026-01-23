@@ -185,6 +185,8 @@ bool Player::init()
    heart.setScale(0.5f, 0.5f);
     hearts.push_back(heart);
   } 
+
+  PlayerSprite.setTexture(PlayerupSword);
   
 
   
@@ -262,19 +264,22 @@ void Player::SpriteDirection() {
   {
     PlayerSprite.setTexture(PlayerleftSword);
    }
-  if (player_dir == -1)
+  else if (player_dir == -1)
   {
     PlayerSprite.setTexture(PlayerupSword);
   }
-  if (player_dir == 1)
+  else if (player_dir == 1)
   {
     PlayerSprite.setTexture(PlayerupSword);
   }
-  if (player_dir == 2)
+  else if (player_dir == 2)
   {
     PlayerSprite.setTexture(PlayerrightSword);
   }
-  
+  else
+  {
+    std::cout << player_dir << " - ERRORRRRRR" << std::endl;
+  }
     
   
 }
