@@ -208,19 +208,8 @@ void Player::render(sf::RenderWindow& window) {
  void Player::update(float dt) {
 
      SpriteDirection();
-   hearts.reserve(this->stats.health);
-   for (int i = 0; i < this->stats.health; i++)
-   {
-     sf::Sprite heart;
-     heart.setTexture(HeartTexture);
-     heart.setScale(0.5f, 0.5f);
-     hearts.push_back(heart);
-   } 
-  
-   if (stats.health > 0)
-   {
-     return;
-   } 
+ 
+ 
 
  }
 
@@ -353,7 +342,23 @@ sf::Vector2i Player::getInGridPos() {
 }
 
 
+void Player::takeDamage() {
+  if (stats.health <= 0 || hearts.empty())
+  {
+    return;
+  }
 
+ stats.health -= 1;
+  hearts.pop_back();
+
+ //for (int i = 0; i < hearts.size(); i++)
+ //{
+ //  sf::Sprite heart;
+ //  heart.setTexture(HeartTexture);
+ //  heart.setScale(0.5f, 0.5f);
+ //  hearts.push_back(heart);
+ //}
+}
 
 void Player::moveY(int y, Grid& grid)
 {

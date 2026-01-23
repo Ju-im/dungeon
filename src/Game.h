@@ -60,7 +60,7 @@ enum PlayerOptions
   /// </summary>
   
   GAME_STATE game_state = GAME;
-  Enemy enemy;
+   Enemy enemy;
   Player player;
 
   Weapon weapon;

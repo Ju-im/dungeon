@@ -234,7 +234,7 @@ void Game::keyPressed(sf::Event event)
   {
   type = attackselected;
     gameTurn();
-  player.hearts.pop_back();
+  
   }
    
   player.setInGrid(enemy.gridClassCopy);
@@ -358,7 +358,7 @@ void Game::gameTurn() {
   if (type == enemyturn)
   {
     std::cout << "Enemy Turn" << std::endl;
-    enemy.takeTurn(player.getPosition(grid), grid);
+    enemy.takeTurn(player.getPosition(grid), grid, player);
   }
 
   type = Null;

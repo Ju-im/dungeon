@@ -42,7 +42,7 @@ void Enemy::takeDamage(int amount, std::vector<sf::Vector3i> attack_positions)
   }
 }
 
-void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
+void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid,Player& player)
 {
   std::cout << "";
   // Placeholder logic for taking a turn
@@ -55,7 +55,7 @@ void Enemy::takeTurn(sf::Vector2i player_pos, Grid& grid)
    //std::cout << "Enemies in play: " << enemies_in_play.size() << std::endl;
     if (checkIfAttackPossible()) // Replace NULL with actual matrix
     {
-      attack(enemy_selected,enemies_in_play[enemy_selected].type);
+      attack(enemy_selected,enemies_in_play[enemy_selected].type, player);
     }
     else
     {
@@ -77,7 +77,7 @@ bool Enemy::checkIfAttackPossible()
     return true;
 }
 
-void Enemy::attack(int enemy_index, int enemy)
+void Enemy::attack(int enemy_index, int enemy, Player& player)
 {
   //}
   //sf::Vector2i player_grid_pos;
@@ -96,8 +96,11 @@ void Enemy::attack(int enemy_index, int enemy)
 
 
   //return false;
-    attackTiles.clear();
-  
+    //attackTiles.clear();
+  if (enemy_index < 0 || enemy_index >= static_cast<int>(enemies_in_play.size()))
+    return;
+  auto& tiles = enemies_in_play[enemy_index].attackTiles;
+  tiles.clear();
   switch (enemy)
   {
     case SLIME:
@@ -118,97 +121,149 @@ void Enemy::attack(int enemy_index, int enemy)
      
      
     }*/
-      for (int y = 0; y < Y; y++)
-      {
-        for (int x = 0; x < X; x++)
-        {
+      
+        
             //point down
           if (enemy_y <= player_position.x && (distance_of_y >= distance_of_x))
           {
-            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            for (int y = 0; y < Y; y++)
             {
-
-              // point down
-              int dir_x   = 3 - y;
-              int dir_y   = 1 - x;
-              int tileRow = enemies_in_play[enemy_index].x + dir_x;
-              int tileCol = enemies_in_play[enemy_index].y + dir_y;
-              sf::RectangleShape rect;
-              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
-              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
-              rect.setPosition(
-                (float)(tileCol * CELL_SIZE), (float)(tileRow * CELL_SIZE));
-              if (tileRow == player_position.x && tileCol == player_position.y)
+              for (int x = 0; x < X; x++)
               {
-                std::cout << "the slime would have attacked" << std::endl;
+                if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+                {
+                  // point down
+                  int dir_x   = 3 - y;
+                  int dir_y   = 1 - x;
+                  int tileRow = enemies_in_play[enemy_index].x + dir_x;
+                  int tileCol = enemies_in_play[enemy_index].y + dir_y;
+                  sf::RectangleShape rect;
+                  rect.setSize(
+                    sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+                  rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent
+                                                                  // red
+                  rect.setPosition(
+                    (float)(tileCol * CELL_SIZE), (float)(tileRow * CELL_SIZE));
+                  if (tileRow == player_position.x && tileCol == player_position.y)
+                  {
+                    player.takeDamage();
+                  }
+                  tiles.push_back(rect);
+                }
+              
+              
               }
-              attackTiles.push_back(rect);
+            
+            
             }
+
+              
+           
            
           }
           
           else if (enemy_y >= player_position.x && (distance_of_y <= distance_of_x))
           {
-            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            for (int y = 0; y < Y; y++)
             {
-              int dir_x   = 3 - y;
-              int dir_y   = 1 - x;
-              int tileRow = enemies_in_play[enemy_index].x - dir_x;
-              int tileCol = enemies_in_play[enemy_index].y + dir_y;
-              sf::RectangleShape rect;
-              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
-              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
-              rect.setPosition(
-                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
-              attackTiles.push_back(rect);
+            
+            for (int x = 0; x < X; x++)
+              {
+              if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+              {
+                int dir_x   = 3 - y;
+                int dir_y   = 1 - x;
+                int tileRow = enemies_in_play[enemy_index].x - dir_x;
+                int tileCol = enemies_in_play[enemy_index].y + dir_y;
+                sf::RectangleShape rect;
+                rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+                rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent
+                                                                // red
+                rect.setPosition(
+                  (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+                if (tileRow == player_position.x && tileCol == player_position.y)
+                {
+                  player.takeDamage();
+                }
+                tiles.push_back(rect);
 
-              // point up
+                // point up
+              }
+
+
+              }
             }
+           
             
           }
           else if (enemy_x <= player_position.y - 1 && (distance_of_x >= distance_of_y))
           {
-            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+            for (int y = 0; y < Y; y++)
             {
-
-              int dir_x   = 1 - x;
-              int dir_y   = 3 - y;
-              int tileRow = enemies_in_play[enemy_index].x + dir_x;
-              int tileCol = enemies_in_play[enemy_index].y + dir_y;
-              sf::RectangleShape rect;
-              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
-              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
-              rect.setPosition(
-                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
-              attackTiles.push_back(rect);
-              // point right
+              for (int x = 0; x < X; x++)
+              {
+                if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+                {
+                  int dir_x   = 1 - x;
+                  int dir_y   = 3 - y;
+                  int tileRow = enemies_in_play[enemy_index].x + dir_x;
+                  int tileCol = enemies_in_play[enemy_index].y + dir_y;
+                  sf::RectangleShape rect;
+                  rect.setSize(
+                    sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+                  rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent
+                                                                  // red
+                  rect.setPosition(
+                    (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+                  if (tileRow == player_position.x && tileCol == player_position.y)
+                  {
+                    player.takeDamage();
+                  }
+                  tiles.push_back(rect);
+                  // point right
+                }
+              }
             }
+           
            
           }
           else if (enemy_x >= player_position.y+1 && (distance_of_x <= distance_of_y))
           {
-            if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
-           {
+            for (int y = 0; y < Y; y++)
+            {
+              for (int x = 0; x < X; x++)
+              {
+                if (attack_grid[y][x] != 0 && attack_grid[y][x] != 9)
+                {
+                  // point left
+                  int dir_x   = 1 - x;
+                  int dir_y   = 3 - y;
+                  int tileRow = enemies_in_play[enemy_index].x + dir_x;
+                  int tileCol = enemies_in_play[enemy_index].y - dir_y;
+                  sf::RectangleShape rect;
+                  rect.setSize(
+                    sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
+                  rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent
+                                                                  // red
+                  rect.setPosition(
+                    (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
+                  if (tileRow == player_position.x && tileCol == player_position.y)
+                  {
+                    player.takeDamage();
+                  }
+                  tiles.push_back(rect);
+                }
 
-              // point left
-              int dir_x   = 1 - x;
-              int dir_y   = 3 - y;
-              int tileRow = enemies_in_play[enemy_index].x + dir_x;
-              int tileCol = enemies_in_play[enemy_index].y - dir_y;
-              sf::RectangleShape rect;
-              rect.setSize(sf::Vector2f((float)CELL_SIZE, (float)CELL_SIZE));
-              rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
-              rect.setPosition(
-                (float)(tileCol)*CELL_SIZE, (float)(tileRow)*CELL_SIZE);
-              attackTiles.push_back(rect);
+              }
             }
+           
             
           }
          
          
-        }
+        
         std::cout<<std::endl;
-      }
+      
       
         
     break;
@@ -740,12 +795,14 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
   }
 }
 
-void Enemy::drawAttackTiles(sf::RenderWindow& window) {
-
-
-      for (int i = 0; i < attackTiles.size(); i++)
+void Enemy::drawAttackTiles(sf::RenderWindow& window)
+{
+  // Draw every enemy's individual attack tiles
+  for (int e = 0; e < enemies_in_play.size(); ++e)
   {
-    window.draw(attackTiles[i]);
+    for (int i = 0; i < enemies_in_play[e].attackTiles.size(); ++i)
+    {
+      window.draw(enemies_in_play[e].attackTiles[i]);
+    }
   }
-
 }
