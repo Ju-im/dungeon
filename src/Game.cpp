@@ -103,7 +103,7 @@ void Game::render()
       maskTexture.create(
         static_cast<unsigned int>(camera.getSize().x),
         static_cast<unsigned int>(camera.getSize().y));
-      maskTexture.clear(sf::Color(0, 0, 0, 252));
+      maskTexture.clear(sf::Color(0, 0, 0, 240));
 
       // 2. Draw a transparent circle (the light) onto the mask
       sf::CircleShape lightRadius(33.f);
@@ -140,8 +140,9 @@ void Game::render()
       weapon.render(window);
       player.render(window);
       
-      //window.draw(darkOverlay);
+      
       window.draw(darkOverlay1);
+      window.draw(darkOverlay);
       player.renderUI(window, camera);
 
 
