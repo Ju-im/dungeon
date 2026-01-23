@@ -27,6 +27,7 @@ class Enemy
     int getDamage(int enemy);
     void takeTurn(sf::Vector2i player_pos, Grid& grid);
     void drawEnemies(sf::RenderWindow& window);
+    void drawAttackTiles(sf::RenderWindow& window);
     bool checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance,int enemy_selected, sf::Vector2i player_pos);
     sf::RectangleShape wallTile;
     int (*getAllCopyGrid())[60];

@@ -93,12 +93,12 @@ int EnemyFlying::getDamage(int enemy)
   {
 	case BAT:
 	{
-	  damage = 5;
+	  damage = 1;
 	  break;
 	}
 	case BABY_DRAGON:
 	{
-	  damage = 15;
+	  damage = 1;
 	  break;
     }
 	default:

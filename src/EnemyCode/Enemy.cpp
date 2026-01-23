@@ -74,7 +74,7 @@ bool Enemy::checkIfAttackPossible()
     //for (int i = 0; i < enemies_in_play.size(); i++)
    // {
    //   attack(enemies_in_play[i].type);
-    return false;
+    return true;
 }
 
 void Enemy::attack(int enemy_index, int enemy)
@@ -138,6 +138,10 @@ void Enemy::attack(int enemy_index, int enemy)
               rect.setFillColor(sf::Color(200, 40, 40, 220)); // translucent red
               rect.setPosition(
                 (float)(tileCol * CELL_SIZE), (float)(tileRow * CELL_SIZE));
+              if (tileRow == player_position.x && tileCol == player_position.y)
+              {
+                std::cout << "the slime would have attacked" << std::endl;
+              }
               attackTiles.push_back(rect);
             }
            
@@ -714,10 +718,7 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
 {
   int CELL_SIZE = 10;
   
-  for (int i = 0; i < attackTiles.size(); i++)
-  {
-    window.draw(attackTiles[i]);
-  }
+
   for (int i = 0; i < enemies_in_play.size(); i++)
   {
     if (enemies_in_play[i].type == 7)
@@ -737,4 +738,14 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
       window.draw(startTile);
     }
   }
+}
+
+void Enemy::drawAttackTiles(sf::RenderWindow& window) {
+
+
+      for (int i = 0; i < attackTiles.size(); i++)
+  {
+    window.draw(attackTiles[i]);
+  }
+
 }

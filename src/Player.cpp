@@ -216,8 +216,11 @@ void Player::render(sf::RenderWindow& window) {
      heart.setScale(0.5f, 0.5f);
      hearts.push_back(heart);
    } 
-   std::cout << "Heart size list: " << this->stats.health << std::endl;
-
+  
+   if (stats.health > 0)
+   {
+     return;
+   } 
 
  }
 

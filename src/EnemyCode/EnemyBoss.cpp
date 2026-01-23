@@ -123,17 +123,17 @@ int EnemyBoss::getDamage(int enemy)
   {
 	case DRAGON:
 	{
-	  damage = 25;
+	  damage = 1;
 	  break;
 	}
 	case GIANT:
 	{
-	  damage = 20;
+	  damage = 1;
 	  break;
 	}
 	case SLIME_KING:
 	{
-	  damage = 15;
+      damage = 1;
 	  break;
 	}
 	default:

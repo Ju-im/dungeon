@@ -14,7 +14,7 @@ bool Game::init()
 {
   grid.init();
   grid.generateDungeon();
-  spawnEnemy(5);
+  spawnEnemy(20);
   grid.printGrid();
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);
@@ -95,7 +95,7 @@ void Game::render()
       camera.setCenter(targetCx, targetCy);
       window.setView(camera);
       grid.drawDungeon(window);
-
+      enemy.drawAttackTiles(window);
       enemy.drawEnemies(window);
       weapon.render(window);
       player.render(window);
@@ -117,6 +117,7 @@ void Game::render()
 
       window.setView(fullView);
       grid.drawDungeon(window);
+      enemy.drawAttackTiles(window);
       enemy.drawEnemies(window);
       weapon.render(window);
       player.render(window);
@@ -233,7 +234,6 @@ void Game::keyPressed(sf::Event event)
   {
   type = attackselected;
     gameTurn();
-  player.stats.health -= 1;
   player.hearts.pop_back();
   }
    
