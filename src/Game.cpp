@@ -22,6 +22,8 @@ bool Game::init()
   //enemy.move(-9);
   //spawnPlayer();
   player.init();
+  itemPickup.init();
+  itemPickup.itemSpawn(grid);
   camera.setSize(16* 8, 16* 8);
 
   
@@ -72,6 +74,13 @@ void Game::update(float dt)
 
 void Game::render()
 {
+  t           = clock.getElapsedTime().asSeconds();
+  t       = t * 0.1;
+  float r = static_cast<float>((std::sin(t*35.f)) + 35.f);
+
+
+
+  
     if (player_camera) {
 
         sf::Vector2i screenGridPos = player.getScreenPosition(grid);
@@ -106,7 +115,7 @@ void Game::render()
       maskTexture.clear(sf::Color(0, 0, 0, 240));
 
       // 2. Draw a transparent circle (the light) onto the mask
-      sf::CircleShape lightRadius(33.f);
+      sf::CircleShape lightRadius(r);
       lightRadius.setFillColor(sf::Color(0, 0, 0, 0));
       lightRadius.setPosition(
         player.getScreenPosition(grid).x + CELL_SIZE / 2.f -
@@ -140,9 +149,10 @@ void Game::render()
       weapon.render(window);
       player.render(window);
       
-      
+      itemPickup.renderItems(window, itemPickup);
       window.draw(darkOverlay1);
       window.draw(darkOverlay);
+      
       player.renderUI(window, camera);
 
 
@@ -165,7 +175,7 @@ void Game::render()
       enemy.drawEnemies(window);
       weapon.render(window);
       player.render(window);
-      
+      itemPickup.renderItems(window, itemPickup);
       drawPlayerExploreGrid(window);
     
     }

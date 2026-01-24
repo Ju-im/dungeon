@@ -11,7 +11,7 @@ Player::~Player() {
 bool Player::init()
 {
   stats.health = 2;
-  stats.weapon = 4;
+  stats.weapon = 2;
   stats.spell  = 0;
   stats.item   = 2;
 
@@ -236,11 +236,10 @@ void Player::spawnPlayer(Grid& grid) {
   gridPos = gridspawnPosition;
   sf::Vector2i actual_screen_pos = { gridspawnPosition.y * CELL_SIZE,
                                      gridspawnPosition.x * CELL_SIZE };
-  test.setSize({spawn_x, spawn_x});
-  test.setFillColor(sf::Color::White);
+ 
   PlayerSprite.setPosition(actual_screen_pos.x, actual_screen_pos.y);
   currentPos = actual_screen_pos;
-  std::cout << test.getPosition().y << std::endl;
+  
 
 
 

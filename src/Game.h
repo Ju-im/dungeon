@@ -6,6 +6,7 @@
 #include "EnemyCode/Enemy.h"
 #include "Player.h"
 #include "Weapon.h"
+#include "ItemPickup.h"
 
 enum GAME_STATE
 {
@@ -59,12 +60,13 @@ enum PlayerOptions
   /// <summary>
    int (*gridCopy)[60]   = grid.getAllGrid();
   /// </summary>
-  
+   sf::Clock clock;
+   float t               = 0.0f;
   GAME_STATE game_state = GAME;
    Enemy enemy;
   Player player;
-
   Weapon weapon;
+  ItemPickup itemPickup;
 
   enum GameMenuOptions
   {
