@@ -14,6 +14,7 @@ class ItemPickup
   sf::RectangleShape itemShape;
   std::vector<sf::RectangleShape> items;
   std::vector<sf::Vector2i> spawnPositions;
+  sf::Shader itemShader;
 
 
 };
