@@ -15,10 +15,11 @@ bool Game::init()
   grid.init();
   grid.generateDungeon();
   spawnEnemy(20);
-  grid.printGrid();
+
   enemy.printEnemiesInPlay();
   player.spawnPlayer(grid);
   weapon.init();
+
   //enemy.move(-9);
   //spawnPlayer();
   player.init();

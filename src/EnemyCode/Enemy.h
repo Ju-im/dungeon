@@ -20,6 +20,8 @@ class Enemy
     void attack(int enemy_index, int enemy, Player& player);
     bool canMoveTo(
       Grid& grid, int enemy_index, int nx, int ny, sf::Vector2i player_pos);
+    bool canMoveToUsingEnemyGrid(Grid& grid, int nx, int ny, int enemy_index);
+    sf::Vector3i getMoveDelta(int enemy_selected);
     bool checkIfAttackPossible();
     void move(int enemy, sf::Vector2i player_pos, Grid& grid);
     void takeDamage(int amount, std::vector<sf::Vector3i>); 

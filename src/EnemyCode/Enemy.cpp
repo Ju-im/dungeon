@@ -9,6 +9,7 @@ void Enemy::init() {
 
     gridClassCopy.init();
   gridClassCopy.generateDungeon();
+   
 
   if (!SlimeTexture.loadFromFile("../Data/Images/Enemi/Slime-Front.png"))
   {
@@ -82,7 +83,7 @@ bool Enemy::checkIfAttackPossible()
     //for (int i = 0; i < enemies_in_play.size(); i++)
    // {
    //   attack(enemies_in_play[i].type);
-    return true;
+    return false;
 }
 
 void Enemy::attack(int enemy_index, int enemy, Player& player)
@@ -347,10 +348,10 @@ void Enemy::attack(int enemy_index, int enemy, Player& player)
 bool Enemy::canMoveTo(
   Grid& grid, int enemy_index, int nx, int ny, sf::Vector2i player_pos)
 {
-
-    if (grid.inBounds(nx, ny))
+  gridClassCopy.printGrid();
+    if (!(grid.inBounds(nx, ny)))
   {
-  
+      std::cout << "Not in Bounds" << std::endl;
     return false;
     }
 
@@ -365,284 +366,408 @@ bool Enemy::canMoveTo(
     return false;
     
     }
+    
+    
+
+    for (int current_enemy = 0; current_enemy < enemies_in_play.size();
+         current_enemy++)
+    {
+      if (current_enemy == enemy_index)
+      {
+        continue;
+      }
+      
+        if (
+          nx == enemies_in_play[current_enemy].x &&
+          ny == enemies_in_play[current_enemy].y)
+        {
+        
+        return false;
+        
+        
+      }
+
+    }
+
+    if (player_pos.x == nx && player_pos.y == ny)
+    {
+      return false;
+    }
+    return true;
 }
 
+bool Enemy::canMoveToUsingEnemyGrid(Grid& grid, int nx , int ny, int enemy_index) {
 
-bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance, int enemy_selected, sf::Vector2i player_pos) 
-{
-  switch (direction)
+    
+    for (int current_enemy = 0; current_enemy < enemies_in_play.size();
+       current_enemy++)
   {
-    case 1: // Up
+    if (current_enemy == enemy_index)
     {
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == Wall) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == ShopRoom) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == StartRoom) 
-        {
-          return false;
-        }
-        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
-        {
-            if (enemies_in_play[enemy_selected].y - y_move_distance == enemies_in_play[each_enemy].y)
-            {
-              return false; 
-            }
-        }
-        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
-        {
-          return false;
-        }
-        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
-        {
-          return false;
-        }
-        break;
+      continue;
     }
-    case 2: // Down
+
+    if (
+      nx == enemies_in_play[current_enemy].x &&
+      ny == enemies_in_play[current_enemy].y)
     {
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == Wall) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == ShopRoom) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == StartRoom) 
-        {
-          return false;
-        }
-        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
-        {
-            if (enemies_in_play[enemy_selected].y + y_move_distance == enemies_in_play[each_enemy].y)
-            {
-              return false; 
-            }
-        }
-        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
-        {
-          return false;
-        }
-        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
-        {
-          return false;
-        }
-        break;
-    }
-    case 3: // Left
-    {
-        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
-        {
-          return false;
-        }
-        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
-        {
-            if (enemies_in_play[enemy_selected].x - x_move_distance == enemies_in_play[each_enemy].x)
-            {
-              return false; 
-            }
-        }
-        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
-        {
-          return false;
-        }
-        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
-        {
-          return false;
-        }
-        break;
-    }
-    case 4: // Right
-    {
-        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
-        {
-          return false;
-        }
-        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
-        {
-          return false;
-        }
-        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
-        {
-            if (enemies_in_play[enemy_selected].x + x_move_distance == enemies_in_play[each_enemy].x)
-            {
-              return false; 
-            }
-        }
-        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x) 
-        {
-          return false;
-        }
-        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
-        {
-          return false;
-        }
-        break;
+      return false;
     }
   }
-  return true;
+
+    return true;
 }
 
+sf::Vector3i Enemy::getMoveDelta(int enemy_selected) {
 
-
-
-void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
-{
-  // Placeholder logic for enemy movement
-  // In a real implementation, this would involve pathfinding and movement
-  // towards the player
-  int x_move_distance = 0;
-  int y_move_distance = 0;
-  int sight_range     = 0;
+    sf::Vector3i stats;
   switch (enemies_in_play[enemy_selected].type)
   {
     case SLIME:
+      stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
+      break;
     case SKELETON:
     case SPIDER:
     case WOLF:
-    {
-      //std::cout << "Ground enemy moves." << std::endl;
-      sf::Vector3i enemy_stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
-      x_move_distance = enemy_stats.x;
-      y_move_distance = enemy_stats.y;
-      sight_range     = enemy_stats.z;
+      stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
       break;
-    }
     case DRAGON:
     case GIANT:
     case SLIME_KING:
-    {
-      sf::Vector3i enemy_stats = enemyBoss.Move(enemies_in_play[enemy_selected].type);
-      x_move_distance = enemy_stats.x;
-      y_move_distance = enemy_stats.y;
-      sight_range     = enemy_stats.z;
+      stats = enemyBoss.Move(enemies_in_play[enemy_selected].type);
       break;
-    }
     case BAT:
     case BABY_DRAGON:
-    {
-      sf::Vector3i enemy_stats = enemyFlying.Move(enemies_in_play[enemy_selected].type);
-      x_move_distance = enemy_stats.x;
-      y_move_distance = enemy_stats.y;
-      sight_range     = enemy_stats.z;
+      stats = enemyFlying.Move(enemies_in_play[enemy_selected].type);
       break;
-    }
-    default:
-    {
-      //std::cout << "Unknown enemy type cannot move!" << std::endl;
-      break;
-    }
+  
+  
   }
-  // Update enemy position based on movement logic
-  if ((enemies_in_play[enemy_selected].x - sight_range) < player_pos.x && player_pos.x < enemies_in_play[enemy_selected].x + sight_range)
-  {  
-    if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y && player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
-    {
-
-      switch (enemies_in_play[enemy_selected].type)
-      {
-        case DRAGON:
-        case GIANT:
-        case SLIME_KING:
-        {
-          if (player_pos.y < enemies_in_play[enemy_selected].y)
-          {
-            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == BossRoom) 
-            {
-              enemies_in_play[enemy_selected].y -= y_move_distance;
-              std::cout << "Move y -1" << std::endl;
-              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) << std::endl;
-            }
-            std::cout << "!No Move y -1 No!" << std::endl;
-          }
-          else if (player_pos.y > enemies_in_play[enemy_selected].y)
-          {
-            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == BossRoom) 
-            {
-              enemies_in_play[enemy_selected].y += y_move_distance;
-              std::cout << "Move y +1" << std::endl;
-              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) << std::endl;
-            }
-            std::cout << "!No Move y +1 No!" << std::endl;
-          }
-          if (player_pos.x < enemies_in_play[enemy_selected].x)
-          {
-            if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
-            {
-              enemies_in_play[enemy_selected].x -= x_move_distance;
-              std::cout << "Move x -1" << std::endl;
-              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
-            }
-            std::cout << "!No Move x -1 No!" << std::endl;
-          }
-          else if (player_pos.x > enemies_in_play[enemy_selected].x)
-          {
-            if (grid.getGrid(enemies_in_play[enemy_selected].x  + x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
-            {
-              enemies_in_play[enemy_selected].x += x_move_distance;
-              std::cout << "Move x +1" << std::endl;
-              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
-            }
-            std::cout << "!No Move x +1 No!" << std::endl;
-          }
-          enemies_in_play[enemy_selected].turn_taken = true;
-          break;
-        }
-        default:
-        {
-          // if player is within sight range, move towards player
-          if (player_pos.y < enemies_in_play[enemy_selected].y)
-          {
-            if (checkIfCanMove(grid,1,0,y_move_distance,enemy_selected,player_pos) == true)
-            {
-                enemies_in_play[enemy_selected].y -= y_move_distance;
-            }
-          }
-          else if (player_pos.y > enemies_in_play[enemy_selected].y)
-          {
-            if (checkIfCanMove(grid,2,0,y_move_distance,enemy_selected,player_pos) == true)
-            {
-                enemies_in_play[enemy_selected].y += y_move_distance;
-            }
-          }
-          if (player_pos.x < enemies_in_play[enemy_selected].x)
-          {
-            if (checkIfCanMove(grid,3,x_move_distance,0,enemy_selected,player_pos) == true)
-            {
-              enemies_in_play[enemy_selected].x -= x_move_distance;
-            }
-          }
-          else if (player_pos.x > enemies_in_play[enemy_selected].x)
-          {
-            if (checkIfCanMove(grid,4,x_move_distance,0,enemy_selected,player_pos) == true)
-            {
-              enemies_in_play[enemy_selected].x += x_move_distance;
-            }
-          }
-          enemies_in_play[enemy_selected].turn_taken = true;
-          std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-        }
-      }
-    }
-  }
+  return { stats.x, stats.y,stats.z };
 }
+
+
+void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid) {
+
+    auto& enemy = enemies_in_play[enemy_selected];
+
+    sf::Vector3i delta = getMoveDelta(enemy_selected);
+    int sight_range    = delta.z;
+    if (abs(player_pos.x - enemy.x) > sight_range ||
+      abs(player_pos.y - enemy.y) > sight_range)
+    {
+      std::cout << "In sight range" << std::endl;
+      return;
+    }
+
+    int dx = 0;
+    int dy = 0;
+
+    if (player_pos.y < enemy.y)
+    {
+      dy = -delta.y;
+    }
+    else if (player_pos.y > enemy.y)
+    {
+      dy = delta.y;
+    }
+    else if (player_pos.x < enemy.x)
+    {
+    
+    dx = -delta.x;
+    }
+    else if (player_pos.x > enemy.x)
+    {
+      dx = delta.x;
+    
+    }
+    int nx = enemy.x + dx;
+    int ny = enemy.y + dy;
+    if (canMoveTo(grid, enemy_selected, nx, ny, player_pos))
+    {
+    
+    enemy.x = nx;
+      enemy.y = ny;
+    enemy.turn_taken = true;
+    }
+
+}
+
+//bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance, int enemy_selected, sf::Vector2i player_pos) 
+//{
+//  switch (direction)
+//  {
+//    case 1: // Up
+//    {
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == Wall) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == ShopRoom) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == StartRoom) 
+//        {
+//          return false;
+//        }
+//        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
+//        {
+//            if (enemies_in_play[enemy_selected].y - y_move_distance == enemies_in_play[each_enemy].y)
+//            {
+//              return false; 
+//            }
+//        }
+//        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+//        {
+//          return false;
+//        }
+//        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
+//        {
+//          return false;
+//        }
+//        break;
+//    }
+//    case 2: // Down
+//    {
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == Wall) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == ShopRoom) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == StartRoom) 
+//        {
+//          return false;
+//        }
+//        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
+//        {
+//            if (enemies_in_play[enemy_selected].y + y_move_distance == enemies_in_play[each_enemy].y)
+//            {
+//              return false; 
+//            }
+//        }
+//        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+//        {
+//          return false;
+//        }
+//        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
+//        {
+//          return false;
+//        }
+//        break;
+//    }
+//    case 3: // Left
+//    {
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
+//        {
+//          return false;
+//        }
+//        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
+//        {
+//            if (enemies_in_play[enemy_selected].x - x_move_distance == enemies_in_play[each_enemy].x)
+//            {
+//              return false; 
+//            }
+//        }
+//        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x)
+//        {
+//          return false;
+//        }
+//        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
+//        {
+//          return false;
+//        }
+//        break;
+//    }
+//    case 4: // Right
+//    {
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == Wall) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == ShopRoom) 
+//        {
+//          return false;
+//        }
+//        if (grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) == StartRoom) 
+//        {
+//          return false;
+//        }
+//        for (int each_enemy = 0; each_enemy < enemies_in_play.size(); each_enemy++) 
+//        {
+//            if (enemies_in_play[enemy_selected].x + x_move_distance == enemies_in_play[each_enemy].x)
+//            {
+//              return false; 
+//            }
+//        }
+//        if (enemies_in_play[enemy_selected].x + x_move_distance == player_pos.x) 
+//        {
+//          return false;
+//        }
+//        if (enemies_in_play[enemy_selected].y + y_move_distance == player_pos.y)
+//        {
+//          return false;
+//        }
+//        break;
+//    }
+//  }
+//  return true;
+//}
+//
+
+
+
+//void Enemy::move(int enemy_selected, sf::Vector2i player_pos, Grid& grid)
+//{
+//  // Placeholder logic for enemy movement
+//  // In a real implementation, this would involve pathfinding and movement
+//  // towards the player
+//  int x_move_distance = 0;
+//  int y_move_distance = 0;
+//  int sight_range     = 0;
+//  switch (enemies_in_play[enemy_selected].type)
+//  {
+//    case SLIME:
+//    case SKELETON:
+//    case SPIDER:
+//    case WOLF:
+//    {
+//      //std::cout << "Ground enemy moves." << std::endl;
+//      sf::Vector3i enemy_stats = enemyGround.Move(enemies_in_play[enemy_selected].type);
+//      x_move_distance = enemy_stats.x;
+//      y_move_distance = enemy_stats.y;
+//      sight_range     = enemy_stats.z;
+//      break;
+//    }
+//    case DRAGON:
+//    case GIANT:
+//    case SLIME_KING:
+//    {
+//      sf::Vector3i enemy_stats = enemyBoss.Move(enemies_in_play[enemy_selected].type);
+//      x_move_distance = enemy_stats.x;
+//      y_move_distance = enemy_stats.y;
+//      sight_range     = enemy_stats.z;
+//      break;
+//    }
+//    case BAT:
+//    case BABY_DRAGON:
+//    {
+//      sf::Vector3i enemy_stats = enemyFlying.Move(enemies_in_play[enemy_selected].type);
+//      x_move_distance = enemy_stats.x;
+//      y_move_distance = enemy_stats.y;
+//      sight_range     = enemy_stats.z;
+//      break;
+//    }
+//    default:
+//    {
+//      //std::cout << "Unknown enemy type cannot move!" << std::endl;
+//      break;
+//    }
+//  }
+//  // Update enemy position based on movement logic
+//  if ((enemies_in_play[enemy_selected].x - sight_range) < player_pos.x && player_pos.x < enemies_in_play[enemy_selected].x + sight_range)
+//  {  
+//    if ((enemies_in_play[enemy_selected].y - sight_range) < player_pos.y && player_pos.y < enemies_in_play[enemy_selected].y + sight_range)
+//    {
+//
+//      switch (enemies_in_play[enemy_selected].type)
+//      {
+//        case DRAGON:
+//        case GIANT:
+//        case SLIME_KING:
+//        {
+//          if (player_pos.y < enemies_in_play[enemy_selected].y)
+//          {
+//            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) == BossRoom) 
+//            {
+//              enemies_in_play[enemy_selected].y -= y_move_distance;
+//              std::cout << "Move y -1" << std::endl;
+//              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y - y_move_distance) << std::endl;
+//            }
+//            std::cout << "!No Move y -1 No!" << std::endl;
+//          }
+//          else if (player_pos.y > enemies_in_play[enemy_selected].y)
+//          {
+//            if (grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) == BossRoom) 
+//            {
+//              enemies_in_play[enemy_selected].y += y_move_distance;
+//              std::cout << "Move y +1" << std::endl;
+//              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x, enemies_in_play[enemy_selected].y + y_move_distance) << std::endl;
+//            }
+//            std::cout << "!No Move y +1 No!" << std::endl;
+//          }
+//          if (player_pos.x < enemies_in_play[enemy_selected].x)
+//          {
+//            if (grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
+//            {
+//              enemies_in_play[enemy_selected].x -= x_move_distance;
+//              std::cout << "Move x -1" << std::endl;
+//              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x - x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
+//            }
+//            std::cout << "!No Move x -1 No!" << std::endl;
+//          }
+//          else if (player_pos.x > enemies_in_play[enemy_selected].x)
+//          {
+//            if (grid.getGrid(enemies_in_play[enemy_selected].x  + x_move_distance, enemies_in_play[enemy_selected].y) == BossRoom) 
+//            {
+//              enemies_in_play[enemy_selected].x += x_move_distance;
+//              std::cout << "Move x +1" << std::endl;
+//              std::cout << "Room: " << grid.getGrid(enemies_in_play[enemy_selected].x + x_move_distance, enemies_in_play[enemy_selected].y) << std::endl;
+//            }
+//            std::cout << "!No Move x +1 No!" << std::endl;
+//          }
+//          enemies_in_play[enemy_selected].turn_taken = true;
+//          break;
+//        }
+//        default:
+//        {
+//          // if player is within sight range, move towards player
+//          if (player_pos.y < enemies_in_play[enemy_selected].y)
+//          {
+//            if (checkIfCanMove(grid,1,0,y_move_distance,enemy_selected,player_pos) == true)
+//            {
+//                enemies_in_play[enemy_selected].y -= y_move_distance;
+//            }
+//          }
+//          else if (player_pos.y > enemies_in_play[enemy_selected].y)
+//          {
+//            if (checkIfCanMove(grid,2,0,y_move_distance,enemy_selected,player_pos) == true)
+//            {
+//                enemies_in_play[enemy_selected].y += y_move_distance;
+//            }
+//          }
+//          if (player_pos.x < enemies_in_play[enemy_selected].x)
+//          {
+//            if (checkIfCanMove(grid,3,x_move_distance,0,enemy_selected,player_pos) == true)
+//            {
+//              enemies_in_play[enemy_selected].x -= x_move_distance;
+//            }
+//          }
+//          else if (player_pos.x > enemies_in_play[enemy_selected].x)
+//          {
+//            if (checkIfCanMove(grid,4,x_move_distance,0,enemy_selected,player_pos) == true)
+//            {
+//              enemies_in_play[enemy_selected].x += x_move_distance;
+//            }
+//          }
+//          enemies_in_play[enemy_selected].turn_taken = true;
+//          std::cout << "enemy moves towards player. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+//        }
+//      }
+//    }
+//  }
+//}
 
 int Enemy::getHealth(int enemy)
 {

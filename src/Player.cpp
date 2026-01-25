@@ -329,6 +329,7 @@ void Player::setInGrid(Grid& grid)
   
   grid.setGrid(gridPos.x, gridPos.y, 88);
   playerinGridPos = { gridPos.x, gridPos.y };
+  grid.printGrid();
   
 }
 

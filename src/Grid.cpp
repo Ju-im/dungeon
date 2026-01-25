@@ -103,7 +103,11 @@ bool Grid::init()
   return true;
 }
 
+inline int toIndex(int x, int y, int width) {
 
+return y * width + x;
+
+}
 sf::IntRect Grid::generateRoom(RoomType type)
 {
     //add specific roomsize to start
