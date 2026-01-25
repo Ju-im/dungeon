@@ -856,6 +856,21 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
         sf::IntRect((frame * 32), 0, 32, 32));
       window.draw(enemies_in_play[i].sprite);
     }
+    else if (enemies_in_play[i].type == SPIDER)
+    {
+      enemies_in_play[i].texture.loadFromFile("../Data/Images/Enemi/"
+                                              "Spider-Front.png");
+      enemies_in_play[i].sprite.setTexture(enemies_in_play[i].texture);
+
+      enemies_in_play[i].sprite.setScale(0.32f, 0.32f);
+      enemies_in_play[i].sprite.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+
+      int frame = static_cast<int>(time * 5) % 5;
+      enemies_in_play[i].sprite.setTextureRect(
+        sf::IntRect((frame * 32), 0, 32, 32));
+      window.draw(enemies_in_play[i].sprite);
+    }
     else
     {
       sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
