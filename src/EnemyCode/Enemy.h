@@ -16,7 +16,9 @@ class Enemy
 	Enemy();
 	~Enemy();
     void init();
-	void attack(int enemy_index,int enemy,Player& player);
+    void attack(int enemy_index, int enemy, Player& player);
+    bool canMoveTo(
+      Grid& grid, int enemy_index, int nx, int ny, sf::Vector2i player_pos);
     bool checkIfAttackPossible();
     void move(int enemy, sf::Vector2i player_pos, Grid& grid);
     void takeDamage(int amount, std::vector<sf::Vector3i>); 
@@ -35,7 +37,8 @@ class Enemy
     Grid gridClassCopy;
 
 	private:
-    
+    sf::Texture WeaponUI;
+    sf::Sprite WeaponUISprite;
     int type;
     bool spawned = false;
     int CELL_SIZE= 10;
@@ -63,6 +66,8 @@ class Enemy
       int y;
       bool turn_taken;
       std::vector<sf::RectangleShape> attackTiles;
+      sf::Sprite sprite;
+      sf::Texture texture;
     };
     enum RoomIndex
     {

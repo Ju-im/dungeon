@@ -10,6 +10,14 @@ void Enemy::init() {
     gridClassCopy.init();
   gridClassCopy.generateDungeon();
 
+  if (!WeaponUI.loadFromFile("../Data/Images/UI/Weapons/Weapon-UI.png"))
+  {
+    std::cout << "Failed to load weapon UI texture" << std::endl;
+  }
+  WeaponUI.setSmooth(false);
+  WeaponUISprite.setTexture(WeaponUI);
+  WeaponUISprite.setScale(0.5f, 0.5f);
+
 }
 
 
@@ -334,6 +342,31 @@ void Enemy::attack(int enemy_index, int enemy, Player& player)
     }
   }
 }
+
+
+bool Enemy::canMoveTo(
+  Grid& grid, int enemy_index, int nx, int ny, sf::Vector2i player_pos)
+{
+
+    if (grid.inBounds(nx, ny))
+  {
+  
+    return false;
+    }
+
+    
+    // Change this line:
+    // RoomIndex tile = grid.getGrid(nx, ny);
+    // To this:
+    RoomIndex tile = static_cast<RoomIndex>(grid.getGrid(nx, ny));
+    if (tile == Wall || tile == ShopRoom || tile == StartRoom)
+    {
+    
+    return false;
+    
+    }
+}
+
 
 bool Enemy::checkIfCanMove(Grid& grid, int direction, int x_move_distance, int y_move_distance, int enemy_selected, sf::Vector2i player_pos) 
 {
@@ -786,11 +819,16 @@ void Enemy::drawEnemies(sf::RenderWindow& window)
     }
     else
     {
-      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-      startTile.setFillColor(sf::Color(128, 128, 128));
-      startTile.setPosition(
+
+
+
+      enemies_in_play[i].texture.loadFromFile("../Data/Images/UI/Weapons/Weapon-UI.png");
+      enemies_in_play[i].sprite.setTexture(enemies_in_play[i].texture);
+
+      enemies_in_play[i].sprite.setScale(0.32f, 0.32f);
+      enemies_in_play[i].sprite.setPosition(
         enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
-      window.draw(startTile);
+      window.draw(enemies_in_play[i].sprite);
     }
   }
 }
