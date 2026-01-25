@@ -14,8 +14,7 @@ int main()
             << std::endl;
   
   // create window and set up
-  sf::RenderWindow window(sf::VideoMode(1080, 720), "My SFML game");
-  sf::Style::Fullscreen;
+  sf::RenderWindow window(sf::VideoMode(1920, 1080), "My SFML game");
   window.setFramerateLimit(60);
   
   // initialise an instance of the game class

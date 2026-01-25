@@ -493,6 +493,11 @@ int Player::getWeapon()
 {
   return stats.weapon;
 }
+
+void Player::setWeapon(int weapon_type) {
+
+    stats.weapon = weapon_type;
+}
 int Player::getSpell()
 {
   return stats.spell;

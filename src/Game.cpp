@@ -290,6 +290,32 @@ void Game::keyPressed(sf::Event event)
     gameTurn();
   
   }
+  if (event.key.code == sf::Keyboard::Num1)
+  {
+    player.setWeapon(0);    
+  }
+  if (event.key.code == sf::Keyboard::Num2)
+  {
+    player.setWeapon(1);
+  }
+  if (event.key.code == sf::Keyboard::Num3)
+  {
+    player.setWeapon(2);
+  }
+  if (event.key.code == sf::Keyboard::Num4)
+  {
+    player.setWeapon(3);
+  }
+  if (event.key.code == sf::Keyboard::Num5)
+  {
+    player.setWeapon(4);
+  }
+  if (event.key.code == sf::Keyboard::Num6)
+  {
+    player.setWeapon(5);
+  }
+   
+
    
   player.setInGrid(enemy.gridClassCopy);
 }

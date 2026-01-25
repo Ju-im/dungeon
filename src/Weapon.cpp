@@ -17,34 +17,34 @@ void Weapon::attack(Player& player, Grid& grid, int type)
   {
     case (Dagger):
     {
-      attack_grid[2][1] = 3;
-      attack_grid[3][0] = 4;
-      attack_grid[3][2] = 2;
+      attack_grid[2][1] = 2;
+      attack_grid[3][0] = 1;
+      attack_grid[3][2] = 1;
       break;
     }
   
     case (Spear):
     {
-      attack_grid[2][1] = 3;
+      attack_grid[2][1] = 1;
       attack_grid[1][1] = 1;
-      attack_grid[0][1] = 2;
+      attack_grid[0][1] = 3;
 
         break;
     }
     case (Bow):
     {
     
-      attack_grid[1][1] = 1;
-      attack_grid[0][1] = 2;
+      attack_grid[1][1] = 2;
+      attack_grid[0][1] = 3;
 
       break;
     }
     case (Axe):
     {
-      attack_grid[2][0] = 3;
+      attack_grid[2][0] = 1;
       attack_grid[2][2] = 1;
       attack_grid[1][0] = 2;
-      attack_grid[1][1] = 1;
+      attack_grid[1][1] = 2;
       attack_grid[1][2] = 2;
 
 
@@ -52,16 +52,16 @@ void Weapon::attack(Player& player, Grid& grid, int type)
     }
     case (Sword):
     {
-      attack_grid[2][0] = 3;
-      attack_grid[2][1] = 1;
-      attack_grid[2][2] = 2;
-      attack_grid[1][1] = 2;
+      attack_grid[2][0] = 1;
+      attack_grid[2][1] = 2;
+      attack_grid[2][2] = 1;
+      attack_grid[1][1] = 4;
 
       break;
     }
     case (Staff):
     {
-      attack_grid[2][1] = 3;
+      attack_grid[2][1] = 1;
       attack_grid[1][1] = 1;
       attack_grid[0][0] = 2;
       attack_grid[0][2] = 2;

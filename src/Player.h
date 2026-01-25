@@ -104,6 +104,7 @@ class Player
 
      int getHealth();
      int getWeapon();
+     void setWeapon(int weapon_type);
      int getSpell();
      int getItem();
 
