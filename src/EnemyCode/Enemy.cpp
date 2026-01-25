@@ -10,13 +10,13 @@ void Enemy::init() {
     gridClassCopy.init();
   gridClassCopy.generateDungeon();
 
-  if (!WeaponUI.loadFromFile("../Data/Images/UI/Weapons/Weapon-UI.png"))
+  if (!SlimeTexture.loadFromFile("../Data/Images/Enemi/Slime-Front.png"))
   {
-    std::cout << "Failed to load weapon UI texture" << std::endl;
+    std::cout << "Failed to load Slime texture" << std::endl;
   }
-  WeaponUI.setSmooth(false);
-  WeaponUISprite.setTexture(WeaponUI);
-  WeaponUISprite.setScale(0.5f, 0.5f);
+  SlimeTexture.setSmooth(false);
+  SlimeSprite.setTexture(SlimeTexture);
+  SlimeSprite.setScale(0.5f, 0.5f);
 
 }
 
@@ -805,31 +805,69 @@ void Enemy::printEnemiesInPlay()
 void Enemy::drawEnemies(sf::RenderWindow& window)
 {
   int CELL_SIZE = 10;
-  
+  time = clock.getElapsedTime().asSeconds();
+  float frame   = time * 10;
 
   for (int i = 0; i < enemies_in_play.size(); i++)
   {
-    if (enemies_in_play[i].type == 7)
+    if (enemies_in_play[i].type == SLIME)
     {
-      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-      startTile.setFillColor(sf::Color(255, 255, 0));
-      startTile.setPosition(
-        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
-      window.draw(startTile);
-    }
-    else
-    {
-
-
-
-      enemies_in_play[i].texture.loadFromFile("../Data/Images/UI/Weapons/Weapon-UI.png");
+      enemies_in_play[i].texture.loadFromFile("../Data/Images/Enemi/"
+                                              "Slime-Front.png");
       enemies_in_play[i].sprite.setTexture(enemies_in_play[i].texture);
 
       enemies_in_play[i].sprite.setScale(0.32f, 0.32f);
       enemies_in_play[i].sprite.setPosition(
         enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+
+      int frame = static_cast<int>(time * 10) % 13;
+      enemies_in_play[i].sprite.setTextureRect(
+        sf::IntRect((frame * 32), 0, 32, 32));
+      window.draw(enemies_in_play[i].sprite);
+      }
+    else if (enemies_in_play[i].type == BAT)
+    {
+      enemies_in_play[i].texture.loadFromFile("../Data/Images/Enemi/"
+                                              "Bat-Front.png");
+      enemies_in_play[i].sprite.setTexture(enemies_in_play[i].texture);
+
+      enemies_in_play[i].sprite.setScale(0.32f, 0.32f);
+      enemies_in_play[i].sprite.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+
+
+      int frame = static_cast<int>(time * 10) % 9;
+      enemies_in_play[i].sprite.setTextureRect(
+        sf::IntRect((frame * 32), 0, 32, 32));
       window.draw(enemies_in_play[i].sprite);
     }
+    else if (enemies_in_play[i].type == SKELETON)
+    {
+      enemies_in_play[i].texture.loadFromFile("../Data/Images/Enemi/"
+                                              "Skeleton-Front.png");
+      enemies_in_play[i].sprite.setTexture(enemies_in_play[i].texture);
+
+      enemies_in_play[i].sprite.setScale(0.32f, 0.32f);
+      enemies_in_play[i].sprite.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+      
+      int frame = static_cast<int>(time * 10) % 5;
+      enemies_in_play[i].sprite.setTextureRect(
+        sf::IntRect((frame * 32), 0, 32, 32));
+      window.draw(enemies_in_play[i].sprite);
+    }
+    else
+    {
+      sf::RectangleShape startTile(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+      startTile.setFillColor(sf::Color::Yellow);
+      startTile.setPosition(
+        enemies_in_play[i].y * CELL_SIZE, enemies_in_play[i].x * CELL_SIZE);
+      window.draw(startTile);
+    }
+
+
+     
+    
   }
 }
 

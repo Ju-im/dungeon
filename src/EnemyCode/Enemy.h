@@ -6,6 +6,7 @@
 #include "EnemyFlying.h"
 #include "EnemyBoss.h"
 #include "../Player.h"
+#include "math.h"
 // Enemy class
 // Container Class for different enemy types
 // Allows Enemy logic to be handled in one place,
@@ -36,9 +37,12 @@ class Enemy
     std::vector<sf::RectangleShape> attackTiles;
     Grid gridClassCopy;
 
+       sf::Clock clock;
+    float time = 0.0f;
+
 	private:
-    sf::Texture WeaponUI;
-    sf::Sprite WeaponUISprite;
+    sf::Texture SlimeTexture;
+    sf::Sprite SlimeSprite;
     int type;
     bool spawned = false;
     int CELL_SIZE= 10;

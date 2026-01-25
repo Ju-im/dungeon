@@ -448,17 +448,25 @@ bool Game::collisionCheck(sf::Vector2i click, sf::Sprite& sprite)
 
 void Game::spawnEnemy(int amount)
 {
+  std::random_device rd;
+  std::mt19937 eng(rd());
+  std::discrete_distribution<> dist({ 10, 10, 5, 3, 7, 3});
+  int choiceindex             = dist(eng);
+  std::vector<int> enemyTypes = { -1, -2, -3, -4, -5, -6 };
   for (int i = 0; i < amount-1; i++)
   {
+    int choiceindex             = dist(eng);
+    std::vector<int> enemyTypes = { -1, -2, -3, -4, -5, -6 };
     int(*gridCopy)[60] = grid.getAllGrid();
-  /*  int type            = ((rand()%6)+1)*-1*/; //Temp Number, change to be the enemy you want to spawn
-    int type            = -1;
-    sf::Vector3i result = enemy.spawn(gridCopy,type); 
+    int enemeytype = enemyTypes[choiceindex]; // Temp Number, change to be the enemy you
+                                  // want to spawn
+    //int type            = -1;
+    sf::Vector3i result = enemy.spawn(gridCopy, enemeytype); 
     //grid.setGrid(result.y, result.z, result.x);
   }
- /* int type = ((rand() % 3) + 1) * -1;
+  int type = ((rand() % 3) + 1) * -1;
   type += -6;
-  int(*gridCopy)[60]  = grid.getAllGrid();*/
+  int(*gridCopy)[60]  = grid.getAllGrid();
   //sf::Vector3i result = enemy.spawn(gridCopy, type);
       // For boss enemies, occupy a 2x2 space
       //grid.setGrid(result.y, result.z, result.x);
@@ -466,10 +474,7 @@ void Game::spawnEnemy(int amount)
      // grid.setGrid(result.y, result.z + 1, result.x);
       //grid.setGrid(result.y + 1, result.z + 1, result.x);
 } 
-//void Game::spawnPlayer() 
-//{
-//  grid.setGrid(30, 30, 99);
-//}
+
 
 void Game::updatePlayerExploreGrid()
 {

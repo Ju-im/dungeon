@@ -7,7 +7,8 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "ItemPickup.h"
-
+#include <random>
+#include <fstream>
 enum GAME_STATE
 {
   MENU,
