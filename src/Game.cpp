@@ -176,7 +176,7 @@ void Game::render()
       weapon.render(window);
       player.render(window);
       itemPickup.renderItems(window, itemPickup);
-      drawPlayerExploreGrid(window);
+      //drawPlayerExploreGrid(window);
     
     }
   
