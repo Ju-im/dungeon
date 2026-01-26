@@ -38,6 +38,7 @@ enum PlayerOptions
   void render();
   void mouseClicked(sf::Event event);
   void keyPressed(sf::Event event);
+  void keyReleased(sf::Event event);
   sf::RenderWindow& window;
   sf::View camera;
   int CELL_SIZE = 10;

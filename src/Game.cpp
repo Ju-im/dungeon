@@ -115,7 +115,7 @@ void Game::render()
         static_cast<unsigned int>(camera.getSize().y));
       maskTexture.clear(sf::Color(0, 0, 0, 240));
 
-      // 2. Draw a transparent circle (the light) onto the mask
+      // Draw a transparent circle (the light) onto the mask
       sf::CircleShape lightRadius(r);
       lightRadius.setFillColor(sf::Color(0, 0, 0, 0));
       lightRadius.setPosition(
@@ -128,21 +128,13 @@ void Game::render()
       maskTexture.draw(lightRadius, sf::BlendNone);
       maskTexture.display();
 
-      // 3. Use the mask as a texture for the overlay
+      //Use the mask as a texture for the overlay
       sf::Sprite darkOverlay1(maskTexture.getTexture());
       darkOverlay1.setPosition(
         camera.getCenter().x - camera.getSize().x / 2.f,
         camera.getCenter().y - camera.getSize().y / 2.f);
 
-        // Replace this line:
-        // darkOverlay.setTexture(&lightRadius.getTexture());
-
-        // With the following code to achieve a "light radius" effect using a render texture and a shader:
-
-        // 1. Create a render texture to draw the darkness and the light mask
-        
-
-        // 4. Draw the overlay as before
+     
 
       grid.drawDungeon(window);
       enemy.drawAttackTiles(window);
@@ -199,7 +191,12 @@ void Game::mouseClicked(sf::Event event)
 void Game::keyPressed(sf::Event event)
 {
 
-  if (event.key.code == sf::Keyboard::W|| event.key.code == sf::Keyboard::Up)
+  
+}
+
+void Game::keyReleased(sf::Event event) {
+
+if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
   {
     /*std::cout << "W pressed" << std::endl;
     player.moveY(-1, grid);
@@ -216,16 +213,14 @@ void Game::keyPressed(sf::Event event)
       type = Up;
       gameTurn();
     }
-    
-    
   }
   if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left)
   {
     /*std::cout << "A pressed" << std::endl;
     player.moveX(-1, grid);
     player.setDirection(-2);*/
-    
-     if (type == attack)
+
+    if (type == attack)
     {
       type = Null;
       gameTurn();
@@ -235,7 +230,6 @@ void Game::keyPressed(sf::Event event)
       type = left;
       gameTurn();
     }
-    
   }
   if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
   {
@@ -244,7 +238,7 @@ void Game::keyPressed(sf::Event event)
     player.setDirection(1);
     player.stats.weapon -= 1;
     std::cout << player.stats.weapon << std::endl;*/
-    
+
     if (type == attack)
     {
       type = Null;
@@ -261,7 +255,7 @@ void Game::keyPressed(sf::Event event)
     /*std::cout << "D pressed" << std::endl;
     player.moveX(1, grid);
     player.setDirection(2);*/
-    
+
     if (type == attack)
     {
       type = Null;
@@ -272,28 +266,25 @@ void Game::keyPressed(sf::Event event)
       type = right;
       gameTurn();
     }
-
   }
   if (event.key.code == sf::Keyboard::Space)
   {
-  type = attack;
+    type = attack;
   }
-  
+
   if (event.key.code == sf::Keyboard::E)
   {
-    player_camera = !player_camera;
+    player_camera   = !player_camera;
     player.can_move = !player.can_move;
-  
   }
   if (event.key.code == sf::Keyboard::Enter)
   {
-  type = attackselected;
+    type = attackselected;
     gameTurn();
-  
   }
   if (event.key.code == sf::Keyboard::Num1)
   {
-    player.setWeapon(0);    
+    player.setWeapon(0);
   }
   if (event.key.code == sf::Keyboard::Num2)
   {
@@ -315,9 +306,7 @@ void Game::keyPressed(sf::Event event)
   {
     player.setWeapon(5);
   }
-   
 
-   
   player.setInGrid(enemy.gridClassCopy);
 }
 

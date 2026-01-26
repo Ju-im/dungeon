@@ -348,7 +348,7 @@ void Enemy::attack(int enemy_index, int enemy, Player& player)
 bool Enemy::canMoveTo(
   Grid& grid, int enemy_index, int nx, int ny, sf::Vector2i player_pos)
 {
-  gridClassCopy.printGrid();
+  
     if (!(grid.inBounds(nx, ny)))
   {
       std::cout << "Not in Bounds" << std::endl;

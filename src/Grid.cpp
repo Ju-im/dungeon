@@ -461,8 +461,7 @@ void Grid::generateDungeon()
   {
     fillRoom(room.type, room.rect);
   }
-  printGrid();
-}
+ }
 
 void Grid::printGrid()
 {
